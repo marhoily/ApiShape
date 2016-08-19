@@ -1,0 +1,4 @@
+﻿struct S3 : ValueType
+    I3<int>
+{
+}

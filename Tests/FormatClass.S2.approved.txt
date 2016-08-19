@@ -1,0 +1,4 @@
+﻿struct S2 : ValueType
+    I1
+{
+}

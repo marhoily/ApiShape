@@ -1,0 +1,4 @@
+﻿struct S4<T> : ValueType
+    I3<T>
+{
+}
