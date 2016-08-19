@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using ApiShape;
 using ApprovalTests;
 using ApprovalTests.Reporters;
@@ -32,6 +33,40 @@ namespace Tests
     public struct S3 : I3<int> { }
     public struct S4<T> : I3<T> { }
     public struct S5<T> : I4<T> where T : I1 { }
+    public struct S
+    {
+        public S(int a1) { F1 = 0; F2 = 0; P1 = 0; P2 = 0;P4 = 0; P5 = 0; }
+
+        public const int X1 = 0;
+
+        public int F1;
+        public readonly int F2;
+        public static int F4;
+
+        public int P1 { get; }
+        public int P2 { get; set; }
+        public int P4 { get; private set; }
+        public int P5 { private get; set; }
+        public static int P13 { get; }
+
+        public string this[int index] { get { return ""; } set { } }
+        public string this[float index] { private get { return ""; } set { } }
+        public string this[sbyte index] { get { return ""; } private set { } }
+        public string this[double index] { set { } }
+        public string this[byte index] => "";
+
+        public void M1() { }
+        public void M2(int a1) { }
+        public void M3(int a1, int a2) { }
+        public int M4() => 3;
+        public int M5<T>() => 3;
+        public int M6<T>() where T : I1 => 3;
+        public static void M18() { }
+
+        public static implicit operator S(int x) => new S();
+        public static explicit operator int(S x) => 5;
+        public static int operator  +(S x, int i) => 5;
+    }
 
     public enum E1 { }
     public enum E2 : short { }
@@ -47,6 +82,16 @@ namespace Tests
         V3 = 0x1000
     }
 
+    public abstract class MM
+    {
+        private MM() { }
+        private int F1;
+        private const int X1 = 0;
+        private string this[int index] => "";
+        private void M27(params string[] arg) { }
+        private event Action E5;
+
+    }
     public abstract class M
     {
         public const int X1 = 0;
@@ -112,6 +157,11 @@ namespace Tests
         public abstract int M24(string longLongLongName, Dictionary<string, List<Uri>> anotherLongName, string notLongEnough);
         public abstract int M25(string arg = null);
         public abstract int M26(params string[] arg);
+
+        public event EventHandler E1;
+        public event EventHandler<NetworkAvailabilityEventArgs> E2 { add {} remove {} }
+        public event Action E3;
+        protected event Action E4;
     }
 
     public interface IM

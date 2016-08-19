@@ -246,6 +246,37 @@ abstract class M
     virtual abstract int M6<T : I1>();
     virtual void M7();
     void M8();
+    event EventHandler E1;
+    event EventHandler<NetworkAvailabilityEventArgs> E2;
+    event Action E3;
+}
+abstract class MM
+{
+}
+struct S : ValueType
+{
+    int F1;
+    readonly int F2;
+    static int F4;
+    const int X1;
+    string Item { get; set; }
+    string Item { set; }
+    string Item { get; }
+    string Item { set; }
+    string Item { get; }
+    int P1 { get; }
+    int P13 { get; }
+    int P2 { get; set; }
+    int P4 { get; }
+    int P5 { set; }
+    constructor(int a1);
+    void M1();
+    void M18();
+    void M2(int a1);
+    void M3(int a1, int a2);
+    int M4();
+    int M5<T>();
+    int M6<T : I1>();
 }
 struct S1 : ValueType
 {
