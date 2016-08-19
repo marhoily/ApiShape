@@ -32,6 +32,16 @@ namespace Tests
         public virtual void M7() { }
         public void M8() { }
     }
+
+    public interface IM
+    {
+        void M1();
+        void M2(int a1);
+        void M3(int a1, int a2);
+        int M4();
+        int M5<T>();
+        int M6<T>() where T : I1;
+    }
     [UseReporter(typeof(VisualStudioReporter))]
     public sealed class FormatClass
     {
@@ -44,11 +54,19 @@ namespace Tests
         [Fact] public void C7() => C(typeof(C7<>));
         [Fact] public void C8() => C(typeof(C8<>));
         [Fact] public void C9() => C(typeof(C9));
+
         [Fact] public void I1() => C(typeof(I1));
         [Fact] public void I2() => C(typeof(I2)) ;
         [Fact] public void I3() => C(typeof(I3<>)) ;
         [Fact] public void I4() => C(typeof(I4<>)) ;
         [Fact] public void I5() => C(typeof(I5)) ;
+
+        [Fact] public void Im1() => Im(1);
+        [Fact] public void Im2() =>Im(2);
+        [Fact] public void Im3() =>Im(3);
+        [Fact] public void Im4() =>Im(4);
+        [Fact] public void Im5() =>Im(5);
+        [Fact] public void Im6() =>Im(6);
 
         [Fact] public void M1() => M(1);
         [Fact] public void M2() => M(2);
@@ -61,5 +79,6 @@ namespace Tests
 
         private static void C(Type t) => Approvals.Verify(t.GetShape());
         private static void M(int number) => Approvals.Verify(typeof(M).GetMethod("M" + number).GetShape());
+        private static void Im(int number) => Approvals.Verify(typeof(IM).GetMethod("M" + number).GetShape());
     }
 }
