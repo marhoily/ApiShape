@@ -109,7 +109,6 @@
     <Content Include="FormatClass.F2.approved.txt" />
     <Content Include="FormatClass.F3.approved.txt" />
     <Content Include="FormatClass.F4.approved.txt" />
-    <Content Include="FormatClass.F4.received.txt" />
     <Content Include="FormatClass.I1.approved.txt" />
     <Content Include="FormatClass.I2.approved.txt" />
     <Content Include="FormatClass.I3.approved.txt" />
