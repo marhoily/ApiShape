@@ -1,0 +1,5 @@
+﻿interface I5
+    I1
+    I2
+{
+}
