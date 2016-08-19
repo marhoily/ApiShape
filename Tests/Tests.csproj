@@ -89,7 +89,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FormatClass.All.approved.txt" />
     <Content Include="FormatClass.C1.approved.txt" />
+    <Content Include="FormatClass.C10.approved.txt" />
     <Content Include="FormatClass.C2.approved.txt" />
     <Content Include="FormatClass.C3.approved.txt" />
     <Content Include="FormatClass.C4.approved.txt" />

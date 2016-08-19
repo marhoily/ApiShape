@@ -23,7 +23,7 @@ namespace ApiShape
                 if (exportedType.IsClass) exportedType.WriteClassShape(w);
                 else if (exportedType.IsEnum) exportedType.WriteEnumShape(w);
                 else if (exportedType.IsInterface) exportedType.WriteClassShape(w);
-                else throw new NotSupportedException(exportedType.ToString());
+                else exportedType.WriteClassShape(w);
             }
             return sb.ToString();
         }

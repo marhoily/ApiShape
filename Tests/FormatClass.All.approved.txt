@@ -1,0 +1,268 @@
+﻿Full name: Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Image runtime version: v4.0.30319
+virtual class C1
+{
+    constructor();
+}
+abstract class C10
+{
+}
+class C2
+{
+    constructor();
+}
+abstract class C3
+{
+}
+class C4 : C3
+{
+    constructor();
+}
+virtual class C5
+    I1
+{
+    constructor();
+}
+class C6 : C5
+    I1
+{
+    constructor();
+}
+class C7<T>
+{
+    constructor();
+}
+class C8<T>
+{
+    constructor();
+}
+class C9 : C5
+    I1
+{
+    constructor();
+}
+enum E1 : int
+{
+}
+enum E2 : short
+{
+}
+enum E3 : byte
+{
+}
+enum E4 : ulong
+{
+}
+[Flags]
+enum E5 : int
+{
+}
+enum E6 : int
+{
+    V0 = 0
+    V1 = 1
+    V2 = 2
+}
+[Flags]
+enum E7 : int
+{
+    V0 = 1
+    V1 = 16
+    V2 = 256
+    V3 = 4096
+}
+class FormatClass
+{
+    constructor();
+    void All();
+    void C1();
+    void C10();
+    void C2();
+    void C3();
+    void C4();
+    void C5();
+    void C6();
+    void C7();
+    void C8();
+    void C9();
+    void E1();
+    void E2();
+    void E3();
+    void E4();
+    void E5();
+    void E6();
+    void E7();
+    void F1();
+    void F2();
+    void F3();
+    void F4();
+    void I1();
+    void I2();
+    void I3();
+    void I4();
+    void I5();
+    void I6();
+    void I7();
+    void Im1();
+    void Im2();
+    void Im3();
+    void Im4();
+    void Im5();
+    void Im6();
+    void Ip1();
+    void Ip2();
+    void Ip3();
+    void M1();
+    void M10();
+    void M11();
+    void M12();
+    void M13();
+    void M14();
+    void M15();
+    void M16();
+    void M17();
+    void M2();
+    void M3();
+    void M4();
+    void M5();
+    void M6();
+    void M7();
+    void M8();
+    void M9();
+    void P1();
+    void P10();
+    void P2();
+    void P3();
+    void P4();
+    void P5();
+    void P6();
+    void P7();
+    void P8();
+    void P9();
+    void S1();
+    void S2();
+    void S3();
+    void S4();
+    void S5();
+    void X1();
+    void X2();
+    void X3();
+    void X4();
+    void X5();
+}
+interface I1
+{
+}
+interface I2
+    I1
+{
+}
+interface I3<T>
+{
+}
+interface I4<T>
+{
+}
+interface I5
+    I1
+    I2
+{
+}
+interface I6<T>
+{
+}
+interface I7<T>
+{
+}
+interface IM
+{
+    int P1 { get; }
+    int P2 { get; set; }
+    int P3 { set; }
+    virtual abstract void M1();
+    virtual abstract void M2(int a1);
+    virtual abstract void M3(int a1, int a2);
+    virtual abstract int M4();
+    virtual abstract int M5<T>();
+    virtual abstract int M6<T : I1>();
+}
+abstract class M
+{
+    int F1;
+    readonly int F2;
+    static int F4;
+    const int X1;
+    const string X2;
+    const string X3;
+    const double X4;
+    const double X5;
+    string Item { get; set; }
+    string Item { get; set; }
+    string Item { get; set; }
+    string Item { set; }
+    string Item { set; }
+    string Item { get; }
+    int P1 { get; }
+    int P11 { get; }
+    int P12 { get; }
+    int P13 { get; }
+    int P2 { get; set; }
+    int P3 { get; }
+    int P4 { get; }
+    int P5 { set; }
+    int P6 { set; }
+    constructor(int a1);
+    virtual abstract void M1();
+    virtual abstract void M17(int a1, out int a2);
+    void M18();
+    virtual abstract int M19<T>();
+    virtual abstract void M2(int a1);
+    virtual abstract int M20<T : ValueType>();
+    virtual abstract int M21<T>();
+    virtual abstract int M22<
+        TLongLongLongLongLongArg1
+        TLongLongLongLongLongArg2
+        TLongLongLongLongLongArg3
+    >();
+    virtual abstract int M23<
+        TLongLongLongLongLongArg1
+        TLongLongLongLongLongArg2
+        TLongLongLongLongLongArg3
+    >(
+        TLongLongLongLongLongArg1 a1
+        TLongLongLongLongLongArg2 a2
+        TLongLongLongLongLongArg3 a3
+    );
+    virtual abstract int M24(
+        Dictionary<string, List<Uri>> anotherLongName
+        string longLongLongName
+        string notLongEnough
+    );
+    virtual abstract int M25(string arg = );
+    virtual abstract int M26(string[] arg);
+    virtual abstract void M3(int a1, int a2);
+    virtual abstract int M4();
+    virtual abstract int M5<T>();
+    virtual abstract int M6<T : I1>();
+    virtual void M7();
+    void M8();
+}
+struct S1 : ValueType
+{
+}
+struct S2 : ValueType
+    I1
+{
+}
+struct S3 : ValueType
+    I3<int>
+{
+}
+struct S4<T> : ValueType
+    I3<T>
+{
+}
+struct S5<T> : ValueType
+    I4<T>
+{
+}

@@ -130,6 +130,7 @@ namespace Tests
     [UseReporter(typeof(VisualStudioReporter))]
     public sealed class FormatClass
     {
+        [Fact]public void All() => Approvals.Verify(typeof(FormatClass).Assembly.GetShape());
         [Fact] public void C1() => T(typeof(C1));
         [Fact] public void C2() => T(typeof(C2));
         [Fact] public void C3() => T(typeof(C3));
