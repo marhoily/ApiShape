@@ -5,7 +5,7 @@ using System.Linq;
 namespace ApiShape
 {
     /// <summary>Extension methods container </summary>
-    public static class EnumerableExtensions
+    internal static class EnumerableExtensions
     {
         /// <summary>Concatenates the members of a collection, using the specified separator between each member </summary>
         public static string Join<T>(this IEnumerable<T> source,

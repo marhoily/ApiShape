@@ -1,0 +1,4 @@
+﻿class C4 : C3
+{
+    constructor();
+}

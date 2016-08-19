@@ -28,6 +28,13 @@ namespace ApiShape
             return sb.ToString();
         }
 
+        public static string GetShape(this Type t)
+        {
+            var sb = new StringBuilder();
+            var w = new IndentedTextWriter(new StringWriter(sb));
+            WriteClassShape(t, w);
+            return sb.ToString();
+        }
         private static void WriteClassShape(this Type c, IndentedTextWriter w)
         {
             if (!c.IsInterface)

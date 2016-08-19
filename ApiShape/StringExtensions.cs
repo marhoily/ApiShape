@@ -3,7 +3,7 @@
 namespace ApiShape
 {
     /// <summary>Extension methods container </summary>
-    public static class StringExtensions
+    internal static class StringExtensions
     {
         /// <summary>Gets part of string before a delimiter </summary>
         public static string Before(this string s, string delimiter)

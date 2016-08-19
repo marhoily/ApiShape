@@ -5,7 +5,7 @@ using System.Linq;
 namespace ApiShape
 {
     /// <summary> Extension methods container </summary>
-    public static class TypeNameFormattingExtensions
+    internal static class TypeNameFormattingExtensions
     {
         /// <summary>Gets C# name of type </summary>
         public static string CSharpName(this Type type)

@@ -1,0 +1,4 @@
+﻿class C8<T>
+{
+    constructor();
+}

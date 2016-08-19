@@ -1,0 +1,4 @@
+﻿class C7<T>
+{
+    constructor();
+}

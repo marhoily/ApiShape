@@ -4,7 +4,7 @@ using System.Reflection;
 namespace ApiShape
 {
     /// <summary>Where to look when searching for attributes </summary>
-    public enum LookAt
+    internal enum LookAt
     {
         /// <summary>Only look at the type\member itself</summary>
         Self,
@@ -13,7 +13,7 @@ namespace ApiShape
         SelfAndAncestors
     }
     /// <summary>Extension methods related to attribute detection </summary>
-    public static class AttributeDetection
+    internal static class AttributeDetection
     {
         /// <summary>Generic version of <see cref="MemberInfo.IsDefined"/> </summary>
         public static bool HasAttribute<TAttribute>(this MemberInfo method, LookAt lookAt = LookAt.Self) 
