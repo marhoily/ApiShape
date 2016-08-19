@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ApiShape;
 using ApprovalTests;
 using ApprovalTests.Reporters;
@@ -71,6 +72,10 @@ namespace Tests
         protected int P10 { get; private set; }
         public abstract int P11 { get; }
         public virtual int P12 { get; }
+        public static int P13 { get; }
+
+        protected M() { }
+        public M(int a1) { }
 
         public abstract void M1();
         public abstract void M2(int a1);
@@ -90,6 +95,13 @@ namespace Tests
         protected virtual void M15() { }
         protected void M16() { }
         public abstract void M17(ref int a1, out int a2);
+        public static void M18() { }
+        public abstract int M19<T>() where T: class;
+        public abstract int M20<T>() where T: struct;
+        public abstract int M21<T>() where T: new();
+        public abstract int M22<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>();
+        public abstract int M23<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>(TLongLongLongLongLongArg1 a1, TLongLongLongLongLongArg2 a2, TLongLongLongLongLongArg3 a3);
+        public abstract int M24(string longLongLongName, Dictionary<string, List<Uri>> anotherLongName, string notLongEnough);
     }
 
     public interface IM
