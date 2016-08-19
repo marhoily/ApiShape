@@ -108,38 +108,38 @@ namespace Tests
     [UseReporter(typeof(VisualStudioReporter))]
     public sealed class FormatClass
     {
-        [Fact] public void C1() => C(typeof(C1));
-        [Fact] public void C2() => C(typeof(C2));
-        [Fact] public void C3() => C(typeof(C3));
-        [Fact] public void C4() => C(typeof(C4));
-        [Fact] public void C5() => C(typeof(C5));
-        [Fact] public void C6() => C(typeof(C6));
-        [Fact] public void C7() => C(typeof(C7<>));
-        [Fact] public void C8() => C(typeof(C8<>));
-        [Fact] public void C9() => C(typeof(C9));
-        [Fact] public void C10() => C(typeof(C10));
+        [Fact] public void C1() => T(typeof(C1));
+        [Fact] public void C2() => T(typeof(C2));
+        [Fact] public void C3() => T(typeof(C3));
+        [Fact] public void C4() => T(typeof(C4));
+        [Fact] public void C5() => T(typeof(C5));
+        [Fact] public void C6() => T(typeof(C6));
+        [Fact] public void C7() => T(typeof(C7<>));
+        [Fact] public void C8() => T(typeof(C8<>));
+        [Fact] public void C9() => T(typeof(C9));
+        [Fact] public void C10() => T(typeof(C10));
 
-        [Fact] public void I1() => C(typeof(I1));
-        [Fact] public void I2() => C(typeof(I2)) ;
-        [Fact] public void I3() => C(typeof(I3<>)) ;
-        [Fact] public void I4() => C(typeof(I4<>)) ;
-        [Fact] public void I5() => C(typeof(I5)) ;
-        [Fact] public void I6() => C(typeof(I6<>)) ;
-        [Fact] public void I7() => C(typeof(I7<>)) ;
+        [Fact] public void I1() => T(typeof(I1));
+        [Fact] public void I2() => T(typeof(I2)) ;
+        [Fact] public void I3() => T(typeof(I3<>)) ;
+        [Fact] public void I4() => T(typeof(I4<>)) ;
+        [Fact] public void I5() => T(typeof(I5)) ;
+        [Fact] public void I6() => T(typeof(I6<>)) ;
+        [Fact] public void I7() => T(typeof(I7<>)) ;
 
-        [Fact] public void S1() => S(typeof(S1));
-        [Fact] public void S2() => S(typeof(S2));
-        [Fact] public void S3() => S(typeof(S3));
-        [Fact] public void S4() => S(typeof(S4<>));
-        [Fact] public void S5() => S(typeof(S5<>));
+        [Fact] public void S1() => T(typeof(S1));
+        [Fact] public void S2() => T(typeof(S2));
+        [Fact] public void S3() => T(typeof(S3));
+        [Fact] public void S4() => T(typeof(S4<>));
+        [Fact] public void S5() => T(typeof(S5<>));
 
-        [Fact] public void E1() => C(typeof(E1));
-        [Fact] public void E2() => C(typeof(E2));
-        [Fact] public void E3() => C(typeof(E3));
-        [Fact] public void E4() => C(typeof(E4));
-        [Fact] public void E5() => C(typeof(E5));
-        [Fact] public void E6() => C(typeof(E6));
-        [Fact] public void E7() => C(typeof(E7));
+        [Fact] public void E1() => T(typeof(E1));
+        [Fact] public void E2() => T(typeof(E2));
+        [Fact] public void E3() => T(typeof(E3));
+        [Fact] public void E4() => T(typeof(E4));
+        [Fact] public void E5() => T(typeof(E5));
+        [Fact] public void E6() => T(typeof(E6));
+        [Fact] public void E7() => T(typeof(E7));
 
         [Fact] public void X1() => X(1);
         [Fact] public void X2() =>X(2);
@@ -193,11 +193,9 @@ namespace Tests
         [Fact] public void M16() => M(16);
         [Fact] public void M17() => M(17);
 
-        private static void C(Type t) => Approvals.Verify(t.GetShape());
-        private static void S(Type t) => Approvals.Verify(t.GetShape());
+        private static void T(Type t) => Approvals.Verify(t.GetShape());
         private static void M(int number) => Approvals.Verify(typeof(M).GetMethod("M" + number, Public | NonPublic | Instance).GetShape());
         private static void P(int number) => Approvals.Verify(typeof(M).GetProperty("P" + number, Public | NonPublic | Instance).GetShape());
-//        private static void E(int number) => Approvals.Verify(typeof(M).GetEvent("E" + number, Public | NonPublic | Instance).GetShape());
         private static void F(int number) => Approvals.Verify(typeof(M).GetField("F" + number, Public | NonPublic | Instance | Static).GetShape());
         private static void X(int number) => Approvals.Verify(typeof(M).GetField("X" + number, Public | NonPublic | Static).GetShape());
         private static void Im(int number) => Approvals.Verify(typeof(IM).GetMethod("M" + number, Public | NonPublic | Instance).GetShape());
