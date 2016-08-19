@@ -1,0 +1,1 @@
+﻿virtual abstract int M6<T : I1>();

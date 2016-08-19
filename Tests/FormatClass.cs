@@ -40,6 +40,15 @@ namespace Tests
         public abstract int M6<T>() where T:I1;
         public virtual void M7() { }
         public void M8() { }
+
+        protected abstract void M9();
+        protected abstract void M10(int a1);
+        protected abstract void M11(int a1, int a2);
+        protected abstract int M12();
+        protected abstract int M13<T>();
+        protected abstract int M14<T>() where T:I1;
+        protected virtual void M15() { }
+        protected void M16() { }
     }
 
     public interface IM
@@ -93,6 +102,15 @@ namespace Tests
         [Fact] public void M6() => M(6);
         [Fact] public void M7() => M(7);
         [Fact] public void M8() => M(8);
+
+        [Fact] public void M9() => M(1);
+        [Fact] public void M10() => M(2);
+        [Fact] public void M11() => M(3);
+        [Fact] public void M12() => M(4);
+        [Fact] public void M13() => M(5);
+        [Fact] public void M14() => M(6);
+        [Fact] public void M15() => M(7);
+        [Fact] public void M16() => M(8);
 
         private static void C(Type t) => Approvals.Verify(t.GetShape());
         private static void S(Type t) => Approvals.Verify(t.GetShape());

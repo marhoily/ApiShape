@@ -111,8 +111,14 @@
     <Content Include="FormatClass.Im4.approved.txt" />
     <Content Include="FormatClass.Im5.approved.txt" />
     <Content Include="FormatClass.Im6.approved.txt" />
-    <Content Include="FormatClass.M0.received.txt" />
     <Content Include="FormatClass.M1.approved.txt" />
+    <Content Include="FormatClass.M10.approved.txt" />
+    <Content Include="FormatClass.M11.approved.txt" />
+    <Content Include="FormatClass.M12.approved.txt" />
+    <Content Include="FormatClass.M13.approved.txt" />
+    <Content Include="FormatClass.M14.approved.txt" />
+    <Content Include="FormatClass.M15.approved.txt" />
+    <Content Include="FormatClass.M16.approved.txt" />
     <Content Include="FormatClass.M2.approved.txt" />
     <Content Include="FormatClass.M3.approved.txt" />
     <Content Include="FormatClass.M4.approved.txt" />
@@ -120,6 +126,7 @@
     <Content Include="FormatClass.M6.approved.txt" />
     <Content Include="FormatClass.M7.approved.txt" />
     <Content Include="FormatClass.M8.approved.txt" />
+    <Content Include="FormatClass.M9.approved.txt" />
     <Content Include="FormatClass.S1.approved.txt" />
     <Content Include="FormatClass.S2.approved.txt" />
     <Content Include="FormatClass.S3.approved.txt" />
