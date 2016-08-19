@@ -51,6 +51,13 @@ namespace Tests
         [Fact] public void I5() => C(typeof(I5)) ;
 
         [Fact] public void M1() => M(1);
+        [Fact] public void M2() => M(2);
+        [Fact] public void M3() => M(3);
+        [Fact] public void M4() => M(4);
+        [Fact] public void M5() => M(5);
+        [Fact] public void M6() => M(6);
+        [Fact] public void M7() => M(7);
+        [Fact] public void M8() => M(8);
 
         private static void C(Type t) => Approvals.Verify(t.GetShape());
         private static void M(int number) => Approvals.Verify(typeof(M).GetMethod("M" + number).GetShape());

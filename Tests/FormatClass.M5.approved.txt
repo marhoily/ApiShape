@@ -1,0 +1,1 @@
+﻿virtual abstract int M5<T>();

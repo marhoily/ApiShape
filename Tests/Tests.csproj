@@ -105,6 +105,14 @@
     <Content Include="FormatClass.I5.approved.txt" />
     <Content Include="FormatClass.M0.received.txt" />
     <Content Include="FormatClass.M1.approved.txt" />
+    <Content Include="FormatClass.M2.approved.txt" />
+    <Content Include="FormatClass.M2.received.txt" />
+    <Content Include="FormatClass.M3.approved.txt" />
+    <Content Include="FormatClass.M4.approved.txt" />
+    <Content Include="FormatClass.M5.approved.txt" />
+    <Content Include="FormatClass.M6.approved.txt" />
+    <Content Include="FormatClass.M7.approved.txt" />
+    <Content Include="FormatClass.M8.approved.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
