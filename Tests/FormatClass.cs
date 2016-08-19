@@ -74,6 +74,14 @@ namespace Tests
         public virtual int P12 { get; }
         public static int P13 { get; }
 
+        public string this[int index] { get { return ""; } set { } }
+        protected string this[string index] { get { return ""; } set { } }
+        public abstract string this[double index] { get; set; }
+        public virtual string this[double index, int arg2] { get { return ""; } set { } }
+        public abstract string this[byte i] { protected get; set; }
+        public virtual string this[short i] { private get { return ""; } set { } }
+        public virtual string this[ushort i] => "";
+
         protected M() { }
         public M(int a1) { }
 
@@ -102,6 +110,8 @@ namespace Tests
         public abstract int M22<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>();
         public abstract int M23<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>(TLongLongLongLongLongArg1 a1, TLongLongLongLongLongArg2 a2, TLongLongLongLongLongArg3 a3);
         public abstract int M24(string longLongLongName, Dictionary<string, List<Uri>> anotherLongName, string notLongEnough);
+        public abstract int M25(string arg = null);
+        public abstract int M26(params string[] arg);
     }
 
     public interface IM
