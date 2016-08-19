@@ -1,0 +1,3 @@
+﻿enum E4 : ulong
+{
+}

@@ -1,1 +1,1 @@
-﻿virtual abstract int M4();
+﻿virtual abstract int M12();

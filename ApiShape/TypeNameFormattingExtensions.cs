@@ -47,6 +47,8 @@ namespace ApiShape
             {typeof (string), "string"},
             {typeof (bool), "bool"},
             {typeof (object), "object"},
+            {typeof (double), "double"},
+            {typeof (float), "float"},
         };
     }
 }
