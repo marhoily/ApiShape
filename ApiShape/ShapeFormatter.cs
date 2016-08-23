@@ -116,8 +116,11 @@ namespace ApiShape
         }
         private static void WriteShape(this MethodInfo m, IndentedTextWriter w)
         {
-            if (m.IsVirtual) w.Write("virtual ");
-            if (m.IsAbstract) w.Write("abstract ");
+            if (!m.DeclaringType.IsInterface)
+            {
+                if (m.IsVirtual) w.Write("virtual ");
+                if (m.IsAbstract) w.Write("abstract ");
+            }
 
             w.Write(m.ReturnType.CSharpName());
             w.Write(" ");
