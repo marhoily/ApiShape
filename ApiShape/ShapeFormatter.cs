@@ -37,7 +37,7 @@ namespace ApiShape
         }
         private static IEnumerable<string> Derives(this Type c)
         {
-            if (c.BaseType != null && c.BaseType != typeof(object))
+            if (c.BaseType != null && c.BaseType != typeof(object) && !c.IsValueType)
                 yield return c.BaseType.CSharpName();
             foreach (var ifc in c.GetInterfaces().OrderBy(t => t.FullName))
                 yield return ifc.CSharpName();

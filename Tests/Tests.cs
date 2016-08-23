@@ -9,6 +9,7 @@ using static System.Reflection.BindingFlags;
 
 namespace Tests
 {
+    public delegate void SampleDelegate();
     public abstract class Abstract { }
     [Flags]
     public enum BigFlags
@@ -30,6 +31,15 @@ namespace Tests
     public sealed class GenericWithConstraint<T> where T : IUsual { }
     public class NonSealed { }
     public sealed class Sealed { }
+    public interface ICovariance<out T> { }
+    public interface IDerived : IUsual { }
+    public interface IGeneric<T> { }
+    public interface IGenericWithConstraint<T> where T : IUsual { }
+    public interface IIndirectDerive : IDerived { void F(); }
+    internal interface IInvisible { }
+    public interface IUsual { }
+    public interface IMultiDerived : IUsual, IDerived { }
+    public interface IVariance<in T> { }
     public class Impl : IUsual { }
     public sealed class IndirectImpl : Impl { }
     public static class Static { }
@@ -39,15 +49,6 @@ namespace Tests
         IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
     { }
 
-    internal interface IInvisible { }
-    public interface IUsual { }
-    public interface IDerived : IUsual { }
-    public interface IMultiDerived : IUsual, IDerived { }
-    public interface IGeneric<T> { }
-    public interface IGenericWithConstraint<T> where T : IUsual { }
-    public interface IIndirectDerive : IDerived { void F(); }
-    public interface IVariance<in T> { }
-    public interface ICovariance<out T> { }
 
     internal struct Invisible { }
     public struct Struct { }

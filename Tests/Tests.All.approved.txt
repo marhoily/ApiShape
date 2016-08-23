@@ -37,7 +37,7 @@ virtual class Generic<T>
 {
     constructor();
 }
-struct GenericImplGeneric<T> : ValueType, IGeneric<T>
+struct GenericImplGeneric<T> : IGeneric<T>
 {
 }
 class GenericWithConstraint<T>
@@ -82,7 +82,7 @@ class ImplAndDeriveLong : Generic<List<List<List<List<List<List<List<List<int>>>
 {
     constructor();
 }
-struct ImplGeneric : ValueType, IGeneric<int>
+struct ImplGeneric : IGeneric<int>
 {
 }
 class ImplLong : IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
@@ -96,7 +96,7 @@ class IndirectImpl : Impl, IUsual
 {
     constructor();
 }
-struct InheritConstraint<T> : ValueType, IGenericWithConstraint<T>
+struct InheritConstraint<T> : IGenericWithConstraint<T>
     where T : IUsual
 {
 }
@@ -191,6 +191,13 @@ virtual class NonSealed
 {
     constructor();
 }
+class SampleDelegate : MulticastDelegate, ICloneable, ISerializable
+{
+    constructor(IntPtr method, object object);
+    virtual IAsyncResult BeginInvoke(AsyncCallback callback, object object);
+    virtual void EndInvoke(IAsyncResult result);
+    virtual void Invoke();
+}
 class Sealed
 {
     constructor();
@@ -207,10 +214,10 @@ enum Short : short
 abstract class Static
 {
 }
-struct Struct : ValueType
+struct Struct
 {
 }
-struct StructContainer : ValueType, IDerived, IIndirectDerive, IUsual
+struct StructContainer : IDerived, IIndirectDerive, IUsual
 {
     int F1;
     readonly int F2;
@@ -237,7 +244,7 @@ struct StructContainer : ValueType, IDerived, IIndirectDerive, IUsual
     int M6<T : IUsual>();
     virtual string ToString();
 }
-struct StructImpl : ValueType, IUsual
+struct StructImpl : IUsual
 {
 }
 class Tests
