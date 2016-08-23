@@ -60,19 +60,19 @@ interface IGenericWithConstraint<T>
 }
 interface IIndirectDerive : IDerived, IUsual
 {
-    virtual abstract void F();
+    void F();
 }
 interface IM
 {
     int P1 { get; }
     int P2 { get; set; }
     int P3 { set; }
-    virtual abstract void M1();
-    virtual abstract void M2(int a1);
-    virtual abstract void M3(int a1, int a2);
-    virtual abstract int M4();
-    virtual abstract int M5<T>();
-    virtual abstract int M6<T : IUsual>();
+    void M1();
+    void M2(int a1);
+    void M3(int a1, int a2);
+    int M4();
+    int M5<T>();
+    int M6<T : IUsual>();
 }
 virtual class Impl : IUsual
 {
