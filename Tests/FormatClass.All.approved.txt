@@ -1,43 +1,17 @@
 ﻿Full name: Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Image runtime version: v4.0.30319
-virtual class C1
+abstract class Abstract
+{
+}
+class DeriveAndImpl : Impl, IUsual
 {
     constructor();
 }
-abstract class C10
-{
-}
-class C2
+class Derived : Abstract
 {
     constructor();
 }
-abstract class C3
-{
-}
-class C4 : C3
-{
-    constructor();
-}
-virtual class C5
-    I1
-{
-    constructor();
-}
-class C6 : C5
-    I1
-{
-    constructor();
-}
-class C7<T>
-{
-    constructor();
-}
-class C8<T>
-{
-    constructor();
-}
-class C9 : C5
-    I1
+class DeriveLong : Generic<List<List<List<List<List<List<List<List<int>>>>>>>>>
 {
     constructor();
 }
@@ -76,29 +50,32 @@ class FormatClass
     constructor();
     void All();
 }
-interface I1
+virtual class Generic<T>
+{
+    constructor();
+}
+struct GenericImplGeneric<T> : ValueType, IGeneric<T>
 {
 }
-interface I2
-    I1
+class GenericWithConstraint<T>
+{
+    constructor();
+}
+interface ICovariance<T>
 {
 }
-interface I3<T>
+interface IDerived : IUsual
 {
 }
-interface I4<T>
+interface IGeneric<T>
 {
 }
-interface I5
-    I1
-    I2
+interface IGenericWithConstraint<T>
 {
 }
-interface I6<T>
+interface IIndirectDerive : IDerived, IUsual
 {
-}
-interface I7<T>
-{
+    virtual abstract void F();
 }
 interface IM
 {
@@ -110,7 +87,38 @@ interface IM
     virtual abstract void M3(int a1, int a2);
     virtual abstract int M4();
     virtual abstract int M5<T>();
-    virtual abstract int M6<T : I1>();
+    virtual abstract int M6<T : IUsual>();
+}
+virtual class Impl : IUsual
+{
+    constructor();
+}
+class ImplAndDeriveLong : Generic<List<List<List<List<List<List<List<List<int>>>>>>>>>, IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
+{
+    constructor();
+}
+struct ImplGeneric : ValueType, IGeneric<int>
+{
+}
+class ImplLong : IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
+{
+    constructor();
+}
+interface IMultiDerived : IDerived, IUsual
+{
+}
+class IndirectImpl : Impl, IUsual
+{
+    constructor();
+}
+struct InheritConstraint<T> : ValueType, IGenericWithConstraint<T>
+{
+}
+interface IUsual
+{
+}
+interface IVariance<T>
+{
 }
 abstract class M
 {
@@ -166,10 +174,24 @@ abstract class M
     );
     virtual abstract int M25(string arg = );
     virtual abstract int M26(string[] arg);
+    virtual abstract int M27<
+        TLongLongLongLongLongArg1 : ICloneable
+        TLongLongLongLongLongArg2
+        TLongLongLongLongLongArg3
+    >();
+    virtual abstract void M28(
+        int longLongLongLongLongLongLongLongArg1
+        out int longLongLongLongLongLongLongLongArg2
+    );
+    virtual abstract int M29(
+        int a1
+        int a2
+        string longLongLongLongLongLongLongLongArg1 = 
+    );
     virtual abstract void M3(int a1, int a2);
     virtual abstract int M4();
     virtual abstract int M5<T>();
-    virtual abstract int M6<T : I1>();
+    virtual abstract int M6<T : IUsual>();
     virtual void M7();
     void M8();
     event EventHandler E1;
@@ -179,7 +201,21 @@ abstract class M
 abstract class MM
 {
 }
-struct S : ValueType
+virtual class NonSealed
+{
+    constructor();
+}
+class Sealed
+{
+    constructor();
+}
+abstract class Static
+{
+}
+struct Struct : ValueType
+{
+}
+struct StructContainer : ValueType, IDerived, IIndirectDerive, IUsual
 {
     int F1;
     readonly int F2;
@@ -196,30 +232,16 @@ struct S : ValueType
     int P4 { get; }
     int P5 { set; }
     constructor(int a1);
+    virtual void F();
     void M1();
     void M18();
     void M2(int a1);
     void M3(int a1, int a2);
     int M4();
     int M5<T>();
-    int M6<T : I1>();
+    int M6<T : IUsual>();
+    virtual string ToString();
 }
-struct S1 : ValueType
-{
-}
-struct S2 : ValueType
-    I1
-{
-}
-struct S3 : ValueType
-    I3<int>
-{
-}
-struct S4<T> : ValueType
-    I3<T>
-{
-}
-struct S5<T> : ValueType
-    I4<T>
+struct StructImpl : ValueType, IUsual
 {
 }

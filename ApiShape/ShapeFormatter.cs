@@ -1,9 +1,9 @@
 ﻿using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ApiShape
@@ -28,6 +28,13 @@ namespace ApiShape
             return sb.ToString();
         }
 
+        private static IEnumerable<string> Derives(this Type c)
+        {
+            if (c.BaseType != null && c.BaseType != typeof(object))
+                yield return c.BaseType.CSharpName();
+            foreach (var ifc in c.GetInterfaces().OrderBy(t => t.FullName))
+                yield return ifc.CSharpName();
+        }
         private static void WriteClassShape(this Type c, IndentedTextWriter w)
         {
             if (!c.IsInterface)
@@ -41,16 +48,10 @@ namespace ApiShape
             else if (c.IsValueType) w.Write("struct ");
             if (c.IsNested) w.Write($"{c.DeclaringType.CSharpName()}+");
             w.Write(c.CSharpName());
-            if (c.BaseType != null && c.BaseType != typeof(object))
-                w.Write($" : { c.BaseType.CSharpName()}");
-            w.WriteLine();
-            w.Indent++;
-            foreach (var ifc in c.GetInterfaces().OrderBy(t => t.FullName))
-                if (ifc.Namespace != typeof(_Attribute).Namespace)
-                {
-                    w.WriteLine(ifc.CSharpName());
-                }
-            w.Indent--;
+            var enumerable = c.Derives().ToList();
+            if (enumerable.Count > 0)
+                w.WriteLine($" : {enumerable.Join()}");
+            else w.WriteLine();
             w.WriteLine("{");
             w.Indent++;
             foreach (var fieldInfo in c.GetFields().OrderBy(t => t.Name)) fieldInfo.WriteShape(w);

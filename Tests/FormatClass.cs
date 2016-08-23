@@ -9,33 +9,42 @@ using static System.Reflection.BindingFlags;
 
 namespace Tests
 {
-    public class C1 { }
-    public sealed class C2 { }
-    public abstract class C3 { }
-    public sealed class C4 : C3 { }
-    public class C5 : I1 { }
-    public sealed class C6 : C5 { }
-    public sealed class C7<T> { }
-    public sealed class C8<T> where T : I1 { }
-    public sealed class C9 : C5, I1 { }
-    public static class C10 { }
+    public abstract class Abstract { }
+    public sealed class DeriveAndImpl : Impl, IUsual { }
+    public class NonSealed { }
+    public sealed class Sealed { }
+    public sealed class Derived : Abstract { }
+    public class Impl : IUsual { }
+    public sealed class IndirectImpl : Impl { }
+    public class Generic<T> { }
+    public sealed class GenericWithConstraint<T> where T : IUsual { }
+    public static class Static { }
+    public sealed class ImplLong : IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>> { }
+    public sealed class DeriveLong : Generic<List<List<List<List<List<List<List<List<int>>>>>>>>> { }
+    public sealed class ImplAndDeriveLong : 
+        Generic<List<List<List<List<List<List<List<List<int>>>>>>>>>,
+        IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
+    { }
 
-    public interface I1 { }
-    public interface I2 : I1 { }
-    public interface I3<T> { }
-    public interface I4<T> where T : I1 { }
-    public interface I5 : I2 { }
-    public interface I6<in T> { }
-    public interface I7<out T> { }
+    internal interface IInvisible { }
+    public interface IUsual { }
+    public interface IDerived : IUsual { }
+    public interface IMultiDerived : IUsual, IDerived { }
+    public interface IGeneric<T> { }
+    public interface IGenericWithConstraint<T> where T : IUsual { }
+    public interface IIndirectDerive : IDerived { void F(); }
+    public interface IVariance<in T> { }
+    public interface ICovariance<out T> { }
 
-    public struct S1 { }
-    public struct S2 : I1 { }
-    public struct S3 : I3<int> { }
-    public struct S4<T> : I3<T> { }
-    public struct S5<T> : I4<T> where T : I1 { }
-    public struct S
+    internal struct Invisible { }
+    public struct Struct { }
+    public struct StructImpl : IUsual { }
+    public struct ImplGeneric : IGeneric<int> { }
+    public struct GenericImplGeneric<T> : IGeneric<T> { }
+    public struct InheritConstraint<T> : IGenericWithConstraint<T> where T : IUsual { }
+    public struct StructContainer : IIndirectDerive
     {
-        public S(int a1) { F1 = 0; F2 = 0; P1 = 0; P2 = 0;P4 = 0; P5 = 0; }
+        public StructContainer(int a1) { F1 = 0; F2 = 0; P1 = 0; P2 = 0; P4 = 0; P5 = 0; }
 
         public const int X1 = 0;
 
@@ -60,21 +69,26 @@ namespace Tests
         public void M3(int a1, int a2) { }
         public int M4() => 3;
         public int M5<T>() => 3;
-        public int M6<T>() where T : I1 => 3;
+        public int M6<T>() where T : IUsual => 3;
         public static void M18() { }
 
-        public static implicit operator S(int x) => new S();
-        public static explicit operator int(S x) => 5;
-        public static int operator  +(S x, int i) => 5;
+        public static implicit operator StructContainer(int x) => new StructContainer();
+        public static explicit operator int(StructContainer x) => 5;
+        public static int operator +(StructContainer x, int i) => 5;
+
+        public override string ToString() => "";
+        public void F() { }
     }
 
     public enum E1 { }
     public enum E2 : short { }
-    public enum E3: byte { }
+    public enum E3 : byte { }
     public enum E4 : ulong { }
-    [Flags] public enum E5 { }
+    [Flags]
+    public enum E5 { }
     public enum E6 { V0, V1, V2 }
-    [Flags] public enum E7
+    [Flags]
+    public enum E7
     {
         V0 = 0x1,
         V1 = 0x10,
@@ -135,7 +149,7 @@ namespace Tests
         public abstract void M3(int a1, int a2);
         public abstract int M4();
         public abstract int M5<T>();
-        public abstract int M6<T>() where T:I1;
+        public abstract int M6<T>() where T : IUsual;
         public virtual void M7() { }
         public void M8() { }
 
@@ -144,22 +158,26 @@ namespace Tests
         protected abstract void M11(int a1, int a2);
         protected abstract int M12();
         protected abstract int M13<T>();
-        protected abstract int M14<T>() where T:I1;
+        protected abstract int M14<T>() where T : IUsual;
         protected virtual void M15() { }
         protected void M16() { }
         public abstract void M17(ref int a1, out int a2);
+        public abstract void M28(ref int longLongLongLongLongLongLongLongArg1, out int longLongLongLongLongLongLongLongArg2);
         public static void M18() { }
-        public abstract int M19<T>() where T: class;
-        public abstract int M20<T>() where T: struct;
-        public abstract int M21<T>() where T: new();
+        public abstract int M19<T>() where T : class;
+        public abstract int M20<T>() where T : struct;
+        public abstract int M21<T>() where T : new();
         public abstract int M22<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>();
         public abstract int M23<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>(TLongLongLongLongLongArg1 a1, TLongLongLongLongLongArg2 a2, TLongLongLongLongLongArg3 a3);
         public abstract int M24(string longLongLongName, Dictionary<string, List<Uri>> anotherLongName, string notLongEnough);
         public abstract int M25(string arg = null);
+        public abstract int M29(int a1, int a2, string longLongLongLongLongLongLongLongArg1 = null);
         public abstract int M26(params string[] arg);
+        public abstract int M27<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>()
+            where TLongLongLongLongLongArg1 : ICloneable;
 
         public event EventHandler E1;
-        public event EventHandler<NetworkAvailabilityEventArgs> E2 { add {} remove {} }
+        public event EventHandler<NetworkAvailabilityEventArgs> E2 { add { } remove { } }
         public event Action E3;
         protected event Action E4;
     }
@@ -175,11 +193,12 @@ namespace Tests
         void M3(int a1, int a2);
         int M4();
         int M5<T>();
-        int M6<T>() where T : I1;
+        int M6<T>() where T : IUsual;
     }
     [UseReporter(typeof(VisualStudioReporter))]
     public sealed class FormatClass
     {
-        [Fact]public void All() => Approvals.Verify(typeof(FormatClass).Assembly.GetShape());
+        [Fact]
+        public void All() => Approvals.Verify(typeof(FormatClass).Assembly.GetShape());
     }
 }
