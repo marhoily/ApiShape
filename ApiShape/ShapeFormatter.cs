@@ -28,6 +28,13 @@ namespace ApiShape
             return sb.ToString();
         }
 
+        private static IEnumerable<string> Constraints(this Type[] genericArguments)
+        {
+            return from a in genericArguments
+                   let cs = a.GetGenericParameterConstraints()
+                   where cs.Length > 0
+                   select $"where {a.Name} : {cs.Join(c => c.CSharpName())}";
+        }
         private static IEnumerable<string> Derives(this Type c)
         {
             if (c.BaseType != null && c.BaseType != typeof(object))
@@ -48,10 +55,12 @@ namespace ApiShape
             else if (c.IsValueType) w.Write("struct ");
             if (c.IsNested) w.Write($"{c.DeclaringType.CSharpName()}+");
             w.Write(c.CSharpName());
-            var enumerable = c.Derives().ToList();
-            if (enumerable.Count > 0)
-                w.WriteLine($" : {enumerable.Join()}");
-            else w.WriteLine();
+            var derives = c.Derives().ToList();
+            if (derives.Count <= 0) w.WriteLine();
+            else w.WriteLine($" : {derives.Join()}");
+            var constraints = c.GetGenericArguments().Constraints();
+            foreach (var constraint in constraints)
+                w.WriteLine(constraint);
             w.WriteLine("{");
             w.Indent++;
             foreach (var fieldInfo in c.GetFields().OrderBy(t => t.Name)) fieldInfo.WriteShape(w);

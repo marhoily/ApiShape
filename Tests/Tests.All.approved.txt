@@ -41,6 +41,7 @@ struct GenericImplGeneric<T> : ValueType, IGeneric<T>
 {
 }
 class GenericWithConstraint<T>
+where T : IUsual
 {
     constructor();
 }
@@ -54,6 +55,7 @@ interface IGeneric<T>
 {
 }
 interface IGenericWithConstraint<T>
+where T : IUsual
 {
 }
 interface IIndirectDerive : IDerived, IUsual
@@ -95,6 +97,7 @@ class IndirectImpl : Impl, IUsual
     constructor();
 }
 struct InheritConstraint<T> : ValueType, IGenericWithConstraint<T>
+where T : IUsual
 {
 }
 interface IUsual
