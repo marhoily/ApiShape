@@ -45,7 +45,10 @@ class GenericWithConstraint<T>
 {
     constructor();
 }
-interface ICovariance<T>
+interface IContravariant<in T>
+{
+}
+interface ICovariant<out T>
 {
 }
 interface IDerived : IUsual
@@ -101,9 +104,6 @@ struct InheritConstraint<T> : IGenericWithConstraint<T>
 {
 }
 interface IUsual
-{
-}
-interface IVariance<T>
 {
 }
 abstract class M

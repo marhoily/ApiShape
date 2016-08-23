@@ -12,7 +12,8 @@ namespace ApiShape
         {
             return type.FormatTypeName((t, s) => s);
         }
-        private static string FormatTypeName(this Type type, Func<Type, string, string> selectName)
+
+        public static string FormatTypeName(this Type type, Func<Type, string, string> selectName)
         {
             while (true)
             {

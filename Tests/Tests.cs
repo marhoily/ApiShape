@@ -31,30 +31,46 @@ namespace Tests
     public sealed class GenericWithConstraint<T> where T : IUsual { }
     public class NonSealed { }
     public sealed class Sealed { }
-    public interface ICovariance<out T> { }
+    public interface IContravariant<in T> { }
+    public interface ICovariant<out T> { }
     public interface IDerived : IUsual { }
     public interface IGeneric<T> { }
     public interface IGenericWithConstraint<T> where T : IUsual { }
     public interface IIndirectDerive : IDerived { void F(); }
+
+    public interface IM
+    {
+        int P1 { get; }
+        int P2 { get; set; }
+        int P3 { set; }
+
+        void M1();
+        void M2(int a1);
+        void M3(int a1, int a2);
+        int M4();
+        int M5<T>();
+        int M6<T>() where T : IUsual;
+    }
     internal interface IInvisible { }
     public interface IUsual { }
-    public interface IMultiDerived : IUsual, IDerived { }
-    public interface IVariance<in T> { }
-    public class Impl : IUsual { }
-    public sealed class IndirectImpl : Impl { }
-    public static class Static { }
-    public sealed class ImplLong : IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>> { }
-    public sealed class ImplAndDeriveLong : 
+    public sealed class ImplAndDeriveLong :
         Generic<List<List<List<List<List<List<List<List<int>>>>>>>>>,
         IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
     { }
+    public struct ImplGeneric : IGeneric<int> { }
+    public sealed class ImplLong : IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>> { }
+    public interface IMultiDerived : IUsual, IDerived { }
+    public struct InheritConstraint<T> : IGenericWithConstraint<T> 
+        where T : IUsual { }
+    public class Impl : IUsual { }
+    public sealed class IndirectImpl : Impl { }
+    public static class Static { }
+
 
 
     internal struct Invisible { }
     public struct Struct { }
     public struct StructImpl : IUsual { }
-    public struct ImplGeneric : IGeneric<int> { }
-    public struct InheritConstraint<T> : IGenericWithConstraint<T> where T : IUsual { }
     public struct StructContainer : IIndirectDerive
     {
         public StructContainer(int a1) { F1 = 0; F2 = 0; P1 = 0; P2 = 0; P4 = 0; P5 = 0; }
@@ -184,19 +200,6 @@ namespace Tests
         protected event Action E4;
     }
 
-    public interface IM
-    {
-        int P1 { get; }
-        int P2 { get; set; }
-        int P3 { set; }
-
-        void M1();
-        void M2(int a1);
-        void M3(int a1, int a2);
-        int M4();
-        int M5<T>();
-        int M6<T>() where T : IUsual;
-    }
     [UseReporter(typeof(VisualStudioReporter))]
     public sealed class Tests
     {

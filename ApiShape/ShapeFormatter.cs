@@ -54,7 +54,22 @@ namespace ApiShape
             else if (c.IsEnum) throw new Exception();
             else if (c.IsValueType) w.Write("struct ");
             if (c.IsNested) w.Write($"{c.DeclaringType.CSharpName()}+");
-            w.Write(c.CSharpName());
+
+
+            w.Write(c.FormatTypeName(
+                (t, s) =>
+                {
+                    if (!t.IsGenericParameter) return s;
+                    if ((t.GenericParameterAttributes & GenericParameterAttributes.Covariant) != 0)
+                        return "out " + s;
+                    if ((t.GenericParameterAttributes & GenericParameterAttributes.Contravariant) != 0)
+                        return "in " + s;
+                    return s;
+                }));
+
+       // w.Write(c.CSharpName());
+
+
             var derives = c.Derives().ToList();
             if (derives.Count <= 0) w.WriteLine();
             else w.WriteLine($" : {derives.Join()}");
