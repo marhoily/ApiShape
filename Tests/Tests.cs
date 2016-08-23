@@ -59,7 +59,8 @@ namespace Tests
     { }
     public struct ImplGeneric : IGeneric<int> { }
     public sealed class ImplLong : IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>> { }
-    public interface IMultiDerived : IUsual, IDerived { }
+    public interface IDerivedDerived : IDerived { }
+    public interface IMultiDerived : IGeneric<int>, IDerived { }
     public struct InheritConstraint<T> : IGenericWithConstraint<T> 
         where T : IUsual { }
     public class Impl : IUsual { }

@@ -54,6 +54,9 @@ interface ICovariant<out T>
 interface IDerived : IUsual
 {
 }
+interface IDerivedDerived : IDerived, IUsual
+{
+}
 interface IGeneric<T>
 {
 }
@@ -92,7 +95,7 @@ class ImplLong : IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
 {
     constructor();
 }
-interface IMultiDerived : IDerived, IUsual
+interface IMultiDerived : IDerived, IGeneric<int>, IUsual
 {
 }
 class IndirectImpl : Impl, IUsual
