@@ -39,7 +39,10 @@ namespace ApiShape
         {
             if (c.BaseType != null && c.BaseType != typeof(object) && !c.IsValueType)
                 yield return c.BaseType.CSharpName();
-            foreach (var ifc in c.GetInterfaces().OrderBy(t => t.FullName))
+            var minimalInterfaces = c.GetInterfaces()
+                .Except(c.GetInterfaces().SelectMany(t => t.GetInterfaces()))
+                .OrderBy(t => t.FullName);
+            foreach (var ifc in minimalInterfaces)
                 yield return ifc.CSharpName();
         }
         private static void WriteClassShape(this Type c, IndentedTextWriter w)
@@ -55,7 +58,6 @@ namespace ApiShape
             else if (c.IsValueType) w.Write("struct ");
             if (c.IsNested) w.Write($"{c.DeclaringType.CSharpName()}+");
 
-
             w.Write(c.FormatTypeName(
                 (t, s) =>
                 {
@@ -66,9 +68,6 @@ namespace ApiShape
                         return "in " + s;
                     return s;
                 }));
-
-       // w.Write(c.CSharpName());
-
 
             var derives = c.Derives().ToList();
             if (derives.Count <= 0) w.WriteLine();

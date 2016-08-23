@@ -54,9 +54,6 @@ interface ICovariant<out T>
 interface IDerived : IUsual
 {
 }
-interface IDerivedDerived : IDerived, IUsual
-{
-}
 interface IGeneric<T>
 {
 }
@@ -64,7 +61,7 @@ interface IGenericWithConstraint<T>
     where T : IUsual
 {
 }
-interface IIndirectDerive : IDerived, IUsual
+interface IIndirectDerive : IDerived
 {
     void F();
 }
@@ -95,7 +92,7 @@ class ImplLong : IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
 {
     constructor();
 }
-interface IMultiDerived : IDerived, IGeneric<int>, IUsual
+interface IMultiDerived : IDerived, IGeneric<int>
 {
 }
 class IndirectImpl : Impl, IUsual
@@ -220,7 +217,7 @@ abstract class Static
 struct Struct
 {
 }
-struct StructContainer : IDerived, IIndirectDerive, IUsual
+struct StructContainer : IIndirectDerive
 {
     int F1;
     readonly int F2;

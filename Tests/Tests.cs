@@ -10,7 +10,7 @@ using static System.Reflection.BindingFlags;
 namespace Tests
 {
     public delegate void SampleDelegate();
-    public abstract class Abstract { }
+    public abstract class Abstract : IInvisible { }
     [Flags]
     public enum BigFlags
     {
@@ -59,7 +59,6 @@ namespace Tests
     { }
     public struct ImplGeneric : IGeneric<int> { }
     public sealed class ImplLong : IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>> { }
-    public interface IDerivedDerived : IDerived { }
     public interface IMultiDerived : IGeneric<int>, IDerived { }
     public struct InheritConstraint<T> : IGenericWithConstraint<T> 
         where T : IUsual { }
