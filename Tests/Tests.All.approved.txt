@@ -3,6 +3,20 @@ Image runtime version: v4.0.30319
 abstract class Abstract
 {
 }
+[Flags]
+enum BigFlags : int
+{
+    V0 = 1
+    V1 = 16
+    V2 = 256
+    V3 = 4096
+}
+enum Byte : byte
+{
+}
+enum Default : int
+{
+}
 class DeriveAndImpl : Impl, IUsual
 {
     constructor();
@@ -15,40 +29,9 @@ class DeriveLong : Generic<List<List<List<List<List<List<List<List<int>>>>>>>>>
 {
     constructor();
 }
-enum E1 : int
-{
-}
-enum E2 : short
-{
-}
-enum E3 : byte
-{
-}
-enum E4 : ulong
-{
-}
 [Flags]
-enum E5 : int
+enum Flags : int
 {
-}
-enum E6 : int
-{
-    V0 = 0
-    V1 = 1
-    V2 = 2
-}
-[Flags]
-enum E7 : int
-{
-    V0 = 1
-    V1 = 16
-    V2 = 256
-    V3 = 4096
-}
-class FormatClass
-{
-    constructor();
-    void All();
 }
 virtual class Generic<T>
 {
@@ -209,6 +192,15 @@ class Sealed
 {
     constructor();
 }
+enum Seq : int
+{
+    V0 = 0
+    V1 = 1
+    V2 = 2
+}
+enum Short : short
+{
+}
 abstract class Static
 {
 }
@@ -243,5 +235,13 @@ struct StructContainer : ValueType, IDerived, IIndirectDerive, IUsual
     virtual string ToString();
 }
 struct StructImpl : ValueType, IUsual
+{
+}
+class Tests
+{
+    constructor();
+    void All();
+}
+enum ULong : ulong
 {
 }

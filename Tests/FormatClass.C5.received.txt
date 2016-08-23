@@ -1,5 +1,0 @@
-﻿virtual class C5
-    I1
-{
-    constructor();
-}

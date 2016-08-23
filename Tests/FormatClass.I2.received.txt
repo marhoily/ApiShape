@@ -1,4 +1,0 @@
-﻿interface I2
-    I1
-{
-}

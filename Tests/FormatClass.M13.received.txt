@@ -1,1 +1,0 @@
-﻿virtual abstract int M13<T>();

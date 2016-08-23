@@ -10,17 +10,30 @@ using static System.Reflection.BindingFlags;
 namespace Tests
 {
     public abstract class Abstract { }
+    [Flags]
+    public enum BigFlags
+    {
+        V0 = 0x1,
+        V1 = 0x10,
+        V2 = 0x100,
+        V3 = 0x1000
+    }
+    public enum Byte : byte { }
+    public enum Default { }
     public sealed class DeriveAndImpl : Impl, IUsual { }
+    public sealed class Derived : Abstract { }
+    public sealed class DeriveLong : Generic<List<List<List<List<List<List<List<List<int>>>>>>>>> { }
+    [Flags]
+    public enum Flags { }
+    public class Generic<T> { }
+    public struct GenericImplGeneric<T> : IGeneric<T> { }
+    public sealed class GenericWithConstraint<T> where T : IUsual { }
     public class NonSealed { }
     public sealed class Sealed { }
-    public sealed class Derived : Abstract { }
     public class Impl : IUsual { }
     public sealed class IndirectImpl : Impl { }
-    public class Generic<T> { }
-    public sealed class GenericWithConstraint<T> where T : IUsual { }
     public static class Static { }
     public sealed class ImplLong : IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>> { }
-    public sealed class DeriveLong : Generic<List<List<List<List<List<List<List<List<int>>>>>>>>> { }
     public sealed class ImplAndDeriveLong : 
         Generic<List<List<List<List<List<List<List<List<int>>>>>>>>>,
         IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
@@ -40,7 +53,6 @@ namespace Tests
     public struct Struct { }
     public struct StructImpl : IUsual { }
     public struct ImplGeneric : IGeneric<int> { }
-    public struct GenericImplGeneric<T> : IGeneric<T> { }
     public struct InheritConstraint<T> : IGenericWithConstraint<T> where T : IUsual { }
     public struct StructContainer : IIndirectDerive
     {
@@ -80,21 +92,10 @@ namespace Tests
         public void F() { }
     }
 
-    public enum E1 { }
-    public enum E2 : short { }
-    public enum E3 : byte { }
-    public enum E4 : ulong { }
-    [Flags]
-    public enum E5 { }
-    public enum E6 { V0, V1, V2 }
-    [Flags]
-    public enum E7
-    {
-        V0 = 0x1,
-        V1 = 0x10,
-        V2 = 0x100,
-        V3 = 0x1000
-    }
+    public enum Short : short { }
+    public enum ULong : ulong { }
+    public enum Seq { V0, V1, V2 }
+
 
     public abstract class MM
     {
@@ -196,9 +197,9 @@ namespace Tests
         int M6<T>() where T : IUsual;
     }
     [UseReporter(typeof(VisualStudioReporter))]
-    public sealed class FormatClass
+    public sealed class Tests
     {
         [Fact]
-        public void All() => Approvals.Verify(typeof(FormatClass).Assembly.GetShape());
+        public void All() => Approvals.Verify(typeof(Tests).Assembly.GetShape());
     }
 }

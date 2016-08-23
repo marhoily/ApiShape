@@ -1,1 +1,0 @@
-﻿int P2 { get; set; }

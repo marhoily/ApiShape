@@ -1,5 +1,0 @@
-﻿class C9 : C5
-    I1
-{
-    constructor();
-}

@@ -1,1 +1,0 @@
-﻿virtual abstract void M3(int a1, int a2);

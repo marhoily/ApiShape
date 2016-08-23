@@ -1,3 +1,0 @@
-﻿abstract class C3
-{
-}

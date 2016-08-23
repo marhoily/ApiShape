@@ -1,4 +1,0 @@
-﻿[Flags]
-enum E5 : int
-{
-}
