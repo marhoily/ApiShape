@@ -41,6 +41,7 @@ namespace ApiShape
                 yield return c.BaseType.CSharpName();
             var minimalInterfaces = c.GetInterfaces()
                 .Except(c.GetInterfaces().SelectMany(t => t.GetInterfaces()))
+                .Where(ifc => ifc.IsPublic)
                 .OrderBy(t => t.FullName);
             foreach (var ifc in minimalInterfaces)
                 yield return ifc.CSharpName();
