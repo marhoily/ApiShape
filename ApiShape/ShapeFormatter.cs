@@ -59,8 +59,10 @@ namespace ApiShape
             if (derives.Count <= 0) w.WriteLine();
             else w.WriteLine($" : {derives.Join()}");
             var constraints = c.GetGenericArguments().Constraints();
+            w.Indent++;
             foreach (var constraint in constraints)
                 w.WriteLine(constraint);
+            w.Indent--;
             w.WriteLine("{");
             w.Indent++;
             foreach (var fieldInfo in c.GetFields().OrderBy(t => t.Name)) fieldInfo.WriteShape(w);
