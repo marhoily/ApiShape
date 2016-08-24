@@ -113,7 +113,11 @@ namespace ApiShape
         }
         private static void WriteDelegateShape(this Type e, IndentedTextWriter w)
         {
-            w.WriteLine($"delegate {e.CSharpName()}");
+            var m = e.GetMethod(nameof(Action.Invoke));
+            w.WriteLine(m.ReturnType.CSharpName() +
+                $" delegate {e.CSharpName()}(" +
+                m.GetParameters().Join(p => $"{p.ParameterType.CSharpName()} {p.Name}")+
+                ");");
         }
         private static void WriteShape(this FieldInfo f, IndentedTextWriter w)
         {
