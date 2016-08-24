@@ -182,7 +182,7 @@ abstract class Tests.M
     event System.EventHandler<System.Net.NetworkInformation.NetworkAvailabilityEventArgs> E2;
     event System.Action E3;
 }
-virtual class Tests.M+NestedProtected
+protected virtual class Tests.M+NestedProtected
 {
     constructor();
 }
