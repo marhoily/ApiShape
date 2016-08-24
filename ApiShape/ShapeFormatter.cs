@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -56,8 +57,6 @@ namespace ApiShape
 
         private static void WriteClassShape(this Type c, IndentedTextWriter w)
         {
-            if (c.BaseType == typeof(Delegate) || c.BaseType == typeof(MulticastDelegate))
-                throw new Exception();
             if (!c.IsInterface)
             {
                 if (c.IsAbstract) w.Write("abstract ");
@@ -137,15 +136,14 @@ namespace ApiShape
         {
             if (m.IsVirtual) w.Write("virtual ");
             if (m.IsAbstract) w.Write("abstract ");
-
             w.Write("constructor");
-
             WriteParameters(w, m.GetParameters());
             w.WriteLine(";");
         }
 
         private static void WriteShape(this MethodInfo m, IndentedTextWriter w)
         {
+            Debug.Assert(m.DeclaringType != null, "m.DeclaringType != null");
             if (!m.DeclaringType.IsInterface)
             {
                 if (m.IsVirtual) w.Write("virtual ");
@@ -169,10 +167,7 @@ namespace ApiShape
             w.Write(m.ReturnType.CSharpName() +
                         $" delegate {e.TypeDeclarationName()}");
             WriteParameters(w, m.GetParameters());
-            var genericArguments = e.GetGenericArguments();
-            if (e.Name.Contains("GenericConstraints"))
-                1.ToString();
-            WriteConstraints(w, genericArguments);
+            WriteConstraints(w, e.GetGenericArguments());
             w.WriteLine(";");
         }
         private static void WriteShape(this EventInfo e, IndentedTextWriter w)
