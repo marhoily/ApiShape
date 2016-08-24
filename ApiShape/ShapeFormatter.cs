@@ -85,14 +85,7 @@ namespace ApiShape
             foreach (var fieldInfo in c.GetFields(Instance | Static | Public | NonPublic)
                 .Where(f => f.IsPublic || f.IsFamily)
                 .OrderBy(t => t.Name)) fieldInfo.WriteShape(w);
-            foreach (var propertyInfo in c.GetProperties(Instance | Static| Public | NonPublic)
-                .Where(p
-                => p.GetMethod?.IsPublic == true
-                || p.GetMethod?.IsFamily == true
-                || p.SetMethod?.IsPublic == true
-                || p.SetMethod?.IsFamily == true)
-                .OrderBy(t => t.Name))
-                if (propertyInfo.DeclaringType == c)
+            foreach (var propertyInfo in c.VisibleProperties())
                     if (propertyInfo.GetIndexParameters().Length == 0)
                         propertyInfo.WriteShape(w);
             foreach (var constructorInfo in c.GetConstructors()) constructorInfo.WriteShape(w);
@@ -103,6 +96,23 @@ namespace ApiShape
                 eventInfo.WriteShape(w);
             w.Indent--;
             w.WriteLine("}");
+        }
+
+        private static IEnumerable<PropertyInfo> VisibleProperties(this Type t)
+        {
+            return t
+                .GetProperties(Instance | Static | Public | NonPublic)
+                .Where(GetterOrSetterIsVisible)
+                .Where(p => p.DeclaringType == t)
+                .OrderBy(x => x.Name);
+        }
+
+        private static bool GetterOrSetterIsVisible(PropertyInfo p)
+        {
+            return p.GetMethod?.IsPublic == true
+                   || p.GetMethod?.IsFamily == true
+                   || p.SetMethod?.IsPublic == true
+                   || p.SetMethod?.IsFamily == true;
         }
 
         private static void WriteConstraints(IndentedTextWriter w, Type[] getGenericArguments)
