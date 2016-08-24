@@ -114,6 +114,7 @@ abstract class M
 {
     int F1;
     readonly int F2;
+    int F3;
     static int F4;
     const int X1;
     const string X2;
@@ -168,6 +169,7 @@ abstract class MM : M
 {
     int F1;
     readonly int F2;
+    int F3;
     int P11 { get; }
     int P12 { get; }
     virtual void M1();

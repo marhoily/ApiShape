@@ -82,7 +82,9 @@ namespace ApiShape
             w.WriteLine();
             w.WriteLine("{");
             w.Indent++;
-            foreach (var fieldInfo in c.GetFields().OrderBy(t => t.Name)) fieldInfo.WriteShape(w);
+            foreach (var fieldInfo in c.GetFields(Instance | Static | Public | NonPublic)
+                .Where(f => f.IsPublic || f.IsFamily)
+                .OrderBy(t => t.Name)) fieldInfo.WriteShape(w);
             foreach (var propertyInfo in c.GetProperties(Instance | Static| Public | NonPublic)
                 .Where(p
                 => p.GetMethod?.IsPublic == true
