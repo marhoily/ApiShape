@@ -83,7 +83,8 @@ namespace ApiShape
             foreach (var fieldInfo in c.GetFields().OrderBy(t => t.Name)) fieldInfo.WriteShape(w);
             foreach (var propertyInfo in c.GetProperties().OrderBy(t => t.Name))
                 if (propertyInfo.DeclaringType == c)
-                    propertyInfo.WriteShape(w);
+                    if (propertyInfo.GetIndexParameters().Length == 0)
+                        propertyInfo.WriteShape(w);
             foreach (var constructorInfo in c.GetConstructors()) constructorInfo.WriteShape(w);
             foreach (var methodInfo in c.GetMethods().OrderBy(t => t.Name))
                 if (!methodInfo.IsSpecialName && methodInfo.DeclaringType == c)

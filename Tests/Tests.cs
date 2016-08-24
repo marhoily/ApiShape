@@ -25,7 +25,7 @@ namespace Tests
     public enum Default
     {
     }
-    public sealed class DeriveAndImpl : Impl, IUsual
+    public sealed class DeriveAndImpl : Impl
     {
     }
     public sealed class Derived : Abstract
@@ -44,7 +44,8 @@ namespace Tests
     public struct GenericImplGeneric<T> : IGeneric<T>
     {
     }
-    public sealed class GenericWithConstraint<T> where T : IUsual
+    public sealed class GenericWithConstraint<T> 
+        where T : IUsual
     {
     }
     public interface IContravariant<in T>
@@ -59,7 +60,8 @@ namespace Tests
     public interface IGeneric<T>
     {
     }
-    public interface IGenericWithConstraint<T> where T : IUsual
+    public interface IGenericWithConstraint<T> 
+        where T : IUsual
     {
     }
     public interface IIndirectDerive : IDerived
