@@ -160,14 +160,9 @@ namespace ApiShape
             if (protectedProp) w.Write("protected ");
             w.Write(p.PropertyType.CSharpName());
             w.Write(" ");
-            if (p.GetIndexParameters().Length == 0)
-            {
-                w.Write(p.Name);
-            }
-            else
-            {
-                w.Write($"this[{p.GetIndexParameters().Select(Parameter).Join()}]");
-            }
+            var ps = p.GetIndexParameters();
+            w.Write(ps.Length == 0 ? p.Name 
+                : $"this[{ps.Select(Parameter).Join()}]");
             w.Write(" { ");
 
             if (hasGetter)
