@@ -37,8 +37,8 @@ virtual class Generic<T>
 {
     constructor();
 }
-T1 delegate GenericArgsAndReturnValue<out T1, in T2>(T2 a1 = default(T2));
-void delegate GenericConstraints<T>()
+delegate T1 GenericArgsAndReturnValue<out T1, in T2>(T2 a1 = default(T2));
+delegate void GenericConstraints<T>()
     where T : Abstract, new();
 struct GenericImplGeneric<T> : IGeneric<T>
 {
@@ -167,9 +167,9 @@ virtual class NonSealed
 {
     constructor();
 }
-void delegate OutAndRefAndParams(out int a1, string a2, object[] a3);
-int delegate ReturnValueAndArg(int a1, int opt = 0);
-void delegate SampleDelegate();
+delegate void OutAndRefAndParams(out int a1, string a2, params object[] a3);
+delegate int ReturnValueAndArg(int a1, int opt = 0);
+delegate void SampleDelegate();
 class Sealed
 {
     constructor();
