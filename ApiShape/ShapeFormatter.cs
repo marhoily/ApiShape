@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using static System.Reflection.GenericParameterAttributes;
 
 namespace ApiShape
 {
@@ -33,10 +34,11 @@ namespace ApiShape
         private static IEnumerable<string> Constraints(this Type[] genericArguments)
         {
             return from a in genericArguments
-                   let cs = a.GetGenericParameterConstraints()
-                   where cs.Length > 0
-                   select $"where {a.Name} : {cs.Join(c => c.CSharpName())}";
+                let cs = a.GetGenericParameterConstraints()
+                where cs.Length > 0
+                select $"where {a.Name} : {cs.Join(c => c.CSharpName())}";
         }
+
         private static IEnumerable<string> Derives(this Type c)
         {
             if (c.BaseType != null && c.BaseType != typeof(object) && !c.IsValueType)
@@ -48,6 +50,7 @@ namespace ApiShape
             foreach (var ifc in minimalInterfaces)
                 yield return ifc.CSharpName();
         }
+
         private static void WriteClassShape(this Type c, IndentedTextWriter w)
         {
             if (c.BaseType == typeof(Delegate) || c.BaseType == typeof(MulticastDelegate))
@@ -63,16 +66,7 @@ namespace ApiShape
             else if (c.IsValueType) w.Write("struct ");
             if (c.IsNested) w.Write($"{c.DeclaringType.CSharpName()}+");
 
-            w.Write(c.FormatTypeName(
-                (t, s) =>
-                {
-                    if (!t.IsGenericParameter) return s;
-                    if ((t.GenericParameterAttributes & GenericParameterAttributes.Covariant) != 0)
-                        return "out " + s;
-                    if ((t.GenericParameterAttributes & GenericParameterAttributes.Contravariant) != 0)
-                        return "in " + s;
-                    return s;
-                }));
+            w.Write(c.GenericArgName());
 
             var derives = c.Derives().ToList();
             if (derives.Count <= 0) w.WriteLine();
@@ -98,6 +92,7 @@ namespace ApiShape
             w.Indent--;
             w.WriteLine("}");
         }
+
         private static void WriteEnumShape(this Type e, IndentedTextWriter w)
         {
             if (!e.IsEnum) throw new ArgumentOutOfRangeException(nameof(e));
@@ -107,18 +102,20 @@ namespace ApiShape
             w.Indent++;
             foreach (var fieldInfo in e.GetFields().OrderBy(t => t.Name))
                 if (!fieldInfo.IsSpecialName)
-                    w.WriteLine($"{fieldInfo.Name} = {(int)fieldInfo.GetValue(null)}");
+                    w.WriteLine($"{fieldInfo.Name} = {(int) fieldInfo.GetValue(null)}");
             w.Indent--;
             w.WriteLine("}");
         }
+
         private static void WriteDelegateShape(this Type e, IndentedTextWriter w)
         {
             var m = e.GetMethod(nameof(Action.Invoke));
             w.WriteLine(m.ReturnType.CSharpName() +
-                $" delegate {e.CSharpName()}(" +
-                m.GetParameters().Join(p => $"{p.ParameterType.CSharpName()} {p.Name}")+
-                ");");
+                        $" delegate {e.GenericArgName()}(" +
+                        m.GetParameters().Join(p => $"{p.ParameterType.CSharpName()} {p.Name}") +
+                        ");");
         }
+
         private static void WriteShape(this FieldInfo f, IndentedTextWriter w)
         {
             if (f.IsLiteral) w.Write("const ");
@@ -126,6 +123,7 @@ namespace ApiShape
             if (f.IsInitOnly) w.Write("readonly ");
             w.WriteLine($"{f.FieldType.CSharpName()} {f.Name};");
         }
+
         private static void WriteShape(this PropertyInfo p, IndentedTextWriter w)
         {
             w.Write($"{p.PropertyType.CSharpName()} {p.Name} {{ ");
@@ -133,6 +131,7 @@ namespace ApiShape
             if (p.GetSetMethod()?.IsPublic == true) w.Write("set; ");
             w.WriteLine("}");
         }
+
         private static void WriteShape(this ConstructorInfo m, IndentedTextWriter w)
         {
             if (m.IsVirtual) w.Write("virtual ");
@@ -142,6 +141,7 @@ namespace ApiShape
 
             WriteParameters(w, m.GetParameters());
         }
+
         private static void WriteShape(this MethodInfo m, IndentedTextWriter w)
         {
             if (!m.DeclaringType.IsInterface)
@@ -159,6 +159,7 @@ namespace ApiShape
             }
             WriteParameters(w, m.GetParameters());
         }
+
         private static void WriteShape(this EventInfo e, IndentedTextWriter w)
         {
             w.WriteLine($"event {e.EventHandlerType.CSharpName()} {e.Name};");
@@ -171,6 +172,7 @@ namespace ApiShape
             if (oneLine.Length < 50) w.WriteLine(oneLine);
             else WriteParametersMultiLine(w, parameterInfos);
         }
+
         private static string WriteParametersOneLine(ParameterInfo[] parameterInfos)
         {
             if (parameterInfos.Length == 0) return "();";
@@ -189,6 +191,7 @@ namespace ApiShape
             w.Append(");");
             return w.ToString();
         }
+
         private static void WriteParametersMultiLine(IndentedTextWriter w, ParameterInfo[] parameterInfos)
         {
             if (parameterInfos.Length == 0) w.WriteLine("();");
@@ -218,6 +221,7 @@ namespace ApiShape
             else WriteGenericParametersMultiLine(w, args);
 
         }
+
         private static string WriteGenericParametersOneLine(Type[] args)
         {
             var w = new StringBuilder();
@@ -236,6 +240,7 @@ namespace ApiShape
             w.Append(">");
             return w.ToString();
         }
+
         private static void WriteGenericParametersMultiLine(IndentedTextWriter w, Type[] args)
         {
             w.WriteLine("<");
@@ -252,6 +257,20 @@ namespace ApiShape
             }
             w.Indent--;
             w.Write(">");
+        }
+
+        private static string GenericArgName(this Type c)
+        {
+            return c.FormatTypeName(
+                (t, s) =>
+                {
+                    if (!t.IsGenericParameter) return s;
+                    if ((t.GenericParameterAttributes & Covariant) != 0)
+                        return "out " + s;
+                    if ((t.GenericParameterAttributes & Contravariant) != 0)
+                        return "in " + s;
+                    return s;
+                });
         }
     }
 }

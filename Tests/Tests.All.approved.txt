@@ -37,7 +37,7 @@ virtual class Generic<T>
 {
     constructor();
 }
-T1 delegate GenericArgsAndReturnValue<T1, T2>(T2 a1);
+T1 delegate GenericArgsAndReturnValue<out T1, in T2>(T2 a1);
 void delegate GenericConstraints<T>();
 struct GenericImplGeneric<T> : IGeneric<T>
 {
