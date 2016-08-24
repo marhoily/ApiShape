@@ -206,10 +206,6 @@ abstract class Tests.MM : Tests.M
     int P11 { get; }
     int P12 { get; }
     virtual void M1();
-    event System.EventHandler E1;
-    event System.EventHandler<System.Net.NetworkInformation.NetworkAvailabilityEventArgs> E2;
-    event System.Action E3;
-    protected event System.Action E4;
 }
 virtual class Tests.NonSealed
 {

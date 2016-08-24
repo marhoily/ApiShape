@@ -60,12 +60,13 @@ namespace ApiShape
                 .Where(f => f.IsPublic || f.IsFamily)
                 .OrderBy(t => t.Name);
         }
-        public static IEnumerable<EventInfo> VisibleEvents(this Type c)
+        public static IEnumerable<EventInfo> VisibleEvents(this Type t)
         {
-            return c
+            return t
                 .GetEvents(Instance | Static | Public | NonPublic)
-                .Where(f => f.AddMethod.IsPublic || f.AddMethod.IsFamily)
-                .OrderBy(t => t.Name);
+                .Where(e => e.AddMethod.IsPublic || e.AddMethod.IsFamily)
+                .Where(e => e.DeclaringType == t)
+                .OrderBy(e => e.Name);
         }
         private static bool GetterOrSetterIsVisible(PropertyInfo p)
         {
