@@ -192,11 +192,12 @@ namespace ApiShape
                 sb.Append(parameterInfo.IsIn ? "ref " : "out ");
             if (parameterInfo.IsDefined(typeof(ParamArrayAttribute)))
                 sb.Append("params ");
+            
             sb.Append(parameterInfo.ParameterType.CSharpName());
             sb.Append(" ");
             sb.Append(parameterInfo.Name);
             if (parameterInfo.HasDefaultValue)
-                sb.Append($" = {parameterInfo.RawDefaultValue}");
+                sb.Append($" = {parameterInfo.DefaultValue ?? $"default({parameterInfo.ParameterType.CSharpName()})"}");
             return sb.ToString();
         }
 
