@@ -194,8 +194,8 @@ namespace ApiShape
             Debug.Assert(m.DeclaringType != null, "m.DeclaringType != null");
             if (!m.DeclaringType.IsInterface)
             {
-                if (m.IsVirtual) w.Write("virtual ");
                 if (m.IsAbstract) w.Write("abstract ");
+                else if (m.IsVirtual) w.Write("virtual ");
             }
 
             w.Write(m.ReturnType.CSharpName());

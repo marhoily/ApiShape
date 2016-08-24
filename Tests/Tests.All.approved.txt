@@ -142,29 +142,29 @@ abstract class M
     protected int P8 { get; set; }
     int P9 { protected set; }
     constructor(int a1);
-    virtual abstract void M1();
-    virtual abstract void M17(ref int a1, out int a2);
+    abstract void M1();
+    abstract void M17(ref int a1, out int a2);
     void M18();
-    virtual abstract int M19<T>();
-    virtual abstract void M2(int a1);
-    virtual abstract int M20<T>()
+    abstract int M19<T>();
+    abstract void M2(int a1);
+    abstract int M20<T>()
         where T : struct;
-    virtual abstract int M21<T>();
-    virtual abstract int M22<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>();
-    virtual abstract int M23<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>(TLongLongLongLongLongArg1 a1, TLongLongLongLongLongArg2 a2, TLongLongLongLongLongArg3 a3);
-    virtual abstract int M24(Dictionary<string, List<Uri>> anotherLongName, string longLongLongName, string notLongEnough);
-    virtual abstract int M25(string arg = default(string));
-    virtual abstract int M26(params string[] arg);
-    virtual abstract int M27<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>()
+    abstract int M21<T>();
+    abstract int M22<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>();
+    abstract int M23<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>(TLongLongLongLongLongArg1 a1, TLongLongLongLongLongArg2 a2, TLongLongLongLongLongArg3 a3);
+    abstract int M24(Dictionary<string, List<Uri>> anotherLongName, string longLongLongName, string notLongEnough);
+    abstract int M25(string arg = default(string));
+    abstract int M26(params string[] arg);
+    abstract int M27<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>()
         where TLongLongLongLongLongArg1 : ICloneable;
-    virtual abstract void M28(ref int longLongLongLongLongLongLongLongArg1, out int longLongLongLongLongLongLongLongArg2);
-    virtual abstract int M28<T>()
+    abstract void M28(ref int longLongLongLongLongLongLongLongArg1, out int longLongLongLongLongLongLongLongArg2);
+    abstract int M28<T>()
         where T : class, IGeneric<int>, new();
-    virtual abstract int M29(int a1, int a2, string longLongLongLongLongLongLongLongArg1 = default(string));
-    virtual abstract void M3(int a1, int a2);
-    virtual abstract int M4();
-    virtual abstract int M5<T>();
-    virtual abstract int M6<T>()
+    abstract int M29(int a1, int a2, string longLongLongLongLongLongLongLongArg1 = default(string));
+    abstract void M3(int a1, int a2);
+    abstract int M4();
+    abstract int M5<T>();
+    abstract int M6<T>()
         where T : IUsual;
     virtual void M7();
     void M8();
