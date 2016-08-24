@@ -185,13 +185,7 @@ virtual class NonSealed
 {
     constructor();
 }
-class SampleDelegate : MulticastDelegate, ICloneable, ISerializable
-{
-    constructor(IntPtr method, object object);
-    virtual IAsyncResult BeginInvoke(AsyncCallback callback, object object);
-    virtual void EndInvoke(IAsyncResult result);
-    virtual void Invoke();
-}
+Delegate
 class Sealed
 {
     constructor();

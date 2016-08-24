@@ -41,6 +41,9 @@ namespace Tests
     public class Generic<T>
     {
     }
+    public delegate T1 GenericArgsAndReturnValue<out T1, in T2>(T2 a1 = default(T2));
+    public delegate void GenericConstraints<T>()
+        where T : new();
     public struct GenericImplGeneric<T> : IGeneric<T>
     {
     }
@@ -185,6 +188,8 @@ namespace Tests
     public class NonSealed
     {
     }
+    public delegate void OutAndRefAndParams(out int a1, ref string a2, params object[] a3);
+    public delegate int ReturnValueAndArg(int a1, int opt = 0);
     public delegate void SampleDelegate();
     public sealed class Sealed
     {
