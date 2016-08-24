@@ -20,6 +20,12 @@ namespace ApiShape
             var interfacesInterfaces = c.GetInterfaces().SelectMany(i => i.GetInterfaces());
             return c.GetInterfaces().Except(ancestorsInterfaces.Concat(interfacesInterfaces));
         }
+        public static bool IsOverride(this MethodInfo methodInfo) 
+            => methodInfo.GetBaseDefinition() != methodInfo;
+
+        public static bool IsOverride(this PropertyInfo p) =>
+            p.GetMethod?.IsOverride() == true ||
+            p.SetMethod?.IsOverride() == true;
     }
 
     internal static class Discovery
@@ -50,7 +56,7 @@ namespace ApiShape
             return t
                 .GetProperties(Instance | Static | Public | NonPublic)
                 .Where(GetterOrSetterIsVisible)
-                .Where(p => p.DeclaringType == t)
+                .Where(p => p.DeclaringType == t && !p.IsOverride())
                 .OrderBy(x => x.Name);
         }
         public static IEnumerable<FieldInfo> VisibleFields(this Type t)
