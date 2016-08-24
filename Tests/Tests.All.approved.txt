@@ -198,10 +198,6 @@ class Tests.M+NestedPublic
 protected delegate void Tests.M+ProtectedInternalDelegate();
 abstract class Tests.MM : Tests.M
 {
-    int F1;
-    readonly int F2;
-    int F3;
-    System.Uri F5;
     string this[double index] { get; set; }
     int P11 { get; }
     int P12 { get; }
