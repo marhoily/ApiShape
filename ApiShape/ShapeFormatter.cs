@@ -48,13 +48,18 @@ namespace ApiShape
             if (c.BaseType != null && c.BaseType != typeof(object) && !c.IsValueType)
                 yield return c.BaseType.CSharpName();
             var minimalInterfaces = c.GetInterfaces()
-                .Except(c.GetInterfaces().SelectMany(t => t.GetInterfaces()))
+                .Except(c.GetAllInterfaces())
                 .Where(ifc => ifc.IsPublic)
                 .OrderBy(t => t.FullName);
             foreach (var ifc in minimalInterfaces)
                 yield return ifc.CSharpName();
         }
 
+        private static IEnumerable<Type> GetAllInterfaces(this Type c)
+        {
+            return c.AncestorsAndSelf().Skip(1)
+                .Concat(c.GetInterfaces()).SelectMany(t => t.GetAllInterfaces());
+        }
         private static void WriteClassShape(this Type c, IndentedTextWriter w)
         {
             if (!c.IsInterface)

@@ -64,7 +64,7 @@ interface IGenericWithConstraint<T>
     where T : IUsual
 {
 }
-interface IIndirectDerive : IDerived
+interface IIndirectDerive : IDerived, IUsual
 {
     void F();
 }
@@ -96,10 +96,10 @@ class ImplLong : IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
 {
     constructor();
 }
-interface IMultiDerived : IDerived, IGeneric<int>
+interface IMultiDerived : IDerived, IGeneric<int>, IUsual
 {
 }
-class IndirectImpl : Impl
+class IndirectImpl : Impl, IUsual
 {
     constructor();
 }
@@ -189,7 +189,7 @@ abstract class Static
 struct Struct
 {
 }
-struct StructContainer : IIndirectDerive
+struct StructContainer : IDerived, IIndirectDerive, IUsual
 {
     int F1;
     readonly int F2;
