@@ -145,6 +145,8 @@ abstract class M
     virtual abstract int M27<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>()
         where TLongLongLongLongLongArg1 : ICloneable;
     virtual abstract void M28(int longLongLongLongLongLongLongLongArg1, out int longLongLongLongLongLongLongLongArg2);
+    virtual abstract int M28<T>()
+        where T : class, IGeneric<int>, new();
     virtual abstract int M29(int a1, int a2, string longLongLongLongLongLongLongLongArg1 = );
     virtual abstract void M3(int a1, int a2);
     virtual abstract int M4();
