@@ -26,6 +26,9 @@ namespace ApiShape
         public static bool IsOverride(this PropertyInfo p) =>
             p.GetMethod?.IsOverride() == true ||
             p.SetMethod?.IsOverride() == true;
+
+        public static bool IsOverride(this EventInfo e) =>
+            e.AddMethod.IsOverride();
     }
 
     internal static class Discovery
@@ -56,7 +59,8 @@ namespace ApiShape
             return t
                 .GetProperties(Instance | Static | Public | NonPublic)
                 .Where(GetterOrSetterIsVisible)
-                .Where(p => p.DeclaringType == t && !p.IsOverride())
+                .Where(p => !p.IsOverride())
+                .Where(p => p.DeclaringType == t)
                 .OrderBy(x => x.Name);
         }
         public static IEnumerable<FieldInfo> VisibleFields(this Type t)
@@ -73,6 +77,7 @@ namespace ApiShape
                 .GetEvents(Instance | Static | Public | NonPublic)
                 .Where(e => e.AddMethod.IsPublic || e.AddMethod.IsFamily)
                 .Where(e => e.DeclaringType == t)
+                .Where(e => !e.IsOverride())
                 .OrderBy(e => e.Name);
         }
         private static bool GetterOrSetterIsVisible(PropertyInfo p)

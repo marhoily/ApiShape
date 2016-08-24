@@ -199,8 +199,6 @@ protected delegate void Tests.M+ProtectedInternalDelegate();
 abstract class Tests.MM : Tests.M
 {
     virtual void M1();
-    event System.EventHandler E1;
-    event System.EventHandler<System.Net.NetworkInformation.NetworkAvailabilityEventArgs> E2;
 }
 virtual class Tests.NonSealed
 {
