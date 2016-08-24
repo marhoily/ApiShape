@@ -226,7 +226,7 @@ namespace ApiShape
         }
         private static void WriteShape(this EventInfo e, IndentedTextWriter w)
         {
-            w.WriteLine($"event {e.EventHandlerType.CSharpName()} {e.Name};");
+            w.WriteLine($"event {e.EventHandlerType.FullName()} {e.Name};");
         }
 
         private static void WriteParameters(IndentedTextWriter w, ParameterInfo[] parameterInfos)
