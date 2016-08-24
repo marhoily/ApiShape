@@ -178,9 +178,9 @@ abstract class Tests.M
     virtual void M7();
     void M8();
     protected abstract void M9();
-    event EventHandler E1;
-    event EventHandler<NetworkAvailabilityEventArgs> E2;
-    event Action E3;
+    event System.EventHandler E1;
+    event System.EventHandler<System.Net.NetworkInformation.NetworkAvailabilityEventArgs> E2;
+    event System.Action E3;
 }
 class Tests.M+NestedPublic
 {
@@ -196,9 +196,9 @@ abstract class Tests.MM : Tests.M
     int P11 { get; }
     int P12 { get; }
     virtual void M1();
-    event EventHandler E1;
-    event EventHandler<NetworkAvailabilityEventArgs> E2;
-    event Action E3;
+    event System.EventHandler E1;
+    event System.EventHandler<System.Net.NetworkInformation.NetworkAvailabilityEventArgs> E2;
+    event System.Action E3;
 }
 virtual class Tests.NonSealed
 {
