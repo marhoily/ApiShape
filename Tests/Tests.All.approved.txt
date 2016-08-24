@@ -116,12 +116,6 @@ abstract class M
     const string X3;
     const double X4;
     const double X5;
-    string Item { get; set; }
-    string Item { get; set; }
-    string Item { get; set; }
-    string Item { set; }
-    string Item { set; }
-    string Item { get; }
     int P1 { get; }
     int P11 { get; }
     int P12 { get; }
@@ -223,11 +217,6 @@ struct StructContainer : IIndirectDerive
     readonly int F2;
     static int F4;
     const int X1;
-    string Item { get; set; }
-    string Item { set; }
-    string Item { get; }
-    string Item { set; }
-    string Item { get; }
     int P1 { get; }
     int P13 { get; }
     int P2 { get; set; }
