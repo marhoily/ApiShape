@@ -77,7 +77,8 @@ interface IM
     void M3(int a1, int a2);
     int M4();
     int M5<T>();
-    int M6<T : IUsual>();
+    int M6<T>()
+        where T : IUsual;
 }
 virtual class Impl : IUsual
 {
@@ -133,20 +134,23 @@ abstract class M
     void M18();
     virtual abstract int M19<T>();
     virtual abstract void M2(int a1);
-    virtual abstract int M20<T : ValueType>();
+    virtual abstract int M20<T>()
+        where T : ValueType;
     virtual abstract int M21<T>();
     virtual abstract int M22<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>();
     virtual abstract int M23<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>(TLongLongLongLongLongArg1 a1, TLongLongLongLongLongArg2 a2, TLongLongLongLongLongArg3 a3);
     virtual abstract int M24(Dictionary<string, List<Uri>> anotherLongName, string longLongLongName, string notLongEnough);
     virtual abstract int M25(string arg = );
     virtual abstract int M26(string[] arg);
-    virtual abstract int M27<TLongLongLongLongLongArg1 : ICloneable, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>();
+    virtual abstract int M27<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>()
+        where TLongLongLongLongLongArg1 : ICloneable;
     virtual abstract void M28(int longLongLongLongLongLongLongLongArg1, out int longLongLongLongLongLongLongLongArg2);
     virtual abstract int M29(int a1, int a2, string longLongLongLongLongLongLongLongArg1 = );
     virtual abstract void M3(int a1, int a2);
     virtual abstract int M4();
     virtual abstract int M5<T>();
-    virtual abstract int M6<T : IUsual>();
+    virtual abstract int M6<T>()
+        where T : IUsual;
     virtual void M7();
     void M8();
     event EventHandler E1;
@@ -201,7 +205,8 @@ struct StructContainer : IIndirectDerive
     void M3(int a1, int a2);
     int M4();
     int M5<T>();
-    int M6<T : IUsual>();
+    int M6<T>()
+        where T : IUsual;
     virtual string ToString();
 }
 struct StructImpl : IUsual

@@ -69,13 +69,10 @@ namespace ApiShape
             w.Write(c.GenericArgName());
 
             var derives = c.Derives().ToList();
-            if (derives.Count <= 0) w.WriteLine();
-            else w.WriteLine($" : {derives.Join()}");
-            var constraints = c.GetGenericArguments().Constraints();
-            w.Indent++;
-            foreach (var constraint in constraints)
-                w.WriteLine(constraint);
-            w.Indent--;
+            //if (derives.Count <= 0) w.WriteLine();
+            if (derives.Count > 0) w.Write($" : {derives.Join()}");
+            WriteConstraints(w, c.GetGenericArguments());
+            w.WriteLine();
             w.WriteLine("{");
             w.Indent++;
             foreach (var fieldInfo in c.GetFields().OrderBy(t => t.Name)) fieldInfo.WriteShape(w);
@@ -91,6 +88,18 @@ namespace ApiShape
                 eventInfo.WriteShape(w);
             w.Indent--;
             w.WriteLine("}");
+        }
+
+        private static void WriteConstraints(IndentedTextWriter w, Type[] getGenericArguments)
+        {
+            var constraints = getGenericArguments.Constraints();
+            w.Indent++;
+            foreach (var constraint in constraints)
+            {
+                w.WriteLine();
+                w.Write(constraint);
+            }
+            w.Indent--;
         }
 
         private static void WriteEnumShape(this Type e, IndentedTextWriter w)
@@ -156,9 +165,11 @@ namespace ApiShape
             w.Write(m.Name);
             if (m.IsGenericMethod)
             {
-                WriteGenericParameters(w, m.GetGenericArguments());
+                w.Write("<" + m.GetGenericArguments().Join(a => a.CSharpName()) + ">");
             }
             WriteParameters(w, m.GetParameters());
+        //    w.WriteLine();
+            WriteConstraints(w, m.GetGenericArguments());
             w.WriteLine(";");
         }
 
@@ -186,25 +197,6 @@ namespace ApiShape
             if (parameterInfo.HasDefaultValue)
                 sb.Append($" = {parameterInfo.RawDefaultValue}");
             return sb.ToString();
-        }
-
-        private static void WriteGenericParameters(IndentedTextWriter w, Type[] args)
-        {
-            var w1 = new StringBuilder();
-            w1.Append("<");
-            foreach (var genericArgument in args.OrderBy(t => t.Name).ToArray())
-            {
-                w1.Append(genericArgument.Name);
-                var constraints = genericArgument.GetGenericParameterConstraints();
-                if (constraints.Length > 0)
-                {
-                    w1.Append($" : {constraints.Join(c => c.CSharpName())}");
-                }
-                w1.Append(", ");
-            }
-            w1.Remove(w1.Length - 2, 2);
-            w1.Append(">");
-            w.Write(w1.ToString());
         }
 
         private static string GenericArgName(this Type c)
