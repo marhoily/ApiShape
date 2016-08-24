@@ -22,13 +22,13 @@ namespace ApiShape
             var w = new IndentedTextWriter(new StringWriter(sb));
             w.WriteLine($"Full name: {asm.FullName}");
             w.WriteLine($"Image runtime version: {asm.ImageRuntimeVersion}");
-            foreach (var exportedType in asm.GetExportedTypes().OrderBy(t => t.FullName))
+            foreach (var exportedType in asm.GetTypes()
+                .Where(t => t.IsPublic || t.IsNestedPublic || t.IsNestedFamily)
+                .OrderBy(t => t.FullName))
             {
                 if (exportedType.BaseType == typeof(MulticastDelegate))
                     exportedType.WriteDelegateShape(w);
-                else if (exportedType.IsClass) exportedType.WriteClassShape(w);
                 else if (exportedType.IsEnum) exportedType.WriteEnumShape(w);
-                else if (exportedType.IsInterface) exportedType.WriteClassShape(w);
                 else exportedType.WriteClassShape(w);
             }
             return sb.ToString();
@@ -281,7 +281,7 @@ namespace ApiShape
         private static string Full(Type t, string s)
         {
             if (t.IsNested && !t.IsGenericParameter)
-                return t.DeclaringType.FullName() + s;
+                return t.DeclaringType.FullName() +"+"+ s;
             return t.IsGenericParameter ? s : t.Namespace + "." + s;
         }
 
