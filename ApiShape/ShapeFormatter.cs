@@ -113,6 +113,7 @@ namespace ApiShape
             w.Write(m.ReturnType.CSharpName() +
                         $" delegate {e.GenericArgName()}");
             WriteParameters(w, m.GetParameters());
+            w.WriteLine(";");
         }
 
         private static void WriteShape(this FieldInfo f, IndentedTextWriter w)
@@ -139,6 +140,7 @@ namespace ApiShape
             w.Write("constructor");
 
             WriteParameters(w, m.GetParameters());
+            w.WriteLine(";");
         }
 
         private static void WriteShape(this MethodInfo m, IndentedTextWriter w)
@@ -157,6 +159,7 @@ namespace ApiShape
                 WriteGenericParameters(w, m.GetGenericArguments());
             }
             WriteParameters(w, m.GetParameters());
+            w.WriteLine(";");
         }
 
         private static void WriteShape(this EventInfo e, IndentedTextWriter w)
@@ -169,7 +172,7 @@ namespace ApiShape
             var args = parameterInfos
                 .OrderBy(t => t.Name)
                 .Join(Parameter);
-            w.WriteLine($"({args});");
+            w.Write($"({args})");
         }
 
         private static string Parameter(ParameterInfo parameterInfo)
