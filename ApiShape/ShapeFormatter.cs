@@ -53,12 +53,13 @@ namespace ApiShape
                 .Where(p => p.DeclaringType == t)
                 .OrderBy(x => x.Name);
         }
-        public static IEnumerable<FieldInfo> VisibleFields(this Type c)
+        public static IEnumerable<FieldInfo> VisibleFields(this Type t)
         {
-            return c
+            return t
                 .GetFields(Instance | Static | Public | NonPublic)
                 .Where(f => f.IsPublic || f.IsFamily)
-                .OrderBy(t => t.Name);
+                .Where(f => f.DeclaringType == t)
+                .OrderBy(f => f.Name);
         }
         public static IEnumerable<EventInfo> VisibleEvents(this Type t)
         {
