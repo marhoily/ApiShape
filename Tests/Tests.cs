@@ -154,7 +154,7 @@ namespace Tests
         protected abstract void M9();
         protected abstract void M10(int a1);
         protected abstract void M11(Uri a1, int a2);
-        protected abstract int M12();
+        protected abstract Uri M12();
         protected abstract int M13<T>();
         protected abstract int M14<T>() where T : IUsual;
         protected virtual void M15() { }
@@ -212,7 +212,7 @@ namespace Tests
     {
     }
     public delegate void OutAndRefAndParams(out int a1, ref string a2, params object[] a3);
-    public delegate int ReturnValueAndArg(int a1, int opt = 0);
+    public delegate Uri ReturnValueAndArg(int a1, int opt = 0);
     public delegate void SampleDelegate();
     public sealed class Sealed
     {

@@ -217,7 +217,7 @@ namespace ApiShape
         {
             var m = e.GetMethod(nameof(Action.Invoke));
             w.Write("delegate ");
-            w.Write(m.ReturnType.CSharpName());
+            w.Write(m.ReturnType.FullName());
             w.Write(" ");
             w.Write(e.TypeDeclarationName());
             WriteParameters(w, m.GetParameters());

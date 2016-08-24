@@ -146,7 +146,7 @@ abstract class Tests.M
     abstract void M1();
     protected abstract void M10(int a1);
     protected abstract void M11(System.Uri a1, int a2);
-    protected abstract int M12();
+    protected abstract Uri M12();
     protected abstract int M13<T>();
     protected abstract int M14<T>()
         where T : IUsual;
@@ -205,7 +205,7 @@ virtual class Tests.NonSealed
     constructor();
 }
 delegate void Tests.OutAndRefAndParams(out int a1, ref string a2, params object[] a3);
-delegate int Tests.ReturnValueAndArg(int a1, int opt = 0);
+delegate System.Uri Tests.ReturnValueAndArg(int a1, int opt = 0);
 delegate void Tests.SampleDelegate();
 class Tests.Sealed
 {
