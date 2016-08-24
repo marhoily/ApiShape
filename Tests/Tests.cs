@@ -73,7 +73,6 @@ namespace Tests
         int P1 { get; }
         int P2 { get; set; }
         int P3 { set; }
-
         void M1();
         void M2(int a1);
         void M3(int a1, int a2);
@@ -81,13 +80,10 @@ namespace Tests
         int M5<T>();
         int M6<T>() where T : IUsual;
     }
-    internal interface IInvisible { }
-    public interface IUsual
+    public class Impl : IUsual
     {
     }
-    public sealed class ImplAndDeriveLong :
-        Generic<List<List<List<List<List<List<List<List<int>>>>>>>>>,
-        IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
+    public sealed class ImplAndDeriveLong : Generic<List<List<List<List<List<List<List<List<int>>>>>>>>>, IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
     {
     }
     public struct ImplGeneric : IGeneric<int>
@@ -99,14 +95,14 @@ namespace Tests
     public interface IMultiDerived : IGeneric<int>, IDerived
     {
     }
+    public sealed class IndirectImpl : Impl
+    {
+    }
     public struct InheritConstraint<T> : IGenericWithConstraint<T>
         where T : IUsual
     {
     }
-    public class Impl : IUsual
-    {
-    }
-    public sealed class IndirectImpl : Impl
+    public interface IUsual
     {
     }
     public abstract class M
@@ -177,16 +173,23 @@ namespace Tests
         public event Action E3;
         protected event Action E4;
     }
+    public abstract class MM
+    {
+        private MM() { }
+        private int F1;
+        private const int X1 = 0;
+        private string this[int index] => "";
+        private void M27(params string[] arg) { }
+        private event Action E5;
+    }
     public class NonSealed
     {
     }
+    public delegate void SampleDelegate();
     public sealed class Sealed
     {
     }
     public static class Static
-    {
-    }
-    internal struct Invisible
     {
     }
     public struct Struct
@@ -245,20 +248,12 @@ namespace Tests
         V1,
         V2
     }
-    public abstract class MM
-    {
-        private MM() { }
-        private int F1;
-        private const int X1 = 0;
-        private string this[int index] => "";
-        private void M27(params string[] arg) { }
-        private event Action E5;
-    }
-    public delegate void SampleDelegate();
     [UseReporter(typeof(VisualStudioReporter))]
     public sealed class Tests
     {
         [Fact]
         public void All() => Approvals.Verify(typeof(Tests).Assembly.GetShape());
     }
+    internal interface IInvisible { }
+    internal struct Invisible { }
 }
