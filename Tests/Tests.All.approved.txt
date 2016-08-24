@@ -136,7 +136,7 @@ abstract class Tests.M
     int P13 { get; }
     int P2 { get; set; }
     int P3 { get; protected set; }
-    int P4 { get; }
+    System.Uri P4 { get; }
     int P5 { set; }
     int P6 { protected get; set; }
     protected int P7 { get; }

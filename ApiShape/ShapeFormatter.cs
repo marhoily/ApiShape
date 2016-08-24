@@ -161,7 +161,7 @@ namespace ApiShape
             var protectedSet = p.SetMethod?.IsFamily != false;
             var protectedProp = protectedGet && protectedSet;
             if (protectedProp) w.Write("protected ");
-            w.Write(p.PropertyType.CSharpName());
+            w.Write(p.PropertyType.FullName());
             w.Write(" ");
             var ps = p.GetIndexParameters();
             w.Write(ps.Length == 0 ? p.Name

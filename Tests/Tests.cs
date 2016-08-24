@@ -124,7 +124,7 @@ namespace Tests
         public int P1 { get; }
         public int P2 { get; set; }
         public int P3 { get; protected set; }
-        public int P4 { get; private set; }
+        public Uri P4 { get; private set; }
         public int P5 { private get; set; }
         public int P6 { protected get; set; }
         protected int P7 { get; }
