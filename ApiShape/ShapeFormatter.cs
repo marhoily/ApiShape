@@ -188,8 +188,8 @@ namespace ApiShape
         private static string Parameter(ParameterInfo parameterInfo)
         {
             var sb = new StringBuilder();
-            if (parameterInfo.IsOut)
-                sb.Append(parameterInfo.IsIn ? "ref " : "out ");
+            if (parameterInfo.IsOut) sb.Append("out ");
+            else if (parameterInfo.ParameterType.IsByRef) sb.Append("ref ");
             if (parameterInfo.IsDefined(typeof(ParamArrayAttribute)))
                 sb.Append("params ");
             

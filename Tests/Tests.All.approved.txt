@@ -145,7 +145,7 @@ abstract class M
     virtual abstract int M26(params string[] arg);
     virtual abstract int M27<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>()
         where TLongLongLongLongLongArg1 : ICloneable;
-    virtual abstract void M28(int longLongLongLongLongLongLongLongArg1, out int longLongLongLongLongLongLongLongArg2);
+    virtual abstract void M28(ref int longLongLongLongLongLongLongLongArg1, out int longLongLongLongLongLongLongLongArg2);
     virtual abstract int M28<T>()
         where T : class, IGeneric<int>, new();
     virtual abstract int M29(int a1, int a2, string longLongLongLongLongLongLongLongArg1 = default(string));
@@ -167,7 +167,7 @@ virtual class NonSealed
 {
     constructor();
 }
-delegate void OutAndRefAndParams(out int a1, string a2, params object[] a3);
+delegate void OutAndRefAndParams(out int a1, ref string a2, params object[] a3);
 delegate int ReturnValueAndArg(int a1, int opt = 0);
 delegate void SampleDelegate();
 class Sealed
