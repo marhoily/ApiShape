@@ -12,6 +12,55 @@ using static System.Reflection.GenericParameterAttributes;
 
 namespace ApiShape
 {
+    internal static class Reflection
+    {
+        public static IEnumerable<Type> MinimalSetOfInterfaces(this Type c)
+        {
+            var ancestorsInterfaces = c.Ancestors().SelectMany(t => t.GetInterfaces());
+            var interfacesInterfaces = c.GetInterfaces().SelectMany(i => i.GetInterfaces());
+            return c.GetInterfaces().Except(ancestorsInterfaces.Concat(interfacesInterfaces));
+        }
+    }
+
+    internal static class Discovery
+    {
+        public static IEnumerable<Type> Derives(this Type c)
+        {
+            if (c.BaseType != null)
+                if (c.BaseType != typeof(object))
+                    if (!c.IsValueType)
+                        yield return c.BaseType;
+
+            foreach (var ifc in c.MinimalSetOfInterfaces()
+                .Where(ifc => ifc.IsPublic)
+                .OrderBy(t => t.FullName)) yield return ifc;
+        }
+
+        public static IEnumerable<MethodInfo> VisibleMethods(this Type t)
+        {
+            return t
+                .GetMethods(Instance | Static | Public | NonPublic)
+                .Where(m => m.IsPublic || m.IsFamily)
+                .Where(m => !m.IsSpecialName)
+                .Where(m => m.DeclaringType == t)
+                .OrderBy(m => m.Name);
+        }
+        public static IEnumerable<PropertyInfo> VisibleProperties(this Type t)
+        {
+            return t
+                .GetProperties(Instance | Static | Public | NonPublic)
+                .Where(GetterOrSetterIsVisible)
+                .Where(p => p.DeclaringType == t)
+                .OrderBy(x => x.Name);
+        }
+        private static bool GetterOrSetterIsVisible(PropertyInfo p)
+        {
+            return p.GetMethod?.IsPublic == true
+                   || p.GetMethod?.IsFamily == true
+                   || p.SetMethod?.IsPublic == true
+                   || p.SetMethod?.IsFamily == true;
+        }
+    }
     /// <summary> Extension methods container </summary>
     public static class ShapeFormatter
     {
@@ -43,25 +92,6 @@ namespace ApiShape
                    select $"where {a.Name} : {a.GenericConstraints().Join()}";
         }
 
-        private static IEnumerable<string> Derives(this Type c)
-        {
-            if (c.BaseType != null && c.BaseType != typeof(object) && !c.IsValueType)
-                yield return c.BaseType.FullName();
-            var minimalInterfaces = c.GetInterfaces()
-                .Except(c.GetAllInterfaces())
-                .Where(ifc => ifc.IsPublic)
-                .OrderBy(t => t.FullName);
-            foreach (var ifc in minimalInterfaces)
-                yield return ifc.FullName();
-        }
-
-        private static IEnumerable<Type> GetAllInterfaces(this Type c)
-        {
-            return c
-                .AncestorsAndSelf().Skip(1).SelectMany(t => t.GetInterfaces())
-                .Concat(c.GetInterfaces().SelectMany(i => i.GetInterfaces()));
-        }
-      
         private static void WriteClassShape(this Type c, IndentedTextWriter w)
         {
             if (c.IsNestedFamily || c.IsNestedFamORAssem)
@@ -78,7 +108,7 @@ namespace ApiShape
 
             w.Write(c.TypeDeclarationName());
 
-            var derives = c.Derives().ToList();
+            var derives = c.Derives().Select(d => d.FullName()).ToList();
             if (derives.Count > 0) w.Write($" : {derives.Join()}");
             WriteConstraints(w, c.GetGenericArguments());
             w.WriteLine();
@@ -92,35 +122,14 @@ namespace ApiShape
                 propertyInfo.WriteShape(w);
             foreach (var constructorInfo in c.GetConstructors())
                 constructorInfo.WriteShape(w);
-            foreach (var methodInfo in c
-                .GetMethods(Instance | Static | Public | NonPublic)
-                .Where(f => f.IsPublic || f.IsFamily)
-                .OrderBy(t => t.Name))
-                if (!methodInfo.IsSpecialName)
-                    if (methodInfo.DeclaringType == c)
-                        methodInfo.WriteShape(w);
+            foreach (var methodInfo in c.VisibleMethods())
+                methodInfo.WriteShape(w);
             foreach (var eventInfo in c.GetEvents().OrderBy(t => t.Name))
                 eventInfo.WriteShape(w);
             w.Indent--;
             w.WriteLine("}");
         }
 
-        private static IEnumerable<PropertyInfo> VisibleProperties(this Type t)
-        {
-            return t
-                .GetProperties(Instance | Static | Public | NonPublic)
-                .Where(GetterOrSetterIsVisible)
-                .Where(p => p.DeclaringType == t)
-                .OrderBy(x => x.Name);
-        }
-
-        private static bool GetterOrSetterIsVisible(PropertyInfo p)
-        {
-            return p.GetMethod?.IsPublic == true
-                   || p.GetMethod?.IsFamily == true
-                   || p.SetMethod?.IsPublic == true
-                   || p.SetMethod?.IsFamily == true;
-        }
 
         private static void WriteConstraints(IndentedTextWriter w, Type[] getGenericArguments)
         {
@@ -288,7 +297,7 @@ namespace ApiShape
         private static string Full(Type t, string s)
         {
             if (t.IsNested && !t.IsGenericParameter)
-                return t.DeclaringType.FullName() +"+"+ s;
+                return t.DeclaringType.FullName() + "+" + s;
             return t.IsGenericParameter ? s : t.Namespace + "." + s;
         }
 

@@ -17,6 +17,8 @@ namespace ApiShape
                 t = t.BaseType;
             }
         }
+
+        public static IEnumerable<Type> Ancestors(this Type t) => t.AncestorsAndSelf().Skip(1);
         /// <summary>Concatenates the members of a collection, using the specified separator between each member </summary>
         public static string Join<T>(this IEnumerable<T> source,
             string separator = ", ") => string.Join(separator, source);
