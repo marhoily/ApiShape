@@ -53,6 +53,20 @@ namespace ApiShape
                 .Where(p => p.DeclaringType == t)
                 .OrderBy(x => x.Name);
         }
+        public static IEnumerable<FieldInfo> VisibleFields(this Type c)
+        {
+            return c
+                .GetFields(Instance | Static | Public | NonPublic)
+                .Where(f => f.IsPublic || f.IsFamily)
+                .OrderBy(t => t.Name);
+        }
+        public static IEnumerable<EventInfo> VisibleEvents(this Type c)
+        {
+            return c
+                .GetEvents(Instance | Static | Public | NonPublic)
+                .Where(f => f.AddMethod.IsPublic || f.AddMethod.IsFamily)
+                .OrderBy(t => t.Name);
+        }
         private static bool GetterOrSetterIsVisible(PropertyInfo p)
         {
             return p.GetMethod?.IsPublic == true
@@ -114,17 +128,15 @@ namespace ApiShape
             w.WriteLine();
             w.WriteLine("{");
             w.Indent++;
-            foreach (var fieldInfo in c
-                .GetFields(Instance | Static | Public | NonPublic)
-                .Where(f => f.IsPublic || f.IsFamily)
-                .OrderBy(t => t.Name)) fieldInfo.WriteShape(w);
+            foreach (var fieldInfo in c.VisibleFields())
+                fieldInfo.WriteShape(w);
             foreach (var propertyInfo in c.VisibleProperties())
                 propertyInfo.WriteShape(w);
             foreach (var constructorInfo in c.GetConstructors())
                 constructorInfo.WriteShape(w);
             foreach (var methodInfo in c.VisibleMethods())
                 methodInfo.WriteShape(w);
-            foreach (var eventInfo in c.GetEvents().OrderBy(t => t.Name))
+            foreach (var eventInfo in c.VisibleEvents())
                 eventInfo.WriteShape(w);
             w.Indent--;
             w.WriteLine("}");
