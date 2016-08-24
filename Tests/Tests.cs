@@ -211,6 +211,7 @@ namespace Tests
         public sealed override int P12 { get; }
         public override string this[double index] { get { return ""; } set {  } }
         public override void M1() { }
+        public sealed override void M2(int a1){}
         public override event EventHandler E1;
         public sealed override event EventHandler<NetworkAvailabilityEventArgs> E2
         {

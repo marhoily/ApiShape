@@ -52,6 +52,7 @@ namespace ApiShape
                 .Where(m => m.IsPublic || m.IsFamily)
                 .Where(m => !m.IsSpecialName)
                 .Where(m => m.DeclaringType == t)
+                .Where(p => !p.IsOverride())
                 .OrderBy(m => m.Name);
         }
         public static IEnumerable<PropertyInfo> VisibleProperties(this Type t)
@@ -61,7 +62,7 @@ namespace ApiShape
                 .Where(GetterOrSetterIsVisible)
                 .Where(p => !p.IsOverride())
                 .Where(p => p.DeclaringType == t)
-                .OrderBy(x => x.Name);
+                .OrderBy(p => p.Name);
         }
         public static IEnumerable<FieldInfo> VisibleFields(this Type t)
         {

@@ -198,7 +198,6 @@ class Tests.M+NestedPublic
 protected delegate void Tests.M+ProtectedInternalDelegate();
 abstract class Tests.MM : Tests.M
 {
-    virtual void M1();
 }
 virtual class Tests.NonSealed
 {
@@ -253,7 +252,6 @@ struct Tests.StructContainer : Tests.IIndirectDerive
     int M5<T>();
     int M6<T>()
         where T : Tests.IUsual;
-    virtual string ToString();
 }
 struct Tests.StructImpl : Tests.IUsual
 {
