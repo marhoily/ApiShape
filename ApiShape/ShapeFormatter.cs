@@ -33,10 +33,11 @@ namespace ApiShape
 
         private static IEnumerable<string> Constraints(this Type[] genericArguments)
         {
+
             return from a in genericArguments
-                let cs = a.GetGenericParameterConstraints()
-                where cs.Length > 0
-                select $"where {a.Name} : {cs.Join(c => c.GenericConstraint())}";
+                   let cs = a.GetGenericParameterConstraints()
+                   where cs.Length > 0
+                   select $"where {a.Name} : {a.GenericConstraints().Join()}";
         }
 
         private static IEnumerable<string> Derives(this Type c)
@@ -69,7 +70,6 @@ namespace ApiShape
             w.Write(c.GenericArgName());
 
             var derives = c.Derives().ToList();
-            //if (derives.Count <= 0) w.WriteLine();
             if (derives.Count > 0) w.Write($" : {derives.Join()}");
             WriteConstraints(w, c.GetGenericArguments());
             w.WriteLine();
@@ -110,7 +110,7 @@ namespace ApiShape
             w.Indent++;
             foreach (var fieldInfo in e.GetFields().OrderBy(t => t.Name))
                 if (!fieldInfo.IsSpecialName)
-                    w.WriteLine($"{fieldInfo.Name} = {(int) fieldInfo.GetValue(null)}");
+                    w.WriteLine($"{fieldInfo.Name} = {(int)fieldInfo.GetValue(null)}");
             w.Indent--;
             w.WriteLine("}");
         }
@@ -167,7 +167,6 @@ namespace ApiShape
                 w.Write("<" + m.GetGenericArguments().Join(a => a.CSharpName()) + ">");
             }
             WriteParameters(w, m.GetParameters());
-        //    w.WriteLine();
             WriteConstraints(w, m.GetGenericArguments());
             w.WriteLine(";");
         }
@@ -198,6 +197,20 @@ namespace ApiShape
             return sb.ToString();
         }
 
+        private static IEnumerable<string> GenericConstraints(this Type a)
+        {
+            if (a.GenericParameterAttributes.HasFlag(ReferenceTypeConstraint))
+                yield return "class";
+            if (a.GenericParameterAttributes.HasFlag(NotNullableValueTypeConstraint))
+                yield return "struct";
+            else
+            {
+                foreach (var c in a.GetGenericParameterConstraints())
+                    yield return c.GenericConstraint();
+                if (a.GenericParameterAttributes.HasFlag(DefaultConstructorConstraint))
+                    yield return "new()";
+            }
+        }
         private static string GenericConstraint(this Type c)
         {
             if (c == typeof(ValueType)) return "struct";

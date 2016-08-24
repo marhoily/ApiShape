@@ -163,6 +163,8 @@ namespace Tests
         public abstract int M19<T>() where T : class;
         public abstract int M20<T>() where T : struct;
         public abstract int M21<T>() where T : new();
+        public abstract int M28<T>() 
+            where T : class, IGeneric<int>, new();
         public abstract int M22<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>();
         public abstract int M23<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>(TLongLongLongLongLongArg1 a1, TLongLongLongLongLongArg2 a2, TLongLongLongLongLongArg3 a3);
         public abstract int M24(string longLongLongName, Dictionary<string, List<Uri>> anotherLongName, string notLongEnough);
