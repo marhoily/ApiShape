@@ -237,19 +237,20 @@ namespace ApiShape
             w.Write($"({args})");
         }
 
-        private static string Parameter(ParameterInfo parameterInfo)
+        private static string Parameter(ParameterInfo p)
         {
             var sb = new StringBuilder();
-            if (parameterInfo.IsOut) sb.Append("out ");
-            else if (parameterInfo.ParameterType.IsByRef) sb.Append("ref ");
-            if (parameterInfo.IsDefined(typeof(ParamArrayAttribute)))
+            if (p.IsOut) sb.Append("out ");
+            else if (p.ParameterType.IsByRef) sb.Append("ref ");
+            if (p.IsDefined(typeof(ParamArrayAttribute)))
                 sb.Append("params ");
 
-            sb.Append(parameterInfo.ParameterType.CSharpName());
+            var typeName = p.ParameterType.FullName();
+            sb.Append(typeName);
             sb.Append(" ");
-            sb.Append(parameterInfo.Name);
-            if (parameterInfo.HasDefaultValue)
-                sb.Append($" = {parameterInfo.DefaultValue ?? $"default({parameterInfo.ParameterType.CSharpName()})"}");
+            sb.Append(p.Name);
+            if (p.HasDefaultValue)
+                sb.Append($" = {p.DefaultValue ?? $"default({typeName})"}");
             return sb.ToString();
         }
 

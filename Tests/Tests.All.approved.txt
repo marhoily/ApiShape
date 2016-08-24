@@ -145,7 +145,7 @@ abstract class Tests.M
     constructor(int a1);
     abstract void M1();
     protected abstract void M10(int a1);
-    protected abstract void M11(int a1, int a2);
+    protected abstract void M11(System.Uri a1, int a2);
     protected abstract int M12();
     protected abstract int M13<T>();
     protected abstract int M14<T>()
@@ -161,7 +161,7 @@ abstract class Tests.M
     abstract int M21<T>();
     abstract int M22<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>();
     abstract int M23<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>(TLongLongLongLongLongArg1 a1, TLongLongLongLongLongArg2 a2, TLongLongLongLongLongArg3 a3);
-    abstract int M24(Dictionary<string, List<Uri>> anotherLongName, string longLongLongName, string notLongEnough);
+    abstract int M24(System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<System.Uri>> anotherLongName, string longLongLongName, string notLongEnough);
     abstract int M25(string arg = default(string));
     abstract int M26(params string[] arg);
     abstract int M27<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>()

@@ -153,7 +153,7 @@ namespace Tests
         public void M8() { }
         protected abstract void M9();
         protected abstract void M10(int a1);
-        protected abstract void M11(int a1, int a2);
+        protected abstract void M11(Uri a1, int a2);
         protected abstract int M12();
         protected abstract int M13<T>();
         protected abstract int M14<T>() where T : IUsual;
