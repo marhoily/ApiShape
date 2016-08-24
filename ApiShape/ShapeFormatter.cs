@@ -255,6 +255,7 @@ namespace ApiShape
         }
         private static void WriteShape(this EventInfo e, IndentedTextWriter w)
         {
+            if (e.AddMethod.IsFamily) w.Write("protected ");
             w.WriteLine($"event {e.EventHandlerType.FullName()} {e.Name};");
         }
 

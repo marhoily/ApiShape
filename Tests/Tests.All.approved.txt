@@ -181,7 +181,7 @@ abstract class Tests.M
     event System.EventHandler E1;
     event System.EventHandler<System.Net.NetworkInformation.NetworkAvailabilityEventArgs> E2;
     event System.Action E3;
-    event System.Action E4;
+    protected event System.Action E4;
 }
 protected virtual class Tests.M+NestedProtected
 {
@@ -209,7 +209,7 @@ abstract class Tests.MM : Tests.M
     event System.EventHandler E1;
     event System.EventHandler<System.Net.NetworkInformation.NetworkAvailabilityEventArgs> E2;
     event System.Action E3;
-    event System.Action E4;
+    protected event System.Action E4;
 }
 virtual class Tests.NonSealed
 {
