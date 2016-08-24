@@ -9,8 +9,9 @@ using static System.Reflection.BindingFlags;
 
 namespace Tests
 {
-    public delegate void SampleDelegate();
-    public abstract class Abstract : IInvisible { }
+    public abstract class Abstract : IInvisible
+    {
+    }
     [Flags]
     public enum BigFlags
     {
@@ -19,25 +20,53 @@ namespace Tests
         V2 = 0x100,
         V3 = 0x1000
     }
-    public enum Byte : byte { }
-    public enum Default { }
-    public sealed class DeriveAndImpl : Impl, IUsual { }
-    public sealed class Derived : Abstract { }
-    public sealed class DeriveLong : Generic<List<List<List<List<List<List<List<List<int>>>>>>>>> { }
+    public enum Byte : byte
+    {
+    }
+    public enum Default
+    {
+    }
+    public sealed class DeriveAndImpl : Impl, IUsual
+    {
+    }
+    public sealed class Derived : Abstract
+    {
+    }
+    public sealed class DeriveLong : Generic<List<List<List<List<List<List<List<List<int>>>>>>>>>
+    {
+    }
     [Flags]
-    public enum Flags { }
-    public class Generic<T> { }
-    public struct GenericImplGeneric<T> : IGeneric<T> { }
-    public sealed class GenericWithConstraint<T> where T : IUsual { }
-    public class NonSealed { }
-    public sealed class Sealed { }
-    public interface IContravariant<in T> { }
-    public interface ICovariant<out T> { }
-    public interface IDerived : IUsual { }
-    public interface IGeneric<T> { }
-    public interface IGenericWithConstraint<T> where T : IUsual { }
-    public interface IIndirectDerive : IDerived { void F(); }
-
+    public enum Flags
+    {
+    }
+    public class Generic<T>
+    {
+    }
+    public struct GenericImplGeneric<T> : IGeneric<T>
+    {
+    }
+    public sealed class GenericWithConstraint<T> where T : IUsual
+    {
+    }
+    public interface IContravariant<in T>
+    {
+    }
+    public interface ICovariant<out T>
+    {
+    }
+    public interface IDerived : IUsual
+    {
+    }
+    public interface IGeneric<T>
+    {
+    }
+    public interface IGenericWithConstraint<T> where T : IUsual
+    {
+    }
+    public interface IIndirectDerive : IDerived
+    {
+        void F();
+    }
     public interface IM
     {
         int P1 { get; }
@@ -52,25 +81,51 @@ namespace Tests
         int M6<T>() where T : IUsual;
     }
     internal interface IInvisible { }
-    public interface IUsual { }
+    public interface IUsual
+    {
+    }
     public sealed class ImplAndDeriveLong :
         Generic<List<List<List<List<List<List<List<List<int>>>>>>>>>,
         IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
-    { }
-    public struct ImplGeneric : IGeneric<int> { }
-    public sealed class ImplLong : IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>> { }
-    public interface IMultiDerived : IGeneric<int>, IDerived { }
-    public struct InheritConstraint<T> : IGenericWithConstraint<T> 
-        where T : IUsual { }
-    public class Impl : IUsual { }
-    public sealed class IndirectImpl : Impl { }
-    public static class Static { }
-
-
-
-    internal struct Invisible { }
-    public struct Struct { }
-    public struct StructImpl : IUsual { }
+    {
+    }
+    public struct ImplGeneric : IGeneric<int>
+    {
+    }
+    public sealed class ImplLong : IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
+    {
+    }
+    public interface IMultiDerived : IGeneric<int>, IDerived
+    {
+    }
+    public struct InheritConstraint<T> : IGenericWithConstraint<T>
+        where T : IUsual
+    {
+    }
+    public class Impl : IUsual
+    {
+    }
+    public sealed class IndirectImpl : Impl
+    {
+    }
+    public class NonSealed
+    {
+    }
+    public sealed class Sealed
+    {
+    }
+    public static class Static
+    {
+    }
+    internal struct Invisible
+    {
+    }
+    public struct Struct
+    {
+    }
+    public struct StructImpl : IUsual
+    {
+    }
     public struct StructContainer : IIndirectDerive
     {
         public StructContainer(int a1) { F1 = 0; F2 = 0; P1 = 0; P2 = 0; P4 = 0; P5 = 0; }
@@ -108,12 +163,19 @@ namespace Tests
         public override string ToString() => "";
         public void F() { }
     }
-
-    public enum Short : short { }
-    public enum ULong : ulong { }
-    public enum Seq { V0, V1, V2 }
-
-
+    public enum Short : short
+    {
+        
+    }
+    public enum ULong : ulong
+    {
+    }
+    public enum Seq
+    {
+        V0,
+        V1,
+        V2
+    }
     public abstract class MM
     {
         private MM() { }
@@ -122,7 +184,6 @@ namespace Tests
         private string this[int index] => "";
         private void M27(params string[] arg) { }
         private event Action E5;
-
     }
     public abstract class M
     {
@@ -200,6 +261,7 @@ namespace Tests
         protected event Action E4;
     }
 
+    public delegate void SampleDelegate();
     [UseReporter(typeof(VisualStudioReporter))]
     public sealed class Tests
     {
