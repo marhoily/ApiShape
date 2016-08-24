@@ -175,8 +175,8 @@ namespace Tests
         public abstract int M26(params string[] arg);
         public abstract int M27<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>()
             where TLongLongLongLongLongArg1 : ICloneable;
-        public event EventHandler E1;
-        public event EventHandler<NetworkAvailabilityEventArgs> E2 { add { } remove { } }
+        public abstract event EventHandler E1;
+        public virtual event EventHandler<NetworkAvailabilityEventArgs> E2 { add { } remove { } }
         public event Action E3;
         protected event Action E4;
         public sealed class NestedPublic
@@ -208,9 +208,15 @@ namespace Tests
         protected MM(int f1) { F1 = f1; }
         protected MM(int a1, int f1) : base(a1) { F1 = f1; }
         public override int P11 { get; }
-        public override int P12 { get; }
+        public sealed override int P12 { get; }
         public override string this[double index] { get { return ""; } set {  } }
         public override void M1() { }
+        public override event EventHandler E1;
+        public sealed override event EventHandler<NetworkAvailabilityEventArgs> E2
+        {
+            add { base.E2 += value; }
+            remove { base.E2 -= value; }
+        }
     }
     public class NonSealed
     {
