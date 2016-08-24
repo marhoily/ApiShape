@@ -263,7 +263,7 @@ namespace ApiShape
             else
             {
                 foreach (var c in a.GetGenericParameterConstraints())
-                    yield return c.CSharpName();
+                    yield return c.FullName();
                 if (a.GenericParameterAttributes.HasFlag(DefaultConstructorConstraint))
                     yield return "new()";
             }

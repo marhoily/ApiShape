@@ -39,12 +39,12 @@ virtual class Tests.Generic<T>
 }
 delegate T1 Tests.GenericArgsAndReturnValue<out T1, in T2>(T2 a1 = default(T2));
 delegate void Tests.GenericConstraints<T>()
-    where T : Abstract, new();
+    where T : Tests.Abstract, new();
 struct Tests.GenericImplGeneric<T> : IGeneric<T>
 {
 }
 class Tests.GenericWithConstraint<T>
-    where T : IUsual
+    where T : Tests.IUsual
 {
     constructor();
 }
@@ -61,7 +61,7 @@ interface Tests.IGeneric<T>
 {
 }
 interface Tests.IGenericWithConstraint<T>
-    where T : IUsual
+    where T : Tests.IUsual
 {
 }
 interface Tests.IIndirectDerive : Tests.IDerived, Tests.IUsual
@@ -79,7 +79,7 @@ interface Tests.IM
     int M4();
     int M5<T>();
     int M6<T>()
-        where T : IUsual;
+        where T : Tests.IUsual;
 }
 virtual class Tests.Impl : Tests.IUsual
 {
@@ -104,7 +104,7 @@ class Tests.IndirectImpl : Tests.Impl, Tests.IUsual
     constructor();
 }
 struct Tests.InheritConstraint<T> : IGenericWithConstraint<T>
-    where T : IUsual
+    where T : Tests.IUsual
 {
 }
 interface Tests.IUsual
@@ -149,7 +149,7 @@ abstract class Tests.M
     protected abstract System.Uri M12();
     protected abstract int M13<T>();
     protected abstract int M14<T>()
-        where T : IUsual;
+        where T : Tests.IUsual;
     protected virtual void M15();
     protected void M16();
     abstract void M17(ref int a1, out int a2);
@@ -165,16 +165,16 @@ abstract class Tests.M
     abstract int M25(string arg = default(string));
     abstract int M26(params string[] arg);
     abstract int M27<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>()
-        where TLongLongLongLongLongArg1 : ICloneable;
+        where TLongLongLongLongLongArg1 : System.ICloneable;
     abstract void M28(ref int longLongLongLongLongLongLongLongArg1, out int longLongLongLongLongLongLongLongArg2);
     abstract int M28<T>()
-        where T : class, IGeneric<int>, new();
+        where T : class, Tests.IGeneric<int>, new();
     abstract int M29(int a1, int a2, string longLongLongLongLongLongLongLongArg1 = default(string));
     abstract void M3(int a1, int a2);
     abstract int M4();
     abstract int M5<T>();
     abstract int M6<T>()
-        where T : IUsual;
+        where T : Tests.IUsual;
     virtual void M7();
     void M8();
     protected abstract void M9();
@@ -251,7 +251,7 @@ struct Tests.StructContainer : Tests.IDerived, Tests.IIndirectDerive, Tests.IUsu
     int M4();
     int M5<T>();
     int M6<T>()
-        where T : IUsual;
+        where T : Tests.IUsual;
     virtual string ToString();
 }
 struct Tests.StructImpl : Tests.IUsual
