@@ -20,9 +20,7 @@ namespace ApiShape
             var sb = new StringBuilder();
             var w = new IndentedTextWriter(new StringWriter(sb));
             w.WriteLine($"Full name: {asm.FullName}");
-            // asm.CustomAttributes
             w.WriteLine($"Image runtime version: {asm.ImageRuntimeVersion}");
-            // asm.GetManifestResourceNames()
             foreach (var exportedType in asm.GetExportedTypes().OrderBy(t => t.FullName))
             {
                 if (exportedType.BaseType == typeof(MulticastDelegate))
@@ -270,7 +268,8 @@ namespace ApiShape
         }
         private static string FullName(this Type c)
         {
-            return c.FormatTypeName((t, s) => (t.FullName ?? t.Name).Before("`"));
+            return c.FormatTypeName((t, s) =>
+                    t.IsGenericParameter ? s : t.Namespace + "." + s);
         }
         private static string TypeDeclarationName(this Type c)
         {

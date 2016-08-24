@@ -40,7 +40,7 @@ virtual class Tests.Generic<T>
 delegate T1 Tests.GenericArgsAndReturnValue<out T1, in T2>(T2 a1 = default(T2));
 delegate void Tests.GenericConstraints<T>()
     where T : Tests.Abstract, new();
-struct Tests.GenericImplGeneric<T> : IGeneric<T>
+struct Tests.GenericImplGeneric<T> : Tests.IGeneric<T>
 {
 }
 class Tests.GenericWithConstraint<T>
@@ -103,7 +103,7 @@ class Tests.IndirectImpl : Tests.Impl, Tests.IUsual
 {
     constructor();
 }
-struct Tests.InheritConstraint<T> : IGenericWithConstraint<T>
+struct Tests.InheritConstraint<T> : Tests.IGenericWithConstraint<T>
     where T : Tests.IUsual
 {
 }
