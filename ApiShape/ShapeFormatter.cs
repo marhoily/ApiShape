@@ -206,15 +206,10 @@ namespace ApiShape
             else
             {
                 foreach (var c in a.GetGenericParameterConstraints())
-                    yield return c.GenericConstraint();
+                    yield return c.CSharpName();
                 if (a.GenericParameterAttributes.HasFlag(DefaultConstructorConstraint))
                     yield return "new()";
             }
-        }
-        private static string GenericConstraint(this Type c)
-        {
-            if (c == typeof(ValueType)) return "struct";
-            return c.FormatTypeName((t, s) => s);
         }
         private static string GenericArgName(this Type c)
         {
