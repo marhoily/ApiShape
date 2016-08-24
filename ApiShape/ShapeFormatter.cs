@@ -53,7 +53,7 @@ namespace ApiShape
                 .Where(ifc => ifc.IsPublic)
                 .OrderBy(t => t.FullName);
             foreach (var ifc in minimalInterfaces)
-                yield return ifc.CSharpName();
+                yield return ifc.FullName();
         }
 
         private static IEnumerable<Type> GetAllInterfaces(this Type c)
@@ -269,7 +269,7 @@ namespace ApiShape
         }
         private static string FullName(this Type c)
         {
-            return c.FormatTypeName((t, s) => t.FullName.Before("`"));
+            return c.FormatTypeName((t, s) => (t.FullName ?? t.Name).Before("`"));
         }
         private static string TypeDeclarationName(this Type c)
         {

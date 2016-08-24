@@ -17,7 +17,7 @@ enum Byte : byte
 enum Default : int
 {
 }
-class Tests.DeriveAndImpl : Tests.Impl, IUsual
+class Tests.DeriveAndImpl : Tests.Impl, Tests.IUsual
 {
     constructor();
 }
@@ -54,7 +54,7 @@ interface Tests.IContravariant<in T>
 interface Tests.ICovariant<out T>
 {
 }
-interface Tests.IDerived : IUsual
+interface Tests.IDerived : Tests.IUsual
 {
 }
 interface Tests.IGeneric<T>
@@ -64,7 +64,7 @@ interface Tests.IGenericWithConstraint<T>
     where T : IUsual
 {
 }
-interface Tests.IIndirectDerive : IDerived, IUsual
+interface Tests.IIndirectDerive : Tests.IDerived, Tests.IUsual
 {
     void F();
 }
@@ -81,25 +81,25 @@ interface Tests.IM
     int M6<T>()
         where T : IUsual;
 }
-virtual class Tests.Impl : IUsual
+virtual class Tests.Impl : Tests.IUsual
 {
     constructor();
 }
-class Tests.ImplAndDeriveLong : Tests.Generic<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<int>>>>>>>>>, IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
+class Tests.ImplAndDeriveLong : Tests.Generic<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<int>>>>>>>>>, Tests.IGeneric<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<int>>>>>>>>>
 {
     constructor();
 }
-struct Tests.ImplGeneric : IGeneric<int>
+struct Tests.ImplGeneric : Tests.IGeneric<int>
 {
 }
-class Tests.ImplLong : IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
+class Tests.ImplLong : Tests.IGeneric<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<int>>>>>>>>>
 {
     constructor();
 }
-interface Tests.IMultiDerived : IDerived, IGeneric<int>, IUsual
+interface Tests.IMultiDerived : Tests.IDerived, Tests.IGeneric<int>, Tests.IUsual
 {
 }
-class Tests.IndirectImpl : Tests.Impl, IUsual
+class Tests.IndirectImpl : Tests.Impl, Tests.IUsual
 {
     constructor();
 }
@@ -224,7 +224,7 @@ abstract class Tests.Static
 struct Tests.Struct
 {
 }
-struct Tests.StructContainer : IDerived, IIndirectDerive, IUsual
+struct Tests.StructContainer : Tests.IDerived, Tests.IIndirectDerive, Tests.IUsual
 {
     int F1;
     readonly int F2;
@@ -252,7 +252,7 @@ struct Tests.StructContainer : IDerived, IIndirectDerive, IUsual
         where T : IUsual;
     virtual string ToString();
 }
-struct Tests.StructImpl : IUsual
+struct Tests.StructImpl : Tests.IUsual
 {
 }
 class Tests.Tests
