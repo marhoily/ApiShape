@@ -134,7 +134,7 @@ namespace ApiShape
         {
             if (!e.IsEnum) throw new ArgumentOutOfRangeException(nameof(e));
             if (e.HasAttribute<FlagsAttribute>()) w.WriteLine("[Flags]");
-            w.WriteLine($"enum {e.CSharpName()} : {Enum.GetUnderlyingType(e).CSharpName()}");
+            w.WriteLine($"enum {e.FullName()} : {Enum.GetUnderlyingType(e).CSharpName()}");
             w.WriteLine("{");
             w.Indent++;
             foreach (var fieldInfo in e.GetFields().OrderBy(t => t.Name))

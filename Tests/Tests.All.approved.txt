@@ -4,17 +4,17 @@ abstract class Tests.Abstract
 {
 }
 [Flags]
-enum BigFlags : int
+enum Tests.BigFlags : int
 {
     V0 = 1
     V1 = 16
     V2 = 256
     V3 = 4096
 }
-enum Byte : byte
+enum Tests.Byte : byte
 {
 }
-enum Default : int
+enum Tests.Default : int
 {
 }
 class Tests.DeriveAndImpl : Tests.Impl, Tests.IUsual
@@ -30,7 +30,7 @@ class Tests.DeriveLong : Tests.Generic<System.Collections.Generic.List<System.Co
     constructor();
 }
 [Flags]
-enum Flags : int
+enum Tests.Flags : int
 {
 }
 virtual class Tests.Generic<T>
@@ -209,13 +209,13 @@ class Tests.Sealed
 {
     constructor();
 }
-enum Seq : int
+enum Tests.Seq : int
 {
     V0 = 0
     V1 = 1
     V2 = 2
 }
-enum Short : short
+enum Tests.Short : short
 {
 }
 abstract class Tests.Static
@@ -260,6 +260,6 @@ class Tests.Tests
     constructor();
     void All();
 }
-enum ULong : ulong
+enum Tests.ULong : ulong
 {
 }
