@@ -167,27 +167,23 @@ namespace ApiShape
 
         private static void WriteParameters(IndentedTextWriter w, ParameterInfo[] parameterInfos)
         {
-            parameterInfos = parameterInfos.OrderBy(t => t.Name).ToArray();
-            w.WriteLine(WriteParametersOneLine(parameterInfos));
+            var args = parameterInfos
+                .OrderBy(t => t.Name)
+                .Join(Parameter);
+            w.WriteLine($"({args});");
         }
 
-        private static string WriteParametersOneLine(ParameterInfo[] parameterInfos)
+        private static string Parameter(ParameterInfo parameterInfo)
         {
-            if (parameterInfos.Length == 0) return "();";
-            var w = new StringBuilder();
-            w.Append("(");
-            foreach (var parameterInfo in parameterInfos)
-            {
-                if (parameterInfo.IsOut)
-                    w.Append(parameterInfo.IsIn ? "ref " : "out ");
-                w.Append($"{parameterInfo.ParameterType.CSharpName()} {parameterInfo.Name}");
-                if (parameterInfo.HasDefaultValue)
-                    w.Append($" = {parameterInfo.RawDefaultValue}");
-                w.Append(", ");
-            }
-            w.Remove(w.Length - 2, 2);
-            w.Append(");");
-            return w.ToString();
+            var sb = new StringBuilder();
+            if (parameterInfo.IsOut)
+                sb.Append(parameterInfo.IsIn ? "ref " : "out ");
+            sb.Append(parameterInfo.ParameterType.CSharpName());
+            sb.Append(" ");
+            sb.Append(parameterInfo.Name);
+            if (parameterInfo.HasDefaultValue)
+                sb.Append($" = {parameterInfo.RawDefaultValue}");
+            return sb.ToString();
         }
 
         private static void WriteGenericParameters(IndentedTextWriter w, Type[] args)
