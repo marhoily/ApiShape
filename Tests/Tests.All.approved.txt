@@ -146,7 +146,7 @@ abstract class Tests.M
     abstract void M1();
     protected abstract void M10(int a1);
     protected abstract void M11(System.Uri a1, int a2);
-    protected abstract Uri M12();
+    protected abstract System.Uri M12();
     protected abstract int M13<T>();
     protected abstract int M14<T>()
         where T : IUsual;

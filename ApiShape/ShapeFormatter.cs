@@ -202,7 +202,7 @@ namespace ApiShape
                 else if (m.IsVirtual) w.Write("virtual ");
             }
 
-            w.Write(m.ReturnType.CSharpName());
+            w.Write(m.ReturnType.FullName());
             w.Write(" ");
             w.Write(m.Name);
             if (m.IsGenericMethod)
