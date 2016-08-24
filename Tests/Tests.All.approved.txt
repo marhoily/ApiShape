@@ -198,6 +198,7 @@ class Tests.M+NestedPublic
 protected delegate void Tests.M+ProtectedInternalDelegate();
 abstract class Tests.MM : Tests.M
 {
+    sealed void M2(int a1);
 }
 virtual class Tests.NonSealed
 {
@@ -243,7 +244,7 @@ struct Tests.StructContainer : Tests.IIndirectDerive
     int P4 { get; }
     int P5 { set; }
     constructor(int a1);
-    virtual void F();
+    sealed void F();
     void M1();
     void M18();
     void M2(int a1);

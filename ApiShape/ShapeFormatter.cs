@@ -52,7 +52,7 @@ namespace ApiShape
                 .Where(m => m.IsPublic || m.IsFamily)
                 .Where(m => !m.IsSpecialName)
                 .Where(m => m.DeclaringType == t)
-                .Where(p => !p.IsOverride())
+                .Where(m => !m.IsOverride() || m.IsFinal)
                 .OrderBy(m => m.Name);
         }
         public static IEnumerable<PropertyInfo> VisibleProperties(this Type t)
@@ -237,7 +237,10 @@ namespace ApiShape
             if (!m.DeclaringType.IsInterface)
             {
                 if (m.IsAbstract) w.Write("abstract ");
-                else if (m.IsVirtual) w.Write("virtual ");
+                else if (m.IsVirtual)
+                {
+                    w.Write(m.IsFinal ? "sealed " : "virtual ");
+                }
             }
 
             w.Write(m.ReturnType.FullName());
