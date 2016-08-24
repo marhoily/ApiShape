@@ -121,6 +121,13 @@ abstract class M
     const string X3;
     const double X4;
     const double X5;
+    string this[int index] { get; set; }
+    protected string this[string index] { get; set; }
+    string this[double index] { get; set; }
+    string this[double index, int arg2] { get; set; }
+    string this[byte i] { protected get; set; }
+    string this[short i] { set; }
+    string this[ushort i] { get; }
     int P1 { get; }
     int P10 { protected get; }
     int P11 { get; }
@@ -174,6 +181,7 @@ abstract class MM : M
     int F1;
     readonly int F2;
     int F3;
+    string this[double index] { get; set; }
     int P11 { get; }
     int P12 { get; }
     virtual void M1();
@@ -213,6 +221,11 @@ struct StructContainer : IDerived, IIndirectDerive, IUsual
     readonly int F2;
     static int F4;
     const int X1;
+    string this[int index] { get; set; }
+    string this[float index] { set; }
+    string this[sbyte index] { get; }
+    string this[double index] { set; }
+    string this[byte index] { get; }
     int P1 { get; }
     int P13 { get; }
     int P2 { get; set; }

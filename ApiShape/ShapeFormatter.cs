@@ -86,12 +86,13 @@ namespace ApiShape
                 .Where(f => f.IsPublic || f.IsFamily)
                 .OrderBy(t => t.Name)) fieldInfo.WriteShape(w);
             foreach (var propertyInfo in c.VisibleProperties())
-                    if (propertyInfo.GetIndexParameters().Length == 0)
                         propertyInfo.WriteShape(w);
-            foreach (var constructorInfo in c.GetConstructors()) constructorInfo.WriteShape(w);
+            foreach (var constructorInfo in c.GetConstructors())
+                constructorInfo.WriteShape(w);
             foreach (var methodInfo in c.GetMethods().OrderBy(t => t.Name))
-                if (!methodInfo.IsSpecialName && methodInfo.DeclaringType == c)
-                    methodInfo.WriteShape(w);
+                if (!methodInfo.IsSpecialName)
+                    if (methodInfo.DeclaringType == c)
+                        methodInfo.WriteShape(w);
             foreach (var eventInfo in c.GetEvents().OrderBy(t => t.Name))
                 eventInfo.WriteShape(w);
             w.Indent--;
@@ -157,7 +158,17 @@ namespace ApiShape
             var protectedSet = p.SetMethod?.IsFamily != false;
             var protectedProp = protectedGet && protectedSet;
             if (protectedProp) w.Write("protected ");
-            w.Write($"{p.PropertyType.CSharpName()} {p.Name} {{ ");
+            w.Write(p.PropertyType.CSharpName());
+            w.Write(" ");
+            if (p.GetIndexParameters().Length == 0)
+            {
+                w.Write(p.Name);
+            }
+            else
+            {
+                w.Write($"this[{p.GetIndexParameters().Select(Parameter).Join()}]");
+            }
+            w.Write(" { ");
 
             if (hasGetter)
             {
