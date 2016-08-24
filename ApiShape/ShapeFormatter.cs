@@ -9,8 +9,10 @@ using static System.Reflection.GenericParameterAttributes;
 
 namespace ApiShape
 {
+    /// <summary> Extension methods container </summary>
     public static class ShapeFormatter
     {
+        /// <summary>Prints out all publically visible artifacts an assembly has</summary>
         public static string GetShape(this Assembly asm)
         {
             var sb = new StringBuilder();
@@ -67,7 +69,7 @@ namespace ApiShape
             else if (c.IsValueType) w.Write("struct ");
             if (c.IsNested) w.Write($"{c.DeclaringType.CSharpName()}+");
 
-            w.Write(c.GenericArgName());
+            w.Write(c.TypeDeclarationName());
 
             var derives = c.Derives().ToList();
             if (derives.Count > 0) w.Write($" : {derives.Join()}");
@@ -113,15 +115,6 @@ namespace ApiShape
                     w.WriteLine($"{fieldInfo.Name} = {(int)fieldInfo.GetValue(null)}");
             w.Indent--;
             w.WriteLine("}");
-        }
-
-        private static void WriteDelegateShape(this Type e, IndentedTextWriter w)
-        {
-            var m = e.GetMethod(nameof(Action.Invoke));
-            w.Write(m.ReturnType.CSharpName() +
-                        $" delegate {e.GenericArgName()}");
-            WriteParameters(w, m.GetParameters());
-            w.WriteLine(";");
         }
 
         private static void WriteShape(this FieldInfo f, IndentedTextWriter w)
@@ -170,7 +163,18 @@ namespace ApiShape
             WriteConstraints(w, m.GetGenericArguments());
             w.WriteLine(";");
         }
-
+        private static void WriteDelegateShape(this Type e, IndentedTextWriter w)
+        {
+            var m = e.GetMethod(nameof(Action.Invoke));
+            w.Write(m.ReturnType.CSharpName() +
+                        $" delegate {e.TypeDeclarationName()}");
+            WriteParameters(w, m.GetParameters());
+            var genericArguments = e.GetGenericArguments();
+            if (e.Name.Contains("GenericConstraints"))
+                1.ToString();
+            WriteConstraints(w, genericArguments);
+            w.WriteLine(";");
+        }
         private static void WriteShape(this EventInfo e, IndentedTextWriter w)
         {
             w.WriteLine($"event {e.EventHandlerType.CSharpName()} {e.Name};");
@@ -211,7 +215,7 @@ namespace ApiShape
                     yield return "new()";
             }
         }
-        private static string GenericArgName(this Type c)
+        private static string TypeDeclarationName(this Type c)
         {
             return c.FormatTypeName((t, s) =>
             {

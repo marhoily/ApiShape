@@ -43,7 +43,7 @@ namespace Tests
     }
     public delegate T1 GenericArgsAndReturnValue<out T1, in T2>(T2 a1 = default(T2));
     public delegate void GenericConstraints<T>()
-        where T : new();
+        where T : Abstract, new();
     public struct GenericImplGeneric<T> : IGeneric<T>
     {
     }
