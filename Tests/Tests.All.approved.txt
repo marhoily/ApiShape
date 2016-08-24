@@ -17,7 +17,7 @@ enum Tests.Byte : byte
 enum Tests.Default : int
 {
 }
-class Tests.DeriveAndImpl : Tests.Impl, Tests.IUsual
+class Tests.DeriveAndImpl : Tests.Impl
 {
     constructor();
 }
@@ -99,7 +99,7 @@ class Tests.ImplLong : Tests.IGeneric<System.Collections.Generic.List<System.Col
 interface Tests.IMultiDerived : Tests.IDerived, Tests.IGeneric<int>
 {
 }
-class Tests.IndirectImpl : Tests.Impl, Tests.IUsual
+class Tests.IndirectImpl : Tests.Impl
 {
     constructor();
 }
