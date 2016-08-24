@@ -5,7 +5,6 @@ using ApiShape;
 using ApprovalTests;
 using ApprovalTests.Reporters;
 using Xunit;
-using static System.Reflection.BindingFlags;
 
 namespace Tests
 {
@@ -108,6 +107,74 @@ namespace Tests
     public sealed class IndirectImpl : Impl
     {
     }
+    public abstract class M
+    {
+        public int F1;
+        public readonly int F2;
+        public static int F4;
+        public const int X1 = 0;
+        public const string X2 = "blah";
+        public const string X3 = null;
+        public const double X4 = 0.0;
+        public const double X5 = 15e9;
+        protected int F3;
+        public int P1 { get; }
+        public int P2 { get; set; }
+        public int P3 { get; protected set; }
+        public int P4 { get; private set; }
+        public int P5 { private get; set; }
+        public int P6 { protected get; set; }
+        protected int P7 { get; }
+        protected int P8 { get; set; }
+        protected int P9 { private get; set; }
+        protected int P10 { get; private set; }
+        public abstract int P11 { get; }
+        public virtual int P12 { get; }
+        public static int P13 { get; }
+        public string this[int index] { get { return ""; } set { } }
+        protected string this[string index] { get { return ""; } set { } }
+        public abstract string this[double index] { get; set; }
+        public virtual string this[double index, int arg2] { get { return ""; } set { } }
+        public abstract string this[byte i] { protected get; set; }
+        public virtual string this[short i] { private get { return ""; } set { } }
+        public virtual string this[ushort i] => "";
+        protected M() { }
+        public M(int a1) { }
+        public abstract void M1();
+        public abstract void M2(int a1);
+        public abstract void M3(int a1, int a2);
+        public abstract int M4();
+        public abstract int M5<T>();
+        public abstract int M6<T>() where T : IUsual;
+        public virtual void M7() { }
+        public void M8() { }
+        protected abstract void M9();
+        protected abstract void M10(int a1);
+        protected abstract void M11(int a1, int a2);
+        protected abstract int M12();
+        protected abstract int M13<T>();
+        protected abstract int M14<T>() where T : IUsual;
+        protected virtual void M15() { }
+        protected void M16() { }
+        public abstract void M17(ref int a1, out int a2);
+        public abstract void M28(ref int longLongLongLongLongLongLongLongArg1, out int longLongLongLongLongLongLongLongArg2);
+        public static void M18() { }
+        public abstract int M19<T>() where T : class;
+        public abstract int M20<T>() where T : struct;
+        public abstract int M21<T>() where T : new();
+        public abstract int M22<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>();
+        public abstract int M23<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>(TLongLongLongLongLongArg1 a1, TLongLongLongLongLongArg2 a2, TLongLongLongLongLongArg3 a3);
+        public abstract int M24(string longLongLongName, Dictionary<string, List<Uri>> anotherLongName, string notLongEnough);
+        public abstract int M25(string arg = null);
+        public abstract int M29(int a1, int a2, string longLongLongLongLongLongLongLongArg1 = null);
+        public abstract int M26(params string[] arg);
+        public abstract int M27<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>()
+            where TLongLongLongLongLongArg1 : ICloneable;
+        public event EventHandler E1;
+        public event EventHandler<NetworkAvailabilityEventArgs> E2 { add { } remove { } }
+        public event Action E3;
+        protected event Action E4;
+    }
     public class NonSealed
     {
     }
@@ -165,7 +232,7 @@ namespace Tests
     }
     public enum Short : short
     {
-        
+
     }
     public enum ULong : ulong
     {
@@ -185,82 +252,6 @@ namespace Tests
         private void M27(params string[] arg) { }
         private event Action E5;
     }
-    public abstract class M
-    {
-        public const int X1 = 0;
-        public const string X2 = "blah";
-        public const string X3 = null;
-        public const double X4 = 0.0;
-        public const double X5 = 15e9;
-
-        public int F1;
-        public readonly int F2;
-        protected int F3;
-        public static int F4;
-
-        public int P1 { get; }
-        public int P2 { get; set; }
-        public int P3 { get; protected set; }
-        public int P4 { get; private set; }
-        public int P5 { private get; set; }
-        public int P6 { protected get; set; }
-        protected int P7 { get; }
-        protected int P8 { get; set; }
-        protected int P9 { private get; set; }
-        protected int P10 { get; private set; }
-        public abstract int P11 { get; }
-        public virtual int P12 { get; }
-        public static int P13 { get; }
-
-        public string this[int index] { get { return ""; } set { } }
-        protected string this[string index] { get { return ""; } set { } }
-        public abstract string this[double index] { get; set; }
-        public virtual string this[double index, int arg2] { get { return ""; } set { } }
-        public abstract string this[byte i] { protected get; set; }
-        public virtual string this[short i] { private get { return ""; } set { } }
-        public virtual string this[ushort i] => "";
-
-        protected M() { }
-        public M(int a1) { }
-
-        public abstract void M1();
-        public abstract void M2(int a1);
-        public abstract void M3(int a1, int a2);
-        public abstract int M4();
-        public abstract int M5<T>();
-        public abstract int M6<T>() where T : IUsual;
-        public virtual void M7() { }
-        public void M8() { }
-
-        protected abstract void M9();
-        protected abstract void M10(int a1);
-        protected abstract void M11(int a1, int a2);
-        protected abstract int M12();
-        protected abstract int M13<T>();
-        protected abstract int M14<T>() where T : IUsual;
-        protected virtual void M15() { }
-        protected void M16() { }
-        public abstract void M17(ref int a1, out int a2);
-        public abstract void M28(ref int longLongLongLongLongLongLongLongArg1, out int longLongLongLongLongLongLongLongArg2);
-        public static void M18() { }
-        public abstract int M19<T>() where T : class;
-        public abstract int M20<T>() where T : struct;
-        public abstract int M21<T>() where T : new();
-        public abstract int M22<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>();
-        public abstract int M23<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>(TLongLongLongLongLongArg1 a1, TLongLongLongLongLongArg2 a2, TLongLongLongLongLongArg3 a3);
-        public abstract int M24(string longLongLongName, Dictionary<string, List<Uri>> anotherLongName, string notLongEnough);
-        public abstract int M25(string arg = null);
-        public abstract int M29(int a1, int a2, string longLongLongLongLongLongLongLongArg1 = null);
-        public abstract int M26(params string[] arg);
-        public abstract int M27<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>()
-            where TLongLongLongLongLongArg1 : ICloneable;
-
-        public event EventHandler E1;
-        public event EventHandler<NetworkAvailabilityEventArgs> E2 { add { } remove { } }
-        public event Action E3;
-        protected event Action E4;
-    }
-
     public delegate void SampleDelegate();
     [UseReporter(typeof(VisualStudioReporter))]
     public sealed class Tests
