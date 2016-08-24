@@ -168,9 +168,7 @@ namespace ApiShape
         private static void WriteParameters(IndentedTextWriter w, ParameterInfo[] parameterInfos)
         {
             parameterInfos = parameterInfos.OrderBy(t => t.Name).ToArray();
-            var oneLine = WriteParametersOneLine(parameterInfos);
-            if (oneLine.Length < 50) w.WriteLine(oneLine);
-            else WriteParametersMultiLine(w, parameterInfos);
+            w.WriteLine(WriteParametersOneLine(parameterInfos));
         }
 
         private static string WriteParametersOneLine(ParameterInfo[] parameterInfos)
@@ -192,85 +190,34 @@ namespace ApiShape
             return w.ToString();
         }
 
-        private static void WriteParametersMultiLine(IndentedTextWriter w, ParameterInfo[] parameterInfos)
-        {
-            if (parameterInfos.Length == 0) w.WriteLine("();");
-            else
-            {
-                w.WriteLine("(");
-                w.Indent++;
-                foreach (var parameterInfo in parameterInfos)
-                {
-                    if (parameterInfo.IsOut)
-                        w.Write(parameterInfo.IsIn ? "ref " : "out ");
-                    w.Write($"{parameterInfo.ParameterType.CSharpName()} {parameterInfo.Name}");
-                    if (parameterInfo.HasDefaultValue)
-                        w.Write($" = {parameterInfo.RawDefaultValue}");
-                    w.WriteLine();
-                }
-                w.Indent--;
-                w.WriteLine(");");
-            }
-        }
-
         private static void WriteGenericParameters(IndentedTextWriter w, Type[] args)
         {
-            args = args.OrderBy(t => t.Name).ToArray();
-            var oneLine = WriteGenericParametersOneLine(args);
-            if (oneLine.Length < 50) w.Write(oneLine);
-            else WriteGenericParametersMultiLine(w, args);
-
-        }
-
-        private static string WriteGenericParametersOneLine(Type[] args)
-        {
-            var w = new StringBuilder();
-            w.Append("<");
-            foreach (var genericArgument in args)
+            var w1 = new StringBuilder();
+            w1.Append("<");
+            foreach (var genericArgument in args.OrderBy(t => t.Name).ToArray())
             {
-                w.Append(genericArgument.Name);
+                w1.Append(genericArgument.Name);
                 var constraints = genericArgument.GetGenericParameterConstraints();
                 if (constraints.Length > 0)
                 {
-                    w.Append($" : {constraints.Join(c => c.CSharpName())}");
+                    w1.Append($" : {constraints.Join(c => c.CSharpName())}");
                 }
-                w.Append(", ");
+                w1.Append(", ");
             }
-            w.Remove(w.Length - 2, 2);
-            w.Append(">");
-            return w.ToString();
-        }
-
-        private static void WriteGenericParametersMultiLine(IndentedTextWriter w, Type[] args)
-        {
-            w.WriteLine("<");
-            w.Indent++;
-            foreach (var genericArgument in args)
-            {
-                w.Write(genericArgument.Name);
-                var constraints = genericArgument.GetGenericParameterConstraints();
-                if (constraints.Length > 0)
-                {
-                    w.Write($" : {constraints.Join(c => c.CSharpName())}");
-                }
-                w.WriteLine();
-            }
-            w.Indent--;
-            w.Write(">");
+            w1.Remove(w1.Length - 2, 2);
+            w1.Append(">");
+            w.Write(w1.ToString());
         }
 
         private static string GenericArgName(this Type c)
         {
-            return c.FormatTypeName(
-                (t, s) =>
-                {
-                    if (!t.IsGenericParameter) return s;
-                    if ((t.GenericParameterAttributes & Covariant) != 0)
-                        return "out " + s;
-                    if ((t.GenericParameterAttributes & Contravariant) != 0)
-                        return "in " + s;
-                    return s;
-                });
+            return c.FormatTypeName((t, s) =>
+            {
+                if (!t.IsGenericParameter) return s;
+                if (t.GenericParameterAttributes.HasFlag(Covariant)) return "out " + s;
+                if (t.GenericParameterAttributes.HasFlag(Contravariant)) return "in " + s;
+                return s;
+            });
         }
     }
 }

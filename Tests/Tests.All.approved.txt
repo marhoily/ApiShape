@@ -135,41 +135,14 @@ abstract class M
     virtual abstract void M2(int a1);
     virtual abstract int M20<T : ValueType>();
     virtual abstract int M21<T>();
-    virtual abstract int M22<
-        TLongLongLongLongLongArg1
-        TLongLongLongLongLongArg2
-        TLongLongLongLongLongArg3
-    >();
-    virtual abstract int M23<
-        TLongLongLongLongLongArg1
-        TLongLongLongLongLongArg2
-        TLongLongLongLongLongArg3
-    >(
-        TLongLongLongLongLongArg1 a1
-        TLongLongLongLongLongArg2 a2
-        TLongLongLongLongLongArg3 a3
-    );
-    virtual abstract int M24(
-        Dictionary<string, List<Uri>> anotherLongName
-        string longLongLongName
-        string notLongEnough
-    );
+    virtual abstract int M22<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>();
+    virtual abstract int M23<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>(TLongLongLongLongLongArg1 a1, TLongLongLongLongLongArg2 a2, TLongLongLongLongLongArg3 a3);
+    virtual abstract int M24(Dictionary<string, List<Uri>> anotherLongName, string longLongLongName, string notLongEnough);
     virtual abstract int M25(string arg = );
     virtual abstract int M26(string[] arg);
-    virtual abstract int M27<
-        TLongLongLongLongLongArg1 : ICloneable
-        TLongLongLongLongLongArg2
-        TLongLongLongLongLongArg3
-    >();
-    virtual abstract void M28(
-        int longLongLongLongLongLongLongLongArg1
-        out int longLongLongLongLongLongLongLongArg2
-    );
-    virtual abstract int M29(
-        int a1
-        int a2
-        string longLongLongLongLongLongLongLongArg1 = 
-    );
+    virtual abstract int M27<TLongLongLongLongLongArg1 : ICloneable, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>();
+    virtual abstract void M28(int longLongLongLongLongLongLongLongArg1, out int longLongLongLongLongLongLongLongArg2);
+    virtual abstract int M29(int a1, int a2, string longLongLongLongLongLongLongLongArg1 = );
     virtual abstract void M3(int a1, int a2);
     virtual abstract int M4();
     virtual abstract int M5<T>();
