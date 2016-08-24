@@ -64,7 +64,7 @@ interface Tests.IGenericWithConstraint<T>
     where T : Tests.IUsual
 {
 }
-interface Tests.IIndirectDerive : Tests.IDerived, Tests.IUsual
+interface Tests.IIndirectDerive : Tests.IDerived
 {
     void F();
 }
@@ -96,7 +96,7 @@ class Tests.ImplLong : Tests.IGeneric<System.Collections.Generic.List<System.Col
 {
     constructor();
 }
-interface Tests.IMultiDerived : Tests.IDerived, Tests.IGeneric<int>, Tests.IUsual
+interface Tests.IMultiDerived : Tests.IDerived, Tests.IGeneric<int>
 {
 }
 class Tests.IndirectImpl : Tests.Impl, Tests.IUsual
@@ -236,7 +236,7 @@ abstract class Tests.Static
 struct Tests.Struct
 {
 }
-struct Tests.StructContainer : Tests.IDerived, Tests.IIndirectDerive, Tests.IUsual
+struct Tests.StructContainer : Tests.IIndirectDerive
 {
     int F1;
     readonly int F2;
