@@ -179,7 +179,7 @@ namespace Tests
         public event Action E3;
         protected event Action E4;
     }
-    public abstract class MM
+    public abstract class MM : M
     {
         private MM() { }
         private int F1;
@@ -187,6 +187,13 @@ namespace Tests
         private string this[int index] => "";
         private void M27(params string[] arg) { }
         private event Action E5;
+
+        protected MM(int f1) { F1 = f1; }
+        protected MM(int a1, int f1) : base(a1) { F1 = f1; }
+        public override int P11 { get; }
+        public override int P12 { get; }
+        public override string this[double index] { get { return ""; } set {  } }
+        public override void M1() { }
     }
     public class NonSealed
     {

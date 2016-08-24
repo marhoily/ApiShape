@@ -164,8 +164,16 @@ abstract class M
     event EventHandler<NetworkAvailabilityEventArgs> E2;
     event Action E3;
 }
-abstract class MM
+abstract class MM : M
 {
+    int F1;
+    readonly int F2;
+    int P11 { get; }
+    int P12 { get; }
+    virtual void M1();
+    event EventHandler E1;
+    event EventHandler<NetworkAvailabilityEventArgs> E2;
+    event Action E3;
 }
 virtual class NonSealed
 {
