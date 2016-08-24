@@ -37,7 +37,7 @@ virtual class Generic<T>
 {
     constructor();
 }
-T1 delegate GenericArgsAndReturnValue<out T1, in T2>(T2 a1 = );
+T1 delegate GenericArgsAndReturnValue<out T1, in T2>(T2 a1 = default(T2));
 void delegate GenericConstraints<T>()
     where T : Abstract, new();
 struct GenericImplGeneric<T> : IGeneric<T>
@@ -99,7 +99,7 @@ class ImplLong : IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
 interface IMultiDerived : IDerived, IGeneric<int>
 {
 }
-class IndirectImpl : Impl, IUsual
+class IndirectImpl : Impl
 {
     constructor();
 }
