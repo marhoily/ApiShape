@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using static System.Reflection.BindingFlags;
 using static System.Reflection.GenericParameterAttributes;
 
 namespace ApiShape
@@ -82,7 +83,13 @@ namespace ApiShape
             w.WriteLine("{");
             w.Indent++;
             foreach (var fieldInfo in c.GetFields().OrderBy(t => t.Name)) fieldInfo.WriteShape(w);
-            foreach (var propertyInfo in c.GetProperties().OrderBy(t => t.Name))
+            foreach (var propertyInfo in c.GetProperties(Instance | Static| Public | NonPublic)
+                .Where(p
+                => p.GetMethod?.IsPublic == true
+                || p.GetMethod?.IsFamily == true
+                || p.SetMethod?.IsPublic == true
+                || p.SetMethod?.IsFamily == true)
+                .OrderBy(t => t.Name))
                 if (propertyInfo.DeclaringType == c)
                     if (propertyInfo.GetIndexParameters().Length == 0)
                         propertyInfo.WriteShape(w);
@@ -131,9 +138,27 @@ namespace ApiShape
 
         private static void WriteShape(this PropertyInfo p, IndentedTextWriter w)
         {
+            var hasGetter = p.GetMethod?.IsPublic == true || p.GetMethod?.IsFamily == true;
+            var hasSetter = p.SetMethod?.IsPublic == true || p.SetMethod?.IsFamily == true;
+            if (!hasGetter && !hasSetter) return;
+            var protectedGet = p.GetMethod?.IsFamily != false;
+            var protectedSet = p.SetMethod?.IsFamily != false;
+            var protectedProp = protectedGet && protectedSet;
+            if (protectedProp) w.Write("protected ");
             w.Write($"{p.PropertyType.CSharpName()} {p.Name} {{ ");
-            if (p.GetGetMethod()?.IsPublic == true) w.Write("get; ");
-            if (p.GetSetMethod()?.IsPublic == true) w.Write("set; ");
+
+            if (hasGetter)
+            {
+                if (protectedGet && !protectedProp)
+                    w.Write("protected ");
+                w.Write("get; ");
+            }
+            if (hasSetter)
+            {
+                if (protectedSet && !protectedProp)
+                    w.Write("protected ");
+                w.Write("set; ");
+            }
             w.WriteLine("}");
         }
 

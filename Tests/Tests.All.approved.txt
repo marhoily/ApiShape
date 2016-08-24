@@ -121,14 +121,18 @@ abstract class M
     const double X4;
     const double X5;
     int P1 { get; }
+    int P10 { protected get; }
     int P11 { get; }
     int P12 { get; }
     int P13 { get; }
     int P2 { get; set; }
-    int P3 { get; }
+    int P3 { get; protected set; }
     int P4 { get; }
     int P5 { set; }
-    int P6 { set; }
+    int P6 { protected get; set; }
+    protected int P7 { get; }
+    protected int P8 { get; set; }
+    int P9 { protected set; }
     constructor(int a1);
     virtual abstract void M1();
     virtual abstract void M17(ref int a1, out int a2);
