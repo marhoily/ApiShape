@@ -37,6 +37,8 @@ virtual class Generic<T>
 {
     constructor();
 }
+delegate GenericArgsAndReturnValue<T1, T2>
+delegate GenericConstraints<T>
 struct GenericImplGeneric<T> : IGeneric<T>
 {
 }
@@ -185,7 +187,9 @@ virtual class NonSealed
 {
     constructor();
 }
-Delegate
+delegate OutAndRefAndParams
+delegate ReturnValueAndArg
+delegate SampleDelegate
 class Sealed
 {
     constructor();
