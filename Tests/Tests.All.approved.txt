@@ -1,6 +1,6 @@
 ﻿Full name: Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Image runtime version: v4.0.30319
-abstract class Abstract
+abstract class Tests.Abstract
 {
 }
 [Flags]
@@ -17,15 +17,15 @@ enum Byte : byte
 enum Default : int
 {
 }
-class DeriveAndImpl : Impl, IUsual
+class Tests.DeriveAndImpl : Impl, IUsual
 {
     constructor();
 }
-class Derived : Abstract
+class Tests.Derived : Abstract
 {
     constructor();
 }
-class DeriveLong : Generic<List<List<List<List<List<List<List<List<int>>>>>>>>>
+class Tests.DeriveLong : Generic<List<List<List<List<List<List<List<List<int>>>>>>>>>
 {
     constructor();
 }
@@ -33,42 +33,42 @@ class DeriveLong : Generic<List<List<List<List<List<List<List<List<int>>>>>>>>>
 enum Flags : int
 {
 }
-virtual class Generic<T>
+virtual class Tests.Generic<T>
 {
     constructor();
 }
-delegate T1 GenericArgsAndReturnValue<out T1, in T2>(T2 a1 = default(T2));
-delegate void GenericConstraints<T>()
+delegate T1 Tests.GenericArgsAndReturnValue<out T1, in T2>(T2 a1 = default(T2));
+delegate void Tests.GenericConstraints<T>()
     where T : Abstract, new();
-struct GenericImplGeneric<T> : IGeneric<T>
+struct Tests.GenericImplGeneric<T> : IGeneric<T>
 {
 }
-class GenericWithConstraint<T>
+class Tests.GenericWithConstraint<T>
     where T : IUsual
 {
     constructor();
 }
-interface IContravariant<in T>
+interface Tests.IContravariant<in T>
 {
 }
-interface ICovariant<out T>
+interface Tests.ICovariant<out T>
 {
 }
-interface IDerived : IUsual
+interface Tests.IDerived : IUsual
 {
 }
-interface IGeneric<T>
+interface Tests.IGeneric<T>
 {
 }
-interface IGenericWithConstraint<T>
+interface Tests.IGenericWithConstraint<T>
     where T : IUsual
 {
 }
-interface IIndirectDerive : IDerived, IUsual
+interface Tests.IIndirectDerive : IDerived, IUsual
 {
     void F();
 }
-interface IM
+interface Tests.IM
 {
     int P1 { get; }
     int P2 { get; set; }
@@ -81,36 +81,36 @@ interface IM
     int M6<T>()
         where T : IUsual;
 }
-virtual class Impl : IUsual
+virtual class Tests.Impl : IUsual
 {
     constructor();
 }
-class ImplAndDeriveLong : Generic<List<List<List<List<List<List<List<List<int>>>>>>>>>, IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
+class Tests.ImplAndDeriveLong : Generic<List<List<List<List<List<List<List<List<int>>>>>>>>>, IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
 {
     constructor();
 }
-struct ImplGeneric : IGeneric<int>
+struct Tests.ImplGeneric : IGeneric<int>
 {
 }
-class ImplLong : IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
-{
-    constructor();
-}
-interface IMultiDerived : IDerived, IGeneric<int>, IUsual
-{
-}
-class IndirectImpl : Impl, IUsual
+class Tests.ImplLong : IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
 {
     constructor();
 }
-struct InheritConstraint<T> : IGenericWithConstraint<T>
+interface Tests.IMultiDerived : IDerived, IGeneric<int>, IUsual
+{
+}
+class Tests.IndirectImpl : Impl, IUsual
+{
+    constructor();
+}
+struct Tests.InheritConstraint<T> : IGenericWithConstraint<T>
     where T : IUsual
 {
 }
-interface IUsual
+interface Tests.IUsual
 {
 }
-abstract class M
+abstract class Tests.M
 {
     int F1;
     readonly int F2;
@@ -181,11 +181,11 @@ abstract class M
     event EventHandler<NetworkAvailabilityEventArgs> E2;
     event Action E3;
 }
-class M+NestedPublic
+class Tests.M+NestedPublic
 {
     constructor();
 }
-abstract class MM : M
+abstract class Tests.MM : M
 {
     int F1;
     readonly int F2;
@@ -198,14 +198,14 @@ abstract class MM : M
     event EventHandler<NetworkAvailabilityEventArgs> E2;
     event Action E3;
 }
-virtual class NonSealed
+virtual class Tests.NonSealed
 {
     constructor();
 }
-delegate void OutAndRefAndParams(out int a1, ref string a2, params object[] a3);
-delegate int ReturnValueAndArg(int a1, int opt = 0);
-delegate void SampleDelegate();
-class Sealed
+delegate void Tests.OutAndRefAndParams(out int a1, ref string a2, params object[] a3);
+delegate int Tests.ReturnValueAndArg(int a1, int opt = 0);
+delegate void Tests.SampleDelegate();
+class Tests.Sealed
 {
     constructor();
 }
@@ -218,13 +218,13 @@ enum Seq : int
 enum Short : short
 {
 }
-abstract class Static
+abstract class Tests.Static
 {
 }
-struct Struct
+struct Tests.Struct
 {
 }
-struct StructContainer : IDerived, IIndirectDerive, IUsual
+struct Tests.StructContainer : IDerived, IIndirectDerive, IUsual
 {
     int F1;
     readonly int F2;
@@ -252,10 +252,10 @@ struct StructContainer : IDerived, IIndirectDerive, IUsual
         where T : IUsual;
     virtual string ToString();
 }
-struct StructImpl : IUsual
+struct Tests.StructImpl : IUsual
 {
 }
-class Tests
+class Tests.Tests
 {
     constructor();
     void All();

@@ -72,7 +72,6 @@ namespace ApiShape
             else if (c.IsInterface) w.Write("interface ");
             else if (c.IsEnum) throw new Exception();
             else if (c.IsValueType) w.Write("struct ");
-            if (c.IsNested) w.Write($"{c.DeclaringType.CSharpName()}+");
 
             w.Write(c.TypeDeclarationName());
 
@@ -272,7 +271,7 @@ namespace ApiShape
         {
             return c.FormatTypeName((t, s) =>
             {
-                if (!t.IsGenericParameter) return s;
+                if (!t.IsGenericParameter) return t.FullName.Before("`");
                 if (t.GenericParameterAttributes.HasFlag(Covariant)) return "out " + s;
                 if (t.GenericParameterAttributes.HasFlag(Contravariant)) return "in " + s;
                 return s;
