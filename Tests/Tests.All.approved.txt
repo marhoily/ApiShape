@@ -165,6 +165,10 @@ abstract class M
     event EventHandler<NetworkAvailabilityEventArgs> E2;
     event Action E3;
 }
+class M+NestedPublic
+{
+    constructor();
+}
 abstract class MM : M
 {
     int F1;

@@ -178,6 +178,18 @@ namespace Tests
         public event EventHandler<NetworkAvailabilityEventArgs> E2 { add { } remove { } }
         public event Action E3;
         protected event Action E4;
+        public sealed class NestedPublic
+        {
+        }
+        protected class NestedProtected
+        {
+        }
+        internal class NestedInternal
+        {
+        }
+        private class NestedPrivate
+        {
+        }
     }
     public abstract class MM : M
     {
