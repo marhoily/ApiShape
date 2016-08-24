@@ -81,7 +81,8 @@ namespace Tests
         void M3(int a1, int a2);
         int M4();
         int M5<T>();
-        int M6<T>() where T : IUsual;
+        int M6<T>() 
+            where T : IUsual;
     }
     public class Impl : IUsual
     {
@@ -95,7 +96,7 @@ namespace Tests
     public sealed class ImplLong : IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
     {
     }
-    public interface IMultiDerived : IGeneric<int>, IDerived
+    public interface IMultiDerived : IDerived, IGeneric<int>
     {
     }
     public sealed class IndirectImpl : Impl
@@ -196,13 +197,19 @@ namespace Tests
     public sealed class Sealed
     {
     }
+    public enum Seq
+    {
+        V0,
+        V1,
+        V2
+    }
+    public enum Short : short
+    {
+    }
     public static class Static
     {
     }
     public struct Struct
-    {
-    }
-    public struct StructImpl : IUsual
     {
     }
     public struct StructContainer : IIndirectDerive
@@ -242,18 +249,11 @@ namespace Tests
         public override string ToString() => "";
         public void F() { }
     }
-    public enum Short : short
+    public struct StructImpl : IUsual
     {
-
     }
     public enum ULong : ulong
     {
-    }
-    public enum Seq
-    {
-        V0,
-        V1,
-        V2
     }
     [UseReporter(typeof(VisualStudioReporter))]
     public sealed class Tests
