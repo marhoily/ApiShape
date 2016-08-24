@@ -182,7 +182,7 @@ abstract class Tests.M
     event System.EventHandler<System.Net.NetworkInformation.NetworkAvailabilityEventArgs> E2;
     event System.Action E3;
 }
-class Tests.M+NestedPublic
+class Tests.MNestedPublic
 {
     constructor();
 }
@@ -204,7 +204,7 @@ virtual class Tests.NonSealed
 {
     constructor();
 }
-delegate void Tests.OutAndRefAndParams(out int a1, ref string a2, params object[] a3);
+delegate void Tests.OutAndRefAndParams(out System.Uri a1, ref System.Uri a2, params object[] a3);
 delegate System.Uri Tests.ReturnValueAndArg(int a1, int opt = 0);
 delegate void Tests.SampleDelegate();
 class Tests.Sealed

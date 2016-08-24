@@ -268,17 +268,24 @@ namespace ApiShape
         }
         private static string FullName(this Type c)
         {
-            return c.FormatTypeName((t, s) =>
-                    t.IsGenericParameter ? s : t.Namespace + "." + s);
+            return c.FormatTypeName(Full);
         }
+
+        private static string Full(Type t, string s)
+        {
+            if (t.IsNested && !t.IsGenericParameter)
+                return t.DeclaringType.FullName() + s;
+            return t.IsGenericParameter ? s : t.Namespace + "." + s;
+        }
+
         private static string TypeDeclarationName(this Type c)
         {
             return c.FormatTypeName((t, s) =>
             {
-                if (!t.IsGenericParameter) return t.FullName.Before("`");
-                if (t.GenericParameterAttributes.HasFlag(Covariant)) return "out " + s;
-                if (t.GenericParameterAttributes.HasFlag(Contravariant)) return "in " + s;
-                return s;
+                if (!t.IsGenericParameter) return Full(t, s);
+                if (t.GenericParameterAttributes.HasFlag(Covariant)) return "out " + Full(t, s);
+                if (t.GenericParameterAttributes.HasFlag(Contravariant)) return "in " + Full(t, s);
+                return Full(t, s);
             });
         }
     }

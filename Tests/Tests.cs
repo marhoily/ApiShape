@@ -211,7 +211,7 @@ namespace Tests
     public class NonSealed
     {
     }
-    public delegate void OutAndRefAndParams(out int a1, ref string a2, params object[] a3);
+    public delegate void OutAndRefAndParams(out Uri a1, ref Uri a2, params object[] a3);
     public delegate Uri ReturnValueAndArg(int a1, int opt = 0);
     public delegate void SampleDelegate();
     public sealed class Sealed
