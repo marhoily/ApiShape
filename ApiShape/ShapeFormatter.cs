@@ -58,9 +58,10 @@ namespace ApiShape
         private static IEnumerable<Type> GetAllInterfaces(this Type c)
         {
             return c
-                .AncestorsAndSelf().Skip(1).SelectMany(t => t.GetAllInterfaces())
+                .AncestorsAndSelf().Skip(1).SelectMany(t => t.GetInterfaces())
                 .Concat(c.GetInterfaces().SelectMany(i => i.GetInterfaces()));
         }
+      
         private static void WriteClassShape(this Type c, IndentedTextWriter w)
         {
             if (c.IsNestedFamily || c.IsNestedFamORAssem)
