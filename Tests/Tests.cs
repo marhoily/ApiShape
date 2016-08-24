@@ -214,40 +214,34 @@ namespace Tests
     }
     public struct StructContainer : IIndirectDerive
     {
-        public StructContainer(int a1) { F1 = 0; F2 = 0; P1 = 0; P2 = 0; P4 = 0; P5 = 0; }
-
-        public const int X1 = 0;
-
         public int F1;
         public readonly int F2;
         public static int F4;
-
+        public const int X1 = 0;
         public int P1 { get; }
+        public static int P13 { get; }
         public int P2 { get; set; }
         public int P4 { get; private set; }
         public int P5 { private get; set; }
-        public static int P13 { get; }
-
+        public StructContainer(int a1) { F1 = 0; F2 = 0; P1 = 0; P2 = 0; P4 = 0; P5 = 0; }
+        public void F() { }
+        public void M1() { }
+        public static void M18() { }
+        public void M2(int a1) { }
+        public void M3(int a1, int a2) { }
+        public int M4() => 3;
+        public int M5<T>() => 3;
+        public int M6<T>() 
+			where T : IUsual => 3;
+        public override string ToString() => "";
         public string this[int index] { get { return ""; } set { } }
         public string this[float index] { private get { return ""; } set { } }
         public string this[sbyte index] { get { return ""; } private set { } }
         public string this[double index] { set { } }
         public string this[byte index] => "";
-
-        public void M1() { }
-        public void M2(int a1) { }
-        public void M3(int a1, int a2) { }
-        public int M4() => 3;
-        public int M5<T>() => 3;
-        public int M6<T>() where T : IUsual => 3;
-        public static void M18() { }
-
         public static implicit operator StructContainer(int x) => new StructContainer();
         public static explicit operator int(StructContainer x) => 5;
         public static int operator +(StructContainer x, int i) => 5;
-
-        public override string ToString() => "";
-        public void F() { }
     }
     public struct StructImpl : IUsual
     {
