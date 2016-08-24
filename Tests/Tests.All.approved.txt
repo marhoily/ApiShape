@@ -135,7 +135,7 @@ abstract class M
     virtual abstract int M19<T>();
     virtual abstract void M2(int a1);
     virtual abstract int M20<T>()
-        where T : ValueType;
+        where T : struct;
     virtual abstract int M21<T>();
     virtual abstract int M22<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>();
     virtual abstract int M23<TLongLongLongLongLongArg1, TLongLongLongLongLongArg2, TLongLongLongLongLongArg3>(TLongLongLongLongLongArg1 a1, TLongLongLongLongLongArg2 a2, TLongLongLongLongLongArg3 a3);

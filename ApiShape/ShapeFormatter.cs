@@ -36,7 +36,7 @@ namespace ApiShape
             return from a in genericArguments
                 let cs = a.GetGenericParameterConstraints()
                 where cs.Length > 0
-                select $"where {a.Name} : {cs.Join(c => c.CSharpName())}";
+                select $"where {a.Name} : {cs.Join(c => c.GenericConstraint())}";
         }
 
         private static IEnumerable<string> Derives(this Type c)
@@ -92,9 +92,8 @@ namespace ApiShape
 
         private static void WriteConstraints(IndentedTextWriter w, Type[] getGenericArguments)
         {
-            var constraints = getGenericArguments.Constraints();
             w.Indent++;
-            foreach (var constraint in constraints)
+            foreach (var constraint in getGenericArguments.Constraints())
             {
                 w.WriteLine();
                 w.Write(constraint);
@@ -199,6 +198,11 @@ namespace ApiShape
             return sb.ToString();
         }
 
+        private static string GenericConstraint(this Type c)
+        {
+            if (c == typeof(ValueType)) return "struct";
+            return c.FormatTypeName((t, s) => s);
+        }
         private static string GenericArgName(this Type c)
         {
             return c.FormatTypeName((t, s) =>
