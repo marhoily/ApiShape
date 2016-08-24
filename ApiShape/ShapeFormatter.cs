@@ -218,6 +218,9 @@ namespace ApiShape
         }
         private static void WriteDelegateShape(this Type e, IndentedTextWriter w)
         {
+            if (e.IsNestedFamily || e.IsNestedFamORAssem)
+                w.Write("protected ");
+
             var m = e.GetMethod(nameof(Action.Invoke));
             w.Write("delegate ");
             w.Write(m.ReturnType.FullName());

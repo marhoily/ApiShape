@@ -194,7 +194,7 @@ class Tests.M+NestedPublic
 {
     constructor();
 }
-delegate void Tests.M+ProtectedInternalDelegate();
+protected delegate void Tests.M+ProtectedInternalDelegate();
 abstract class Tests.MM : Tests.M
 {
     int F1;
