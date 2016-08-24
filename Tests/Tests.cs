@@ -113,13 +113,14 @@ namespace Tests
     {
         public int F1;
         public readonly int F2;
+        protected int F3;
         public static int F4;
+        public Uri F5;
         public const int X1 = 0;
         public const string X2 = "blah";
         public const string X3 = null;
         public const double X4 = 0.0;
         public const double X5 = 15e9;
-        protected int F3;
         public int P1 { get; }
         public int P2 { get; set; }
         public int P3 { get; protected set; }

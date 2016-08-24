@@ -149,7 +149,7 @@ namespace ApiShape
             if (f.IsLiteral) w.Write("const ");
             else if (f.IsStatic) w.Write("static ");
             if (f.IsInitOnly) w.Write("readonly ");
-            w.WriteLine($"{f.FieldType.CSharpName()} {f.Name};");
+            w.WriteLine($"{f.FieldType.FullName()} {f.Name};");
         }
 
         private static void WriteShape(this PropertyInfo p, IndentedTextWriter w)

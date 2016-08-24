@@ -116,6 +116,7 @@ abstract class Tests.M
     readonly int F2;
     int F3;
     static int F4;
+    System.Uri F5;
     const int X1;
     const string X2;
     const string X3;
@@ -190,6 +191,7 @@ abstract class Tests.MM : Tests.M
     int F1;
     readonly int F2;
     int F3;
+    System.Uri F5;
     string this[double index] { get; set; }
     int P11 { get; }
     int P12 { get; }
