@@ -185,6 +185,9 @@ namespace Tests
         protected class NestedProtected
         {
         }
+        protected internal class NestedProtectedInternal
+        {
+        }
         internal class NestedInternal
         {
         }

@@ -62,7 +62,7 @@ namespace ApiShape
         }
         private static void WriteClassShape(this Type c, IndentedTextWriter w)
         {
-            if (c.IsNestedFamily)
+            if (c.IsNestedFamily || c.IsNestedFamORAssem)
                 w.Write("protected ");
             if (!c.IsInterface)
             {

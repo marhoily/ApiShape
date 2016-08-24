@@ -186,6 +186,10 @@ protected virtual class Tests.M+NestedProtected
 {
     constructor();
 }
+protected virtual class Tests.M+NestedProtectedInternal
+{
+    constructor();
+}
 class Tests.M+NestedPublic
 {
     constructor();
