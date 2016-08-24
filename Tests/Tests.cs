@@ -191,6 +191,7 @@ namespace Tests
         private class NestedPrivate
         {
         }
+        protected internal delegate void ProtectedInternalDelegate();
     }
     public abstract class MM : M
     {

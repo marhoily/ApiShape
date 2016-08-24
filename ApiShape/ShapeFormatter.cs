@@ -23,7 +23,7 @@ namespace ApiShape
             w.WriteLine($"Full name: {asm.FullName}");
             w.WriteLine($"Image runtime version: {asm.ImageRuntimeVersion}");
             foreach (var exportedType in asm.GetTypes()
-                .Where(t => t.IsPublic || t.IsNestedPublic || t.IsNestedFamily)
+                .Where(t => t.IsPublic || t.IsNestedPublic || t.IsNestedFamily || t.IsNestedFamORAssem)
                 .OrderBy(t => t.FullName))
             {
                 if (exportedType.BaseType == typeof(MulticastDelegate))
