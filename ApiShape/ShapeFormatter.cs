@@ -20,7 +20,9 @@ namespace ApiShape
             // asm.GetManifestResourceNames()
             foreach (var exportedType in asm.GetExportedTypes().OrderBy(t => t.FullName))
             {
-                if (exportedType.IsClass) exportedType.WriteClassShape(w);
+                if (exportedType.BaseType == typeof(MulticastDelegate))
+                    exportedType.WriteDelegateShape(w);
+                else if (exportedType.IsClass) exportedType.WriteClassShape(w);
                 else if (exportedType.IsEnum) exportedType.WriteEnumShape(w);
                 else if (exportedType.IsInterface) exportedType.WriteClassShape(w);
                 else exportedType.WriteClassShape(w);
@@ -48,6 +50,8 @@ namespace ApiShape
         }
         private static void WriteClassShape(this Type c, IndentedTextWriter w)
         {
+            if (c.BaseType == typeof(Delegate) || c.BaseType == typeof(MulticastDelegate))
+                throw new Exception();
             if (!c.IsInterface)
             {
                 if (c.IsAbstract) w.Write("abstract ");
@@ -106,6 +110,11 @@ namespace ApiShape
                     w.WriteLine($"{fieldInfo.Name} = {(int)fieldInfo.GetValue(null)}");
             w.Indent--;
             w.WriteLine("}");
+        }
+        private static void WriteDelegateShape(this Type e, IndentedTextWriter w)
+        {
+
+            w.WriteLine("Delegate");
         }
         private static void WriteShape(this FieldInfo f, IndentedTextWriter w)
         {
