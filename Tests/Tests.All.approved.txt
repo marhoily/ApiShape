@@ -17,15 +17,15 @@ enum Byte : byte
 enum Default : int
 {
 }
-class Tests.DeriveAndImpl : Impl, IUsual
+class Tests.DeriveAndImpl : Tests.Impl, IUsual
 {
     constructor();
 }
-class Tests.Derived : Abstract
+class Tests.Derived : Tests.Abstract
 {
     constructor();
 }
-class Tests.DeriveLong : Generic<List<List<List<List<List<List<List<List<int>>>>>>>>>
+class Tests.DeriveLong : Tests.Generic<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<int>>>>>>>>>
 {
     constructor();
 }
@@ -85,7 +85,7 @@ virtual class Tests.Impl : IUsual
 {
     constructor();
 }
-class Tests.ImplAndDeriveLong : Generic<List<List<List<List<List<List<List<List<int>>>>>>>>>, IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
+class Tests.ImplAndDeriveLong : Tests.Generic<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<int>>>>>>>>>, IGeneric<List<List<List<List<List<List<List<List<int>>>>>>>>>
 {
     constructor();
 }
@@ -99,7 +99,7 @@ class Tests.ImplLong : IGeneric<List<List<List<List<List<List<List<List<int>>>>>
 interface Tests.IMultiDerived : IDerived, IGeneric<int>, IUsual
 {
 }
-class Tests.IndirectImpl : Impl, IUsual
+class Tests.IndirectImpl : Tests.Impl, IUsual
 {
     constructor();
 }
@@ -185,7 +185,7 @@ class Tests.M+NestedPublic
 {
     constructor();
 }
-abstract class Tests.MM : M
+abstract class Tests.MM : Tests.M
 {
     int F1;
     readonly int F2;

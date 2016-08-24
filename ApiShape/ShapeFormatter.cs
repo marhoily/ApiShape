@@ -47,7 +47,7 @@ namespace ApiShape
         private static IEnumerable<string> Derives(this Type c)
         {
             if (c.BaseType != null && c.BaseType != typeof(object) && !c.IsValueType)
-                yield return c.BaseType.CSharpName();
+                yield return c.BaseType.FullName();
             var minimalInterfaces = c.GetInterfaces()
                 .Except(c.GetAllInterfaces())
                 .Where(ifc => ifc.IsPublic)
@@ -266,6 +266,10 @@ namespace ApiShape
                 if (a.GenericParameterAttributes.HasFlag(DefaultConstructorConstraint))
                     yield return "new()";
             }
+        }
+        private static string FullName(this Type c)
+        {
+            return c.FormatTypeName((t, s) => t.FullName.Before("`"));
         }
         private static string TypeDeclarationName(this Type c)
         {
