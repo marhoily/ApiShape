@@ -228,6 +228,7 @@ namespace Tests
     }
     public static class Static
     {
+        public static void Extension(this int a) { }
     }
     public struct Struct
     {

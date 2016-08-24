@@ -222,6 +222,7 @@ enum Tests.Short : short
 }
 abstract class Tests.Static
 {
+    void Extension(this int a);
 }
 struct Tests.Struct
 {

@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using static System.Reflection.BindingFlags;
 using static System.Reflection.GenericParameterAttributes;
@@ -205,7 +206,9 @@ namespace ApiShape
             w.Write(m.Name);
             if (m.IsGenericMethod)
             {
-                w.Write("<" + m.GetGenericArguments().Join(a => a.CSharpName()) + ">");
+                w.Write("<" + m
+                    .GetGenericArguments()
+                    .Join(a => a.CSharpName()) + ">");
             }
             WriteParameters(w, m.GetParameters());
             WriteConstraints(w, m.GetGenericArguments());
@@ -242,6 +245,10 @@ namespace ApiShape
             else if (p.ParameterType.IsByRef) sb.Append("ref ");
             if (p.IsDefined(typeof(ParamArrayAttribute)))
                 sb.Append("params ");
+            if (p.Position == 0)
+                if (p.Member.HasAttribute<ExtensionAttribute>())
+                    if (p.Member.DeclaringType.HasAttribute<ExtensionAttribute>())
+                        sb.Append("this ");
 
             var typeName = p.ParameterType.FullName();
             sb.Append(typeName);
