@@ -143,6 +143,14 @@ abstract class M
     int P9 { protected set; }
     constructor(int a1);
     abstract void M1();
+    protected abstract void M10(int a1);
+    protected abstract void M11(int a1, int a2);
+    protected abstract int M12();
+    protected abstract int M13<T>();
+    protected abstract int M14<T>()
+        where T : IUsual;
+    protected virtual void M15();
+    protected void M16();
     abstract void M17(ref int a1, out int a2);
     void M18();
     abstract int M19<T>();
@@ -168,6 +176,7 @@ abstract class M
         where T : IUsual;
     virtual void M7();
     void M8();
+    protected abstract void M9();
     event EventHandler E1;
     event EventHandler<NetworkAvailabilityEventArgs> E2;
     event Action E3;

@@ -82,14 +82,16 @@ namespace ApiShape
             w.WriteLine();
             w.WriteLine("{");
             w.Indent++;
-            foreach (var fieldInfo in c.GetFields(Instance | Static | Public | NonPublic)
+            foreach (var fieldInfo in c
+                .GetFields(Instance | Static | Public | NonPublic)
                 .Where(f => f.IsPublic || f.IsFamily)
                 .OrderBy(t => t.Name)) fieldInfo.WriteShape(w);
             foreach (var propertyInfo in c.VisibleProperties())
-                        propertyInfo.WriteShape(w);
+                propertyInfo.WriteShape(w);
             foreach (var constructorInfo in c.GetConstructors())
                 constructorInfo.WriteShape(w);
-            foreach (var methodInfo in c.GetMethods(Instance | Static | Public | NonPublic)
+            foreach (var methodInfo in c
+                .GetMethods(Instance | Static | Public | NonPublic)
                 .Where(f => f.IsPublic || f.IsFamily)
                 .OrderBy(t => t.Name))
                 if (!methodInfo.IsSpecialName)
@@ -163,7 +165,7 @@ namespace ApiShape
             w.Write(p.PropertyType.CSharpName());
             w.Write(" ");
             var ps = p.GetIndexParameters();
-            w.Write(ps.Length == 0 ? p.Name 
+            w.Write(ps.Length == 0 ? p.Name
                 : $"this[{ps.Select(Parameter).Join()}]");
             w.Write(" { ");
 
@@ -194,6 +196,7 @@ namespace ApiShape
         private static void WriteShape(this MethodInfo m, IndentedTextWriter w)
         {
             Debug.Assert(m.DeclaringType != null, "m.DeclaringType != null");
+            if (m.IsFamily) w.Write("protected ");
             if (!m.DeclaringType.IsInterface)
             {
                 if (m.IsAbstract) w.Write("abstract ");
@@ -242,7 +245,7 @@ namespace ApiShape
             else if (parameterInfo.ParameterType.IsByRef) sb.Append("ref ");
             if (parameterInfo.IsDefined(typeof(ParamArrayAttribute)))
                 sb.Append("params ");
-            
+
             sb.Append(parameterInfo.ParameterType.CSharpName());
             sb.Append(" ");
             sb.Append(parameterInfo.Name);
