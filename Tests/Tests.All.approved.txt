@@ -219,7 +219,7 @@ enum Tests.Seq : int
 enum Tests.Short : short
 {
 }
-abstract class Tests.Static
+static class Tests.Static
 {
     void Extension(this int a);
 }

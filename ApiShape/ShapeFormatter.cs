@@ -48,7 +48,7 @@ namespace ApiShape
                 w.Write("protected ");
             if (!c.IsInterface)
             {
-                if (c.IsAbstract) w.Write("abstract ");
+                if (c.IsAbstract) w.Write(c.IsSealed ? "static " : "abstract ");
                 else if (!c.IsSealed) w.Write("virtual ");
             }
             if (c.IsClass) w.Write("class ");
