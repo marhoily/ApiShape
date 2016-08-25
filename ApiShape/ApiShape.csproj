@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiShapeOptions.cs" />
     <Compile Include="AttributeDetection.cs" />
     <Compile Include="Discovery.cs" />
     <Compile Include="EnumerableExtensions.cs" />

@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using static System.Reflection.GenericParameterAttributes;
+using static ApiShape.ApiShapeOptions;
 
 namespace ApiShape
 {
@@ -15,11 +16,12 @@ namespace ApiShape
     public static class ShapeFormatter
     {
         /// <summary>Prints out all publically visible artifacts an assembly has</summary>
-        public static string GetShape(this Assembly asm)
+        public static string GetShape(this Assembly asm, ApiShapeOptions options = ApiShapeOptions.None)
         {
             var sb = new StringBuilder();
             var w = new IndentedTextWriter(new StringWriter(sb));
-        //    w.WriteLine($"Full name: {asm.FullName}");
+            if (options.HasFlag(ShowAssemblyName))
+                w.WriteLine($"Full name: {asm.FullName}");
             w.WriteLine($"Image runtime version: {asm.ImageRuntimeVersion}");
             foreach (var exportedType in asm.VisibleTypes())
             {
