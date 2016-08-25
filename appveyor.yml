@@ -19,6 +19,9 @@ cache:
 after_test:
   - nuget pack ApiShape\ApiShape.csproj 
 
+after_build:
+  - ps: Get-ChildItem **\*.received.txt | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+
 artifacts:
   - path: '*.nupkg'
 
