@@ -19,7 +19,8 @@ namespace ApiShape
         {
             var sb = new StringBuilder();
             var w = new IndentedTextWriter(new StringWriter(sb));
-            w.WriteLine($"Full name: {asm.FullName}");
+        //    w.WriteLine($"Full name: {asm.FullName}");
+            w.WriteLine($"Image runtime version: {asm.ImageRuntimeVersion}");
             foreach (var exportedType in asm.GetTypes()
                 .Where(t => t.IsPublic || t.IsNestedPublic || t.IsNestedFamily || t.IsNestedFamORAssem)
                 .OrderBy(t => t.FullName))
