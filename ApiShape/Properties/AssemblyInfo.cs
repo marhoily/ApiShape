@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("ApiShape")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Allows to pretty-print shape of API of a .net assembly into a string so that it can be target of regression testing")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("ApiShape")]
