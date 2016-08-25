@@ -7,88 +7,10 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
-using static System.Reflection.BindingFlags;
 using static System.Reflection.GenericParameterAttributes;
 
 namespace ApiShape
 {
-    internal static class Reflection
-    {
-        public static IEnumerable<Type> MinimalSetOfInterfaces(this Type c)
-        {
-            var ancestorsInterfaces = c.Ancestors().SelectMany(t => t.GetInterfaces());
-            var interfacesInterfaces = c.GetInterfaces().SelectMany(i => i.GetInterfaces());
-            return c.GetInterfaces().Except(ancestorsInterfaces.Concat(interfacesInterfaces));
-        }
-        public static bool IsOverride(this MethodInfo methodInfo) 
-            => methodInfo.GetBaseDefinition() != methodInfo;
-
-        public static bool IsOverride(this PropertyInfo p) =>
-            p.GetMethod?.IsOverride() == true ||
-            p.SetMethod?.IsOverride() == true;
-
-        public static bool IsOverride(this EventInfo e) =>
-            e.AddMethod.IsOverride();
-    }
-
-    internal static class Discovery
-    {
-        public static IEnumerable<Type> Derives(this Type c)
-        {
-            if (c.BaseType != null)
-                if (c.BaseType != typeof(object))
-                    if (!c.IsValueType)
-                        yield return c.BaseType;
-
-            foreach (var ifc in c.MinimalSetOfInterfaces()
-                .Where(ifc => ifc.IsPublic)
-                .OrderBy(t => t.FullName)) yield return ifc;
-        }
-
-        public static IEnumerable<MethodInfo> VisibleMethods(this Type t)
-        {
-            return t
-                .GetMethods(Instance | Static | Public | NonPublic)
-                .Where(m => m.IsPublic || m.IsFamily)
-                .Where(m => !m.IsSpecialName)
-                .Where(m => m.DeclaringType == t)
-                .Where(m => !m.IsOverride() || m.IsFinal)
-                .OrderBy(m => m.Name);
-        }
-        public static IEnumerable<PropertyInfo> VisibleProperties(this Type t)
-        {
-            return t
-                .GetProperties(Instance | Static | Public | NonPublic)
-                .Where(GetterOrSetterIsVisible)
-                .Where(p => !p.IsOverride())
-                .Where(p => p.DeclaringType == t)
-                .OrderBy(p => p.Name);
-        }
-        public static IEnumerable<FieldInfo> VisibleFields(this Type t)
-        {
-            return t
-                .GetFields(Instance | Static | Public | NonPublic)
-                .Where(f => f.IsPublic || f.IsFamily)
-                .Where(f => f.DeclaringType == t)
-                .OrderBy(f => f.Name);
-        }
-        public static IEnumerable<EventInfo> VisibleEvents(this Type t)
-        {
-            return t
-                .GetEvents(Instance | Static | Public | NonPublic)
-                .Where(e => e.AddMethod.IsPublic || e.AddMethod.IsFamily)
-                .Where(e => e.DeclaringType == t)
-                .Where(e => !e.IsOverride())
-                .OrderBy(e => e.Name);
-        }
-        private static bool GetterOrSetterIsVisible(PropertyInfo p)
-        {
-            return p.GetMethod?.IsPublic == true
-                   || p.GetMethod?.IsFamily == true
-                   || p.SetMethod?.IsPublic == true
-                   || p.SetMethod?.IsFamily == true;
-        }
-    }
     /// <summary> Extension methods container </summary>
     public static class ShapeFormatter
     {
@@ -98,7 +20,6 @@ namespace ApiShape
             var sb = new StringBuilder();
             var w = new IndentedTextWriter(new StringWriter(sb));
             w.WriteLine($"Full name: {asm.FullName}");
-            w.WriteLine($"Image runtime version: {asm.ImageRuntimeVersion}");
             foreach (var exportedType in asm.GetTypes()
                 .Where(t => t.IsPublic || t.IsNestedPublic || t.IsNestedFamily || t.IsNestedFamORAssem)
                 .OrderBy(t => t.FullName))

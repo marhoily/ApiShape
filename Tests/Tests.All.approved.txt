@@ -1,5 +1,4 @@
 ﻿Full name: Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Image runtime version: v4.0.30319
 abstract class Tests.Abstract
 {
 }
