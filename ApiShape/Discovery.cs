@@ -19,6 +19,20 @@ namespace ApiShape
                 .OrderBy(t => t.FullName)) yield return ifc;
         }
 
+        public static IEnumerable<Type> VisibleTypes(this Assembly asm)
+        {
+            return asm.GetTypes()
+                .Where(IsVisibleType)
+                .OrderBy(t => t.FullName);
+        }
+
+        private static bool IsVisibleType(Type t)
+        {
+            if (t.IsPublic) return true;
+            if (!t.IsNested || !IsVisibleType(t.DeclaringType)) return false;
+            return t.IsNestedPublic || t.IsNestedFamily || t.IsNestedFamORAssem;
+        }
+
         public static IEnumerable<MethodInfo> VisibleMethods(this Type t)
         {
             return t

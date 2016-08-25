@@ -288,5 +288,9 @@ namespace Tests
         public void All() => Approvals.Verify(typeof(Tests).Assembly.GetShape());
     }
     internal interface IInvisible { }
-    internal struct Invisible { }
+
+    internal struct Invisible
+    {
+        public class ShouldBeInvisibleToo { }
+    }
 }
