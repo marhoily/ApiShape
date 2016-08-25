@@ -106,6 +106,7 @@ namespace ApiShape
 
         private static void WriteShape(this FieldInfo f, IndentedTextWriter w)
         {
+            if (f.IsFamily) w.Write("protected ");
             if (f.IsLiteral) w.Write("const ");
             else if (f.IsStatic) w.Write("static ");
             if (f.IsInitOnly) w.Write("readonly ");

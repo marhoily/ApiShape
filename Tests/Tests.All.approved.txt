@@ -113,7 +113,7 @@ abstract class Tests.M
 {
     int F1;
     readonly int F2;
-    int F3;
+    protected int F3;
     static int F4;
     System.Uri F5;
     const int X1;
