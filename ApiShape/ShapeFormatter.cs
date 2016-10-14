@@ -202,7 +202,6 @@ namespace ApiShape
         private static void WriteParameters(IndentedTextWriter w, ParameterInfo[] parameterInfos)
         {
             var args = parameterInfos
-                .OrderBy(t => t.Name)
                 .Join(Parameter);
             w.Write($"({args})");
         }
